@@ -128,6 +128,7 @@ graph TD
     Root --> ItemsN["Items (Node2D)"]
     Root --> PlayerN["Player (CharacterBody2D)"]
     Root --> VFX["VFX (Node2D) — NEW\nGPUParticles2D, shader water/fire"]
+    Root --> Overlay["Overlay (Node2D) — NEW\nper-biome ambient overlay\n(fireflies/bugs/ash/...),\nabove tilemap+VFX, below HUD"]
     Root --> Lights["Lighting (Node2D) — NEW\nLight2D per biome + emissive"]
     Root --> Post["PostFX (CanvasLayer) — NEW\nselective bloom, optional CRT"]
     Root --> HUDN["HUD (CanvasLayer) — NEW"]
@@ -245,6 +246,7 @@ This table maps every scaffold script and names the new ones.
 | **`RuinedVigil.gd`** | **NEW** | Mirror-dungeon variant reusing the Crypts undead roster, reskinned. |
 | **`DodgeDash` (Player sub-state)** | **NEW** | Tap-dodge / hold-run gated on Pegasus Boots; i-frames; contact damage/break. |
 | **`AssetResolver.gd`** | **NEW** | Data-driven art swap-in (System S): resolves sprite/tileset/palette/icon ids to real `res://art/...` resources or procedural placeholders; graceful fallback on missing art. |
+| **`BiomeOverlay.gd`** | **NEW** | Data-driven ambient environmental overlay layer (System S): selects the active biome's signature overlay (fireflies in Thornwild, swarming bugs in Sunken Ruins, drifting ash in the Ruined City / Ruined_Vigil, etc.), resolved via `AssetResolver` from the Biome `overlay_ref`; drives `GPUParticles2D`/`CPUParticles2D` and/or a scrolling shader layer tinted to the biome palette; graceful no-overlay fallback when none is defined or `OVERLAYS_ENABLED` is off. |
 | **Camera2D rig (Player child)** | **NEW** | Free-scroll camera (System S): position smoothing + look-ahead + limits clamped to the stitched active bounds; replaces per-room screen lock. |
 | **Procedural placeholder generator** | **EXTEND** | Upgrade scaffold's flat `Polygon2D` placeholders to pixel-arty 3-tone ramps + outlines + dithered gradients + one signature prop per biome (System S), behind `AssetResolver`. |
 
@@ -603,7 +605,8 @@ no Black Room hub, figure-eight overworld, or discovery-expands-the-generator me
 "16-bit but more advanced" style; the 320×224 pixel canvas, integer scaling, and the free-scroll
 camera rig; the rendering feature set (dynamic lighting, particles, shader water/fire, selective
 bloom, parallax); sprite/tile sizes and animation sets; the per-biome tileset and palette plan; VFX
-and lighting; UI art including the evolving health icon; the asset pipeline (tools, export, Godot
+and lighting; the per-biome ambient environmental overlays (fireflies/bugs/ash/...); UI art including
+the evolving health icon; the asset pipeline (tools, export, Godot
 import, folder layout); the upgraded procedural placeholder generator; and the **data-driven
 asset-reference layer** that lets final hand-authored art swap in without code changes. The full
 art-direction reference is `_incoming/06-graphics.md`.
@@ -692,6 +695,52 @@ corners/edges (Godot TileSet **terrains**), door/threshold, animated hazards, de
 | Sunken Ruins | teal/verdant | drowned tech; home of the frogfolk creature family (§provided refs) |
 | The Arcanum | deep violet + cyan/magenta **neon** | synthetic neon; heaviest bloom |
 
+#### Per-biome environmental overlays
+
+Every biome (and the ruined variants) gets a **signature ambient overlay** — a drifting
+particle/atmosphere layer that expresses the place and sells "this is a real place," not a tiled
+backdrop. It is a **data-driven ambient layer** rendered per biome: a `GPUParticles2D`/`CPUParticles2D`
+atmospheric emitter (and/or a scrolling shader layer) drawn in the dedicated **`Overlay` (Node2D)**
+node of the Main scene — **above** the tilemap and VFX but **below** the HUD/UI `CanvasLayer`s — tinted
+to the active biome palette (`palette_ref`) so it reads as part of the world. The overlay is driven by
+`BiomeOverlay.gd`, which selects the active biome's overlay from the Biome `overlay_ref` and resolves it
+through `AssetResolver` exactly like other art; a biome with no overlay (or when `OVERLAYS_ENABLED` is
+off) degrades gracefully to **no overlay** rather than crashing.
+
+Overlays are purely **atmospheric / cosmetic — they carry no gameplay or collision effect** and do not
+read from or write to the room grid, so they never influence reachability, spawns, or determinism. The
+only exception is when a biome's overlay is **explicitly tied to a hazard** (e.g. an overlay authored to
+sit over an existing hazard tile); in that case the hazard remains owned by the room/VFX/hazard
+`Area2D` layer, and the overlay merely decorates it.
+
+The user specified **fireflies (Thornwild), swarming bugs/insects (the swamp/wetland → Sunken Ruins,
+the game's wet biome), and drifting/laying ash (the Ruined City and Ruined_Vigil)** as the signature
+examples; every other biome also gets its own overlay:
+
+| Biome | Signature overlay | Notes |
+|---|---|---|
+| Hollow Crypts | drifting dust motes / faint drifting spores | slow, sparse; cold-tinted |
+| Silkfall Warrens | floating silk strands / small crawling bugs on webs | drifts with the web-filtered dim light |
+| Thornwild (the woods) | drifting **FIREFLIES** | soft emissive, **feeds the selective-bloom mask** (user-specified) |
+| Emberdeep | rising embers + heat-shimmer | embers are **emissive → bloom mask**; shimmer is a scrolling shader layer |
+| Glacier Barrow | falling snow / frost particles | low-contrast, keep subtle so warm-toned enemies still pop |
+| Sunken Ruins (the swamp/wetland) | swarming **BUGS / insects**, plus occasional rising bubbles / caustics (user-specified) | the game's wet biome; bubbles/caustics tie to the drowned-tech look |
+| The Arcanum | holographic glitch flecks / scanline shimmer | **emissive → bloom mask**; synthetic neon mood |
+| Ruined City / Ruined_Vigil | drifting and settling **ASH** (user-specified) | reinforces that the Ruined_Vigil (System L) mirrors Vigil gone to rot |
+
+**Emissive overlays feed the selective-bloom mask.** Consistent with the lighting/bloom notes below and
+in *Rendering feature set*, the emissive overlays — **fireflies (Thornwild), rising embers (Emberdeep),
+and the Arcanum glitch flecks** — write into the same emissive mask that drives selective bloom, so they
+glow while base art stays crisp. Non-emissive overlays (dust, snow, silk, ash, bugs) do not bloom.
+
+The **Ruined_Vigil** variant (System L) uses the **ash** overlay to reinforce that it is Vigil gone to
+rot — the drifting/settling ash reads as the same place decayed, pairing with its reskinned-Crypts
+undead roster. Overlays are referenced as **data** (`overlay_ref` + an overlay descriptor on the Biome
+schema; see Data Models) and resolve through `AssetResolver`, so hand-authored overlay art swaps in for
+procedural placeholders without touching gameplay code — the same swap-in guarantee as every other asset
+(Property 36). The overlay system is an **original design concept**: all overlay art is first-party, with
+no third-party or commercial asset packs referenced or incorporated.
+
 #### VFX and lighting
 
 VFX set: sword arc, spin ring, hit spark, **per-biome ichor** (blood/sap/coolant), projectile trails,
@@ -722,6 +771,8 @@ res://art/
   bosses/                  # boss sheets + name-card portraits
   tilesets/<biome>/        # floor/wall/door/hazard/deco/light/transition
   vfx/                     # sword arc, sparks, ichor, bursts, trails, frost, splash
+  overlays/<biome>/        # per-biome ambient overlay art (System S): ash, fireflies, bugs,
+                           #   snow, embers, dust, silk, glitch (first-party; no third-party packs)
   ui/                      # hearts/health icon, magic meter, item box, map, boss bar, font
 ```
 
@@ -876,6 +927,15 @@ BIOMES: Dictionary = {
     "name":  String, "floor": Color, "wall": Color,  # placeholder colors until a tileset resolves
     "tileset_ref": String,          # NEW: TileSet id resolved by AssetResolver (e.g. "tilesets/glacier")
     "palette_ref": String,          # NEW: palette id (System S); drives placeholder ramps + bloom mask
+    "overlay_ref": String,          # NEW: ambient overlay art id resolved by AssetResolver (System S),
+                                    #      e.g. "overlays/thornwild/fireflies"; "" => no overlay
+    "overlay": {                    # NEW: data-driven overlay descriptor (System S); omit/null => none
+      "kind": String,               #   particle kind: fireflies|bugs|ash|snow|embers|dust|spores|silk|glitch|shimmer
+      "density": float,             #   base particle budget scalar (× OVERLAY_DENSITY Tunable)
+      "tint": Color,                #   usually derived from palette_ref
+      "emissive": bool,             #   true => feeds the selective-bloom mask (fireflies/embers/glitch)
+      "drift": Vector2,             #   drift direction (normalized)
+      "drift_speed": float },       #   drift speed px/s
     "enemies": Array[Dictionary],   # see enemy entry below
     "boss":    Dictionary,          # boss entry (shares enemy fields + boss extras)
   }
@@ -936,7 +996,8 @@ under `res://art/...` when present, otherwise to the procedural placeholder.
 ```gdscript
 # Asset reference ids are plain Strings embedded in the existing data tables:
 #   Bestiary enemy/boss entries -> "asset_ref"   (e.g. "enemies/sunken/frogfolk")
-#   Biome entries               -> "tileset_ref" + "palette_ref"  (e.g. "tilesets/glacier")
+#   Biome entries               -> "tileset_ref" + "palette_ref" + "overlay_ref"  (e.g. "tilesets/glacier",
+#                                                                                   "overlays/thornwild/fireflies")
 #   Items / UI                  -> "icon_ref"     (e.g. "ui/health_icon")
 #
 # AssetResolver resolves ids -> resources, with placeholder fallback:
@@ -945,6 +1006,7 @@ func resolve_sprite(ref_id: String)  -> SpriteFrames      # final sheet, else pl
 func resolve_tileset(biome: String)  -> TileSet           # final TileSet, else placeholder set
 func resolve_palette(biome: String)  -> PackedColorArray  # final palette, else placeholder ramp
 func resolve_icon(ref_id: String)    -> Texture2D         # final UI icon, else placeholder
+func resolve_overlay(ref_id: String) -> Texture2D         # ambient overlay art (System S), else placeholder; "" => none
 func has_real_asset(ref_id: String)  -> bool              # false => placeholder currently in use
 
 # Animation clip binding (per character sheet):
@@ -1011,6 +1073,8 @@ crashes a system (see Error Handling and Property 36).
 | `CAMERA_LOOKAHEAD` | ~16–24 px in facing dir (0 = off) | [verify] |
 | `BLOOM_ENABLED` | true (selective, emissive-mask) | design |
 | `CRT_ENABLED` | false (optional post toggle) | design |
+| `OVERLAYS_ENABLED` | true (per-biome ambient overlays; off for low-end machines) | design |
+| `OVERLAY_DENSITY` | ~0.6–1.0 (particle-budget scalar for the active overlay) | [verify] |
 
 ## Correctness Properties
 
@@ -1278,10 +1342,12 @@ is the leaf, yellow-star, or rainbow-star band defined for that progression thre
 ### Property 36: Every data-referenced art asset resolves to a real asset or an explicit placeholder
 
 *For all* asset-reference ids named in the data tables (every enemy/creature-family `asset_ref`, every
-biome `tileset_ref`/`palette_ref`, every boss and UI element reference), `AssetResolver` returns a
-non-null result — either the real resource when present or the procedural placeholder when absent — so
-missing or unresolved art degrades gracefully to the placeholder rather than crashing. (This is the
-art swap-in integrity guarantee of System S.)
+biome `tileset_ref`/`palette_ref`/`overlay_ref`, every boss and UI element reference), `AssetResolver`
+returns a non-null result — either the real resource when present or the procedural placeholder when
+absent — so missing or unresolved art degrades gracefully to the placeholder rather than crashing. A
+biome whose `overlay_ref` is empty resolves to **no overlay** (also a graceful, non-crashing result).
+(This is the art swap-in integrity guarantee of System S, and it now covers the per-biome ambient
+overlays.)
 
 **Validates: Requirements 49.2**
 
@@ -1308,7 +1374,7 @@ System T.)*
 | Attempt to attune a non-attunable item on clear | `Items.can_attune()` false | Silently excluded by `Inventory.attunable_now()`; PASSIVE/CONSUMABLE never enter the Attuned_Set. | 18.2 |
 | Death with unbanked Sparks | `Game.damage_player()` reaches 0 | End the run as death: discard run-scoped state including unbanked Sparks; retain all persistent state; clear the resumable save. No recovery. | 44 |
 | Pedestal/boss pool exhausted (player owns everything) | `_unowned_pool()` empty | Return `""` / drop nothing rather than duplicating an owned item; the Pawnbroker remains the Spark sink. | 17.3, 25.1 |
-| Missing / unresolved art asset (sprite, tileset, palette, icon) | `AssetResolver.has_real_asset()` false / resource load fails | Fall back to the procedural placeholder (3-tone ramp + outline + dither) for that id and continue; log the unresolved id once. Missing art degrades to placeholder, never a crash — the swap-in integrity guarantee (System S, Property 36). | 49.2 |
+| Missing / unresolved art asset (sprite, tileset, palette, icon, overlay) | `AssetResolver.has_real_asset()` false / resource load fails | Fall back to the procedural placeholder (3-tone ramp + outline + dither) for that id and continue; for a per-biome overlay with no `overlay_ref` (or `OVERLAYS_ENABLED` off), render **no overlay**; log the unresolved id once. Missing art degrades to placeholder/no-overlay, never a crash — the swap-in integrity guarantee (System S, Property 36). | 49.2 |
 
 ## Testing Strategy
 
@@ -1338,8 +1404,10 @@ never null.
   per-room simulation preventing off-screen first contact under free-scroll (20.2), and the **graphics
   layer (System S)**: 320×224 integer scaling, the free-scroll `Camera2D` following the player across
   stitched rooms with clamped limits, placeholder art rendering with 3-tone ramps/outlines, a real
-  sheet swapping in for a placeholder with no code change, and the charger telegraph clip playing
-  before the first damaging frame (ties to Property 23). The **Title Screen (System T)** is also
+  sheet swapping in for a placeholder with no code change, the **per-biome ambient overlay** rendering
+  above the tilemap and below the HUD (fireflies/bugs/ash per biome, emissive overlays feeding the
+  bloom mask, and the no-overlay / `OVERLAYS_ENABLED`-off fallback), and the charger telegraph clip
+  playing before the first damaging frame (ties to Property 23). The **Title Screen (System T)** is also
   integration-tested: boot shows `TitleScreen.tscn`; Start New Run discards the Resumable_Save and
   keeps Persistent_State before entering Vigil; Continue Saved Run resumes into the Dungeon when a save
   exists and falls back to the Title Screen when `run.json` is missing/corrupt; Exit calls

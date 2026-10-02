@@ -8,7 +8,8 @@ engine-agnostic, but acknowledge Godot 4 / GDScript as the implementation platfo
 
 The game is framed around two places. The first is **Vigil**, the last warm town — a melancholy
 hub of half-dead neon and androids remembering things that may never have happened. The second is a
-**Dungeon**: a single seeded, procedurally generated descent of screen-sized rooms that the player
+**Dungeon**: a single seeded, procedurally generated descent of connected rooms explored as one
+continuous, free-scrolling space that the player
 chooses from the Board in Vigil. A **Run** begins in Vigil and ends in Vigil, whether the player
 clears the dungeon or dies in it. Between runs the player spends **Sparks**, drinks at the bar for
 rumors and short buffs, eats at the restaurant for a full heal and run-long buffs, picks the next
@@ -130,8 +131,9 @@ included.
 
 ### Dungeon, generation, seeding
 
-- **Room**: One screen-sized sub-area of a Dungeon: a 16 × 14-tile grid (256 × 224 px) with door
-  cells, connected to adjacent Rooms by a door graph.
+- **Room**: The unit of generation and collision within a Dungeon: a 20 × 14-tile grid (320 × 224 px)
+  with door cells, connected to adjacent Rooms by a door graph and stitched with neighbors into one
+  continuously scrolled space rather than a locked screen.
 - **Door_Graph**: The logical graph of a Dungeon (Rooms = nodes, doors = edges), including locked
   doors, keys, boss room, and exit.
 - **Depth**: A Room's distance along the Dungeon's biome route, driving difficulty and loot quality.
@@ -632,20 +634,25 @@ that progress through the ladder is literal and legible.
 
 ## System H — Dungeon Generation
 
-### Requirement 27: Screen-Sized Rooms on a Door Graph
+### Requirement 27: Rooms on a Door Graph with Free-Scrolling Camera
 
-**User Story:** As a player, I want a dungeon built from screen-sized rooms linked by doors, so that
-each run is a distinct, coherent descent.
+**User Story:** As a player, I want a dungeon built from connected rooms that I explore as one
+continuous, free-scrolling space, so that each run is a distinct, coherent descent without hard
+screen-to-screen snaps.
 
 #### Acceptance Criteria
 
-1. THE Generator SHALL build each Room as a 16 × 14-tile grid (256 × 224 px) with defined door cells.
+1. THE Generator SHALL build each Room as a 20 × 14-tile grid (320 × 224 px) with defined door cells.
 2. THE Generator SHALL connect Rooms into a Door_Graph where Rooms are nodes and doors are edges,
    tagging a start Room and a far exit Room.
-3. WHEN the Player_Character crosses a Room edge through a door, THE Game SHALL transition to the
-   adjacent Room with a locked-screen scroll transition.
+3. WHILE the Player_Character moves through the Dungeon, THE Game SHALL follow the Player_Character
+   with a continuously scrolling camera across contiguous Rooms as one stitched space, performing no
+   hard room-to-room screen snap, AND SHALL clamp the camera to the bounds of the active stitched
+   generated region so the camera never shows outside the generated space.
 4. THE Generator SHALL place locked doors with matching keys and the boss/exit room as part of the
    Door_Graph.
+5. THE Generator SHALL treat each Room as the unit of generation, collision, and Reachability even
+   though Rooms are not individually screen-locked.
 
 ### Requirement 28: Depth-Based Difficulty Scaling
 
@@ -972,7 +979,7 @@ flags, so that we can tune by playtest instead of editing code.
 #### Acceptance Criteria
 
 1. THE Game SHALL store the following feel values as named Tunables rather than hardcoded constants:
-   tile size (16 px), screen size (256 × 224 px), walk speed (~1.5–2.0 px/frame), dash speed
+   tile size (16 px), base canvas (320 × 224 px, 20 × 14 tiles), walk speed (~1.5–2.0 px/frame), dash speed
    (~2× walk, reused as the dash/run speed), spin-charge duration (~2.0 s), spin damage multiplier
    (×2), sword-tier multipliers (×1 / ×2 / ×3 / ×4), mail reduction factors (0% / 50% / 75%),
    Damage_Unit (8 = one Health_Container), i-frame duration (~0.5–1.0 s), dodge-dash distance (or
