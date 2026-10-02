@@ -1,0 +1,34 @@
+; Engine configuration file.
+; LTTP-style roguelike scaffold (Godot 4).
+;
+; NOTE: the input map is defined at RUNTIME in scripts/Game.gd (_setup_input_map),
+; so this file stays minimal and portable. You can later move those actions into
+; Project Settings > Input Map if you prefer; Game.gd only adds them if missing.
+
+config_version=5
+
+[application]
+
+config/name="LTTP Roguelike"
+config/description="Top-down A-Link-to-the-Past-style roguelike (Godot 4 scaffold)."
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Game="*res://scripts/Game.gd"
+
+[display]
+
+window/size/viewport_width=256
+window/size/viewport_height=224
+window/size/window_width_override=1024
+window/size/window_height_override=896
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
