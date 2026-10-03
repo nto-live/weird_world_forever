@@ -123,6 +123,44 @@ included.
 - **Pedestal**: The primary in-Dungeon item source; a Room feature that may hold one unattuned item,
   weighted by biome and depth.
 - **Inventory**: The subsystem holding the current Run's items plus a reference to the Attuned_Set.
+- **Base_Level**: The integer level anchoring a generated area's (level, Dungeon region, or Biome
+  instance) expected Tier. The Base_Level is the center of the Tier window from which seeded random
+  content for that area is rolled (see Tier, Requirement 61).
+- **Tier**: A level-anchored power/rarity rank for generated content. A Tier is rolled relative to
+  the area's Base_Level within the window [Base_Level − 5, Base_Level + 5] — up to 5 above and up to
+  5 below the Base_Level — with tiers nearer the Base_Level common and tiers farther from the
+  Base_Level increasingly rare, following a data-driven ladder/rarity curve. The same Seed reproduces
+  the same Tier rolls (see Requirement 61 and Requirement 31). A resulting absolute Tier below 0 is
+  negative and marks a Cursed_Item (see Cursed_Item and Requirement 62). Tier is distinct from Rank,
+  which positions a Boss on the Boss_Ladder (see Rank).
+- **Cursed_Item**: An Item whose resulting absolute Tier is negative (below 0), regardless of the
+  area's Base_Level. A Cursed_Item is rare and special, consistent with the rarity-by-distance curve
+  of Requirement 61 and the "negative is special" treatment of Rank in Requirement 26. A Cursed_Item
+  imposes a negative effect on the Player_Character while held or equipped (the specific penalty is
+  data-driven per item), and CAN be uncursed/cleansed at a great tradeoff to the Player_Character
+  whose exact cost and location are a deferred decision (TBD / `[verify]`) (see Requirement 62).
+- **Inventory_Screen**: The paused inventory sub-screen opened via the Inventory/Pause input
+  (Requirement 1 and Requirement 2) and pausing the world like other menus (Requirement 47). The
+  Inventory_Screen displays the Worn_Gear equip slots and current Armor_Type (each with its Item,
+  Tier, and modifiers), CONSUMABLE_Items and potions with their modifier and/or healing values, AMMO
+  counts for arrows, bombs, and bullets, and the current active Equipped_Item (the Y-button item).
+  The Inventory_Screen is a presentation of the Inventory subsystem, distinct from the Inventory
+  itself (see Requirement 63).
+- **Worn_Gear**: The Player_Character's worn equipment — the three Gear_Slots (Helmet, Body/Clothes,
+  Shoes) plus the chosen Armor_Type (Tactical or Armor) — each slot holding at most one gear Item and
+  providing defense (damage reduction) and/or stat modifiers to the Player_Character while equipped.
+  Worn_Gear is SEPARATE from the single active Equipped_Item bound to the Item (Y) button
+  (Requirement 2); equipping Worn_Gear does not change the Equipped_Item. A Worn_Gear piece carries a
+  Tier (Requirement 61) that scales its modifiers and CAN be a Cursed_Item at a negative Tier
+  (Requirement 62). Worn_Gear is PASSIVE_Item-like and Run-Scoped_State: it does not Attune and is
+  lost on death, consistent with the item taxonomy of Requirement 13 (this does not change the
+  maximum-health persistence exception of Requirement 42) (see Requirement 63).
+- **Armor_Type**: The Player's chosen body/defense style, exactly one of Tactical or Armor. Tactical
+  leans toward mobility/utility modifiers; Armor leans toward defense (damage reduction). The two
+  styles trade off differently, with their specific modifier/defense emphases held as data-driven
+  Tunables and per-item data (see Requirement 48 and Requirement 63).
+- **Gear_Slot**: One of the three Worn_Gear equip slots — Helmet, Body/Clothes, and Shoes/Footwear —
+  each holding at most one gear Item of the matching slot type (see Requirement 63).
 
 ### Enemies and bosses
 
@@ -132,11 +170,17 @@ included.
 - **Bestiary**: The data-driven catalogue of Enemy definitions, biome rosters, and boss data.
 - **Biome**: A themed region vocabulary (Hollow Crypts, Silkfall Warrens, Thornwild, Emberdeep,
   Glacier Barrow, Sunken Ruins, The Arcanum), each with its own enemies, hazards, and boss, and each
-  asking a different question.
+  asking a different question. These seven are the core / first-iteration set; the Biome_Library
+  ALSO includes the catalogued base Biomes Graveyard, Noir City (a 16-bit noir city with a distinct
+  noir palette and art treatment), and Temple, whose ruined/corrupted forms are produced via
+  Biome_Variant (see Requirement 58) rather than as separate Biomes. These three additional base
+  Biomes are catalogued structure and are not part of the fixed first-iteration Route (see
+  Requirement 56.9).
 - **Biome_Library**: The full retained set of all potential Biomes kept in the project. The
   Biome_Library is retained in full even when only a subset of its Biomes has been authored with
-  complete Biome_Content; Biomes gain their content incrementally as development scales (see
-  Requirement 56).
+  complete Biome_Content; Biomes gain their content incrementally as development scales. The
+  Biome_Library grows with catalogued entries beyond the core seven — for example Graveyard, Noir
+  City, and Temple — added as defined structure to be authored later (see Requirement 56).
 - **Biome_Content**: The required per-Biome content a Biome definition carries, authored as
   data-driven structure: multiple NPCs, multiple secrets, one or more biome-only Items (Items, keys,
   or power-ups obtainable only within that Biome), and at least one Biome_Puzzle (see
@@ -152,15 +196,24 @@ included.
   carries exactly one Biome_Variant; variants do not stack. The Generator chooses a Biome instance's
   variant (or plain) deterministically from the Seed, rarity-weighted per variant, drawing only from
   the unlocked set. The set of unlocked Biome_Variants is Persistent_State, discovered over time and
-  persisting across Runs (see Requirement 58).
+  persisting across Runs. The ruined/corrupted forms of catalogued base Biomes — for example Ruined
+  Graveyard, Corrupted Noir City, and Ruined Temple — are examples of a ruined/corrupted
+  Biome_Variant applied to a base Biome, not separate Biome_Library entries (see Requirement 56.9
+  and Requirement 58).
 - **Telegraph**: A readable wind-up (flash, recoil, glow, crouch) preceding any harmful Enemy or
   Boss action.
 - **Corrupted_Elite**: A rare Techno-Priest or Laser Warthog that leaks into any biome at Depth ≥ 5.
 - **Boss**: A distinguished Enemy in a Dungeon's exit Room, with HP phases, a Weak_Window, and
   guaranteed loot.
 - **Weak_Window**: A brief post-big-attack state (~1.5 s) during which the Boss takes double damage.
-- **Boss_Ladder**: The ordered list of 100 bosses; the Nth cleared Dungeon fights boss N+1.
-- **Rank**: A Boss's position (1–100) on the Boss_Ladder, driving HP/speed/phase scaling and prices.
+- **Boss_Ladder**: The ordered list of 100 bosses at Ranks 1–100; the Nth cleared Dungeon fights
+  boss N+1 for a Clears count N ≥ 0.
+- **Rank**: A Boss's position on the Boss_Ladder. Standard Ranks run 1–100 and drive HP/speed/phase
+  scaling and prices; a Clears count N ≥ 0 maps to Rank N+1, so normal play starts at Clears count 0
+  (Rank 1, Gloamwing) and never goes negative. Negative Rank/Clears values are reserved for special,
+  scripted cases and denote special, out-of-ladder Bosses that are not part of the 1–100 ladder and
+  are not bound by the standard scaling formulas; normal progression never produces a negative value
+  (see Requirement 26).
 - **Gloamwing**: The tutorial dragon; always the first Boss the Player ever fights.
 
 ### Dungeon, generation, seeding
@@ -179,6 +232,31 @@ included.
 - **Seed**: The value deterministically controlling Generator output; visible and shareable.
 - **Generator**: The subsystem that produces a Dungeon (Rooms, Door_Graph, enemies, loot) from a
   Seed.
+- **Semantic_Object**: A thing the Generator decides to build at a location — for example a house, a
+  bridge, a shrine, a river, a landmark, or a settlement — assembled from its Tile_Library and/or
+  Prefab_Chunks. The Generator works in two levels: it first decides which Semantic_Object it wants
+  at a location, then assembles that object from the curated, data-driven pieces scoped to that
+  object type. New Semantic_Object types are added as data without changing the central generation
+  algorithm (see Requirement 59).
+- **Tile_Library**: The data-driven set of premade tiles/pieces scoped (tagged) to a single
+  Semantic_Object type — for example a "house" Tile_Library carrying wall, roof, door, and window
+  pieces. Each object part/slot has many interchangeable tile options, so variation scales with
+  Tile_Library size. New tiles and object types are added as data/assets without changing the
+  central generation algorithm (see Requirement 59).
+- **Prefab_Chunk**: A pre-authored multi-tile piece (for example a whole house or a bridge segment)
+  that the Generator places and stitches to its neighbors, used for complex Semantic_Objects
+  alongside per-slot tile assembly in a hybrid approach (see Requirement 59).
+- **Assembly_Rule**: A seeded rule that varies a Semantic_Object's structure — its size, shape, and
+  layout — when assembling it from the object's Tile_Library, drawing from the single seeded RNG so
+  the same Seed reproduces the same assembled object (see Requirement 59 and Requirement 31).
+- **Unlock_Rule**: A procedurally generated condition, deterministic from the Seed, that unlocks a
+  Biome, a Biome_Puzzle, a Human_NPC, or an Enemy. An Unlock_Rule is composed from an open,
+  data-driven set of condition types (for example defeat a specific Boss, solve a specific
+  Biome_Puzzle, find a specific Item in a specific Biome, collect N Chevrons or N Sparks, clear a
+  Route of a given Route_Length, discover a specific secret, or recruit a specific Human_NPC). The
+  Generator validates each Unlock_Rule for satisfiability and acyclicity so it cannot soft-lock or
+  form a circular dependency, and the unlocked result becomes Persistent_State once the condition is
+  met (see Requirement 60).
 
 ### Town, economy, people
 
@@ -676,13 +754,29 @@ that progress through the ladder is literal and legible.
 1. THE Generator SHALL place exactly one Boss in each Dungeon.
 2. WHEN the Player_Character's recorded Clears count is 0, THE Game SHALL make the Dungeon's Boss
    Gloamwing the tutorial dragon.
-3. WHEN the Player_Character has recorded N Clears, THE Game SHALL select the Boss at Rank N+1 on the
-   Boss_Ladder for the next Dungeon.
-4. THE Boss_Ladder SHALL define 100 Bosses in a fixed escalating order.
-5. THE Game SHALL compute each Boss's HP as 12 + Rank × 2 and base speed as 48 + Rank × 0.8 px/s, and
-   SHALL increase the Boss's phase count at Ranks 20, 60, and 85, using these formulas as Tunables.
-6. THE Game SHALL render every Boss's HP, speed, and phase scaling as monotonically non-decreasing
-   with Rank.
+3. WHEN the Player_Character has recorded N Clears where N is greater than or equal to 0, THE Game
+   SHALL select the Boss at Rank N+1 on the Boss_Ladder for the next Dungeon.
+4. THE Boss_Ladder SHALL define 100 Bosses in a fixed escalating order at Ranks 1 through 100.
+5. THE Game SHALL compute each standard Boss_Ladder Boss (Rank 1 through 100) HP as 12 + Rank × 2 and
+   base speed as 48 + Rank × 0.8 px/s, and SHALL increase the Boss's phase count at Ranks 20, 60, and
+   85, using these formulas as Tunables.
+6. THE Game SHALL render every standard Boss_Ladder Boss's HP, speed, and phase scaling (Rank 1
+   through 100) as monotonically non-decreasing with Rank.
+7. WHILE play follows normal progression, THE Game SHALL start the Clears count at 0 and SHALL
+   increment the Clears count only on a Clear, so that normal progression keeps the Clears count
+   greater than or equal to 0 and the normal Rank greater than or equal to 1 (Clears count 0 maps to
+   Rank 1, Gloamwing).
+8. WHERE a special or scripted case sets a negative Clears count or negative Rank value, THE Game
+   SHALL select a special, out-of-ladder Boss defined for that negative value rather than a standard
+   Boss_Ladder Boss at Rank 1 through 100.
+9. THE Game SHALL reserve negative Clears count and negative Rank values for special or scripted
+   cases only, and normal progression SHALL NOT produce a negative Clears count or negative Rank
+   value.
+10. WHERE a Boss is a special, out-of-ladder Boss selected for a negative Rank value, THE Game SHALL
+    define that Boss's HP, speed, and phase behavior separately from the standard Boss_Ladder
+    formulas, so the Rank 1 through 100 scaling formulas and the monotonic-with-Rank rule in criteria
+    5 and 6 apply only to standard Boss_Ladder Ranks 1 through 100 and do not bind special
+    out-of-ladder Bosses.
 
 ---
 
@@ -1048,7 +1142,10 @@ flags, so that we can tune by playtest instead of editing code.
    Damage_Unit (8 = one Health_Container), i-frame duration (~0.5–1.0 s), dodge-dash distance (or
    duration), dodge i-frame duration (~0.3–0.5 s), tap-vs-hold hold-threshold duration (~0.15–0.25 s),
    hit-stun duration, knockback magnitude, sword reach (~1 tile), swing-active duration, Weak_Window
-   duration (~1.5 s), Boss HP formula (12 + Rank × 2), Boss speed formula (48 + Rank × 0.8), bomb
+   duration (~1.5 s), Boss HP formula (12 + Rank × 2), Boss speed formula (48 + Rank × 0.8), the
+   special / out-of-ladder Boss table keyed by negative Rank value (`[verify]`, reserved for special
+   or scripted cases per Requirement 26, with HP/speed/phase defined per entry rather than by the
+   Rank 1–100 formulas), bomb
    blast radius, bomb knockback magnitude, authentic-diagonal toggle, target Run duration, Boss
    attack delay window minimum (`[verify]`), Boss attack delay window maximum (`[verify]`), Boss
    feint probability per Rank (`[approx]`), Boss damage-per-hit scaling with Rank (`[verify]`), Boss
@@ -1062,7 +1159,22 @@ flags, so that we can tune by playtest instead of editing code.
    Requirement 56), the per-Biome_Variant rarity/selection weights governing which unlocked variant
    the Generator rolls for a Biome instance (`[approx]`, per Requirement 58), the plain-vs-variant
    chance/weighting governing how often a Biome instance is plain versus carrying a variant
-   (`[approx]`, per Requirement 58), and —
+   (`[approx]`, per Requirement 58), the per-Semantic_Object-type Tile_Library references and
+   Prefab_Chunk set references (`[verify]`, per Requirement 59), the per-Semantic_Object assembly
+   size/shape/layout ranges driving the Assembly_Rules (`[approx]`, per Requirement 59), the
+   Unlock_Rule condition-type weights governing which condition types the Generator composes
+   (`[approx]`, per Requirement 60), the maximum condition count per Unlock_Rule (`[approx]`, per
+   Requirement 60), the unlock-rule generation/validation retry limit (`[approx]`, per
+   Requirement 60.5), the Tier window size relative to Base_Level (first-iteration value ±5, a
+   configurable range, `[approx]`, per Requirement 61), the per-distance Tier rarity/ladder curve
+   weights governing how probability falls off with distance from Base_Level (`[approx]`, per
+   Requirement 61), the Cursed_Item uncurse cost and location (TBD / `[verify]`, a deferred decision
+   per Requirement 62), the per-Gear_Slot (Helmet, Body/Clothes, Shoes) base defense/stat-modifier
+   values (`[approx]`, per Requirement 63), the per-Armor_Type (Tactical vs Armor) defense/modifier
+   emphasis governing how Tactical leans toward mobility/utility and Armor leans toward defense/damage
+   reduction (`[approx]`, per Requirement 63), the Worn_Gear defense stacking/composition rule
+   governing how gear defense combines with the mail/tunic reduction of Requirement 10 (`[verify]`,
+   per Requirement 63), and —
    WHERE an EXP/leveling system applies — EXP drop amount/weight (`[verify]`, conditional; no
    EXP/leveling system is otherwise specified in this document).
 2. THE Game SHALL record a confidence flag of `exact`, `[approx]`, or `[verify]` for each Tunable,
@@ -1328,6 +1440,16 @@ specific Biomes.
    Boss Gloamwing under the gentle first-Clear timing of Requirement 51.8, collecting Death_Drops
    and pickups per Requirement 52, Clearing the Dungeon with Attunement per Requirement 14, and
    returning to Vigil per the Run-boundary model of Requirement 32.
+9. THE Biome_Library SHALL include the catalogued base Biomes Graveyard, Noir City (a 16-bit noir
+   city with a distinct high-contrast noir palette and art treatment, authored through the
+   data-driven art and palette approach of Requirement 19), and Temple as defined Biome_Library
+   entries, and SHALL produce their ruined and corrupted versions (Ruined Graveyard, Corrupted Noir
+   City, and Ruined Temple / Corrupted Temple) as the ruined/corrupted Biome_Variant of
+   Requirement 58 applied to those base Biomes rather than as separate Biome_Library entries. These
+   three base Biomes SHALL be catalogued now as defined structure per criteria 4 and 5, with their
+   Biome_Content (NPCs, secrets, biome-only Items, and Biome_Puzzle) and any route-order or unlock
+   placement authored later per Requirement 55 and Requirement 60, and SHALL NOT change the
+   first-iteration scope of criteria 7 and 8 (still the single tutorial Biome).
 
 ### Requirement 57: Biome Puzzle Placement and Solvability
 
@@ -1390,3 +1512,215 @@ new variant feels like meta-progression.
     changes to pickups, the Biome_Puzzle, and difficulty still satisfy the Reachability rule of
     Requirement 30 and the Biome_Puzzle solvability rule of Requirement 57, so that a Biome_Variant
     never produces an uncompletable Route.
+---
+
+## System W — Tile-Based Generation & Generated Unlock Rules
+
+### Requirement 59: Tile-Based "Decide-Then-Assemble" Generation
+
+**User Story:** As a player, I want generated places built from premade tiles so worlds look
+hand-crafted yet endlessly varied, so that every run feels like a real, different place.
+
+#### Acceptance Criteria
+
+1. WHEN the Generator builds a location, THE Generator SHALL first decide which Semantic_Object it
+   wants at that location (for example a house, a bridge, a shrine, a river, a landmark, or a
+   settlement) and then assemble that Semantic_Object from the pieces scoped to that object type, so
+   generation proceeds in two levels — decide, then assemble.
+2. WHEN the Generator assembles a Semantic_Object, THE Generator SHALL draw the object's pieces from
+   the Tile_Library tagged/scoped for that Semantic_Object type, so that when the Generator wants a
+   house it draws from the house Tile_Library.
+3. THE Game SHALL define each Semantic_Object type's Tile_Library and its tiles/pieces as
+   data/assets, so that new Semantic_Object types and new tiles are added as data without changing
+   the central generation algorithm, consistent with the data-driven approach of Requirement 19,
+   Requirement 13, and Requirement 56.
+4. THE Game SHALL provide, for each part/slot of a Semantic_Object type (for example a house's wall,
+   roof, door, and window slots), many interchangeable tile options within that object's
+   Tile_Library, so that the same Semantic_Object type looks different each time and variation scales
+   with Tile_Library size.
+5. WHEN the Generator assembles a Semantic_Object, THE Generator SHALL vary that object's structure —
+   its size, shape, and layout — using the object's seeded Assembly_Rules, so that the same
+   Semantic_Object type is generated at different sizes, shapes, and layouts across locations.
+6. WHERE a Semantic_Object is a complex structure, THE Generator SHALL build it from Prefab_Chunks,
+   from per-slot tile assembly drawn from its Tile_Library, or from both combined in a hybrid, and
+   SHALL place and stitch each Prefab_Chunk to its neighbors.
+7. THE Generator SHALL build terrain, paths, and filler from per-tile assembly with autotiling,
+   distinct from the Prefab_Chunk assembly used for complex Semantic_Objects.
+8. THE Generator SHALL draw every tile/piece selection and every Assembly_Rule choice from the single
+   seeded RNG in the fixed generation draw order, so that the same Seed reproduces the same assembled
+   Semantic_Objects, consistent with the single-seeded determinism of Requirement 31.
+9. WHEN the Generator places an assembled Semantic_Object, THE Generator SHALL ensure the object and
+   its placement still satisfy the Reachability rule of Requirement 30 and the Biome_Puzzle
+   solvability rule of Requirement 57, so that a generated Semantic_Object (for example a house or a
+   bridge) never blocks a required path or makes a Route uncompletable.
+10. IF an assembled Semantic_Object or its placement would violate the Reachability rule of
+    Requirement 30, THEN THE Generator SHALL re-roll or re-place that Semantic_Object from the Seed
+    and SHALL NOT hand an uncompletable Route to the Player, consistent with the re-roll rule of
+    Requirement 30.5.
+
+### Requirement 60: Procedurally Generated Unlock Rules
+
+**User Story:** As a player, I want the conditions for unlocking new biomes, puzzles, NPCs, and
+enemies to themselves be generated, so that discovery stays fresh and unpredictable across
+playthroughs.
+
+#### Acceptance Criteria
+
+1. THE Generator SHALL procedurally generate the Unlock_Rules — the conditions — for unlocking
+   additional Biomes, Biome_Puzzles, Human_NPCs, and Enemies, generating the unlock conditions
+   themselves rather than only the unlocked content.
+2. WHEN the Generator generates an Unlock_Rule for a given Seed and inputs, THE Generator SHALL
+   produce the same Unlock_Rule for the same Seed and the same inputs, so that generated unlock
+   conditions are deterministic, reproducible, and shareable, consistent with the single-seeded
+   determinism of Requirement 31.
+3. WHEN the Generator composes an Unlock_Rule, THE Generator SHALL draw its condition types from an
+   open, data-driven condition-type set — for example defeat a specific Boss (Boss_Ladder,
+   Requirement 26), solve a specific Biome_Puzzle (Requirement 57), find a specific biome-only Item
+   in a specific Biome (Requirement 56), collect N Chevrons (Requirement 53) or N Sparks
+   (Requirement 36), clear a Route of a given Route_Length (Requirement 55), discover a specific
+   secret, or recruit a specific Human_NPC (Requirement 56 and Requirement 39) — so that new
+   condition types are added as data without changing the Generator.
+4. WHEN the Generator generates an Unlock_Rule, THE Generator SHALL require only content that is
+   reachable and obtainable, and SHALL NOT generate an Unlock_Rule whose condition can be met only by
+   first possessing the content that Unlock_Rule unlocks, so that an Unlock_Rule never creates a
+   soft-lock or a circular dependency, consistent with the Reachability rule of Requirement 30 and
+   the Biome_Puzzle solvability rule of Requirement 57.
+5. WHEN the Generator generates an Unlock_Rule, THE Generator SHALL validate that Unlock_Rule for
+   satisfiability and acyclicity, and IF a generated Unlock_Rule would be unsatisfiable or circular,
+   THEN THE Generator SHALL regenerate or repair that Unlock_Rule from the Seed within the unlock-rule
+   generation/validation retry limit Tunable, mirroring the generation-validity re-roll approach of
+   Requirement 30.5.
+6. WHEN an Unlock_Rule's condition is met, THE Game SHALL unlock the corresponding content and retain
+   that unlocked result as Persistent_State that survives Player_Character defeat and persists across
+   Runs, consistent with the persistent-unlock model of Requirement 55, Requirement 58, and the
+   meta-progression state of Requirement 44.3, so that generated Unlock_Rules recur for the same Seed
+   while the unlocked result persists across Runs.
+7. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
+   keep generated Unlock_Rules minimal and simple, consistent with the single plain Biome and short
+   first Dungeon of Requirement 56.7 and Requirement 56.8 and the plain, no-variant Biome of
+   Requirement 58.10, so that generated unlock complexity does not burden the tutorial.
+
+---
+
+## System X — Tier Scaling & Cursed Items
+
+### Requirement 61: Level-Anchored Tier Scaling
+
+**User Story:** As a player, I want the power of what I find and fight to scale with the level I'm
+in, with occasional rare high and low rolls, so that each area feels appropriately challenging and
+rewarding with exciting outliers.
+
+#### Acceptance Criteria
+
+1. THE Generator SHALL assign each generated level or area (a level, a Dungeon region, or a Biome
+   instance) a Base_Level, an integer that anchors that area's expected Tier.
+2. WHEN the Generator rolls a Tier for seeded random content within an area, THE Generator SHALL draw
+   that Tier from the window [Base_Level − 5, Base_Level + 5] relative to the area's Base_Level — up
+   to 5 above and up to 5 below the Base_Level.
+3. WHEN the Generator rolls a Tier within an area, THE Generator SHALL weight the probability of each
+   candidate Tier so that the probability decreases as the Tier's distance from the Base_Level
+   increases, such that tiers at or near the Base_Level are the most common and the extremes
+   (Base_Level − 5 and Base_Level + 5) are the rarest.
+4. THE Game SHALL express the per-distance Tier rarity weighting as a data-driven ladder/rarity curve
+   Tunable (see Requirement 48), so that the common-near-base and rare-far-from-base distribution is
+   configured in data rather than hardcoded.
+5. THE Game SHALL provide level-anchored Tier scaling as a reusable mechanic that the item drop
+   system (Death_Drops, Requirement 52), Pedestal and Boss loot (Requirement 17), and other seeded
+   random generators (for example enemies and pickups) MAY use to roll a Tier anchored to the area's
+   Base_Level.
+6. WHEN two areas are generated with the same Seed and the same Attuned_Set, THE Generator SHALL draw
+   Tier rolls from the single seeded RNG in the fixed generation order, so that the same Seed
+   reproduces the same Tiers, consistent with the single seeded RNG of Requirement 31; the Tier
+   window and the rarity curve SHALL be folded into that deterministic generation.
+
+> **Example (illustrative, not hardcoded):** A Base_Level 0 area rolls Tiers from −5 to +5, with +5
+> and −5 the rarest; a Base_Level 3 area rolls Tiers from −2 to +8 by the same relative window and
+> rarity curve.
+
+### Requirement 62: Cursed Items
+
+**User Story:** As a player, I want rare cursed items that are powerful or strange but carry a
+penalty, with a costly way to cleanse them, so that negative-tier finds are a meaningful risk and
+reward.
+
+#### Acceptance Criteria
+
+1. WHEN a generated Item's resulting absolute Tier is negative (below 0), regardless of the area's
+   Base_Level, THE Game SHALL treat that Item as a Cursed_Item.
+2. WHILE an area's Base_Level is low enough that the window [Base_Level − 5, Base_Level + 5] includes
+   Tiers below 0, THE Generator SHALL allow that window to produce negative resulting Tiers, forming
+   the cursed band for that area, consistent with the Tier window of Requirement 61.
+3. THE Game SHALL make negative, cursed Tiers rare and special, consistent with the rarity-by-
+   distance curve of Requirement 61 and the reserved "negative is special" treatment of Boss Rank in
+   Requirement 26.
+4. WHILE a Cursed_Item is held or equipped by the Player_Character, THE Game SHALL apply that
+   Cursed_Item's defined negative effect to the Player_Character, where the specific penalty is
+   data-driven per item.
+5. THE Game SHALL provide a way to uncurse (cleanse) a Cursed_Item that imposes a significant cost
+   on the Player_Character (a great tradeoff).
+6. THE Game SHALL treat the exact uncurse mechanism — the specific cost and the location or method at
+   which uncursing is performed — as a deferred decision (TBD / `[verify]`) to be defined in a later
+   requirement or design pass, and SHALL NOT fix that specific cost or location in this requirement
+   (see Requirement 48).
+7. WHEN the Generator rolls a Tier for an Item from a given Seed, THE Game SHALL determine whether
+   that Item is a Cursed_Item deterministically from the resulting Tier, consistent with the item
+   taxonomy of Requirement 13 and the single seeded RNG of Requirement 31, so that the same Seed
+   reproduces the same cursed outcomes.
+
+---
+
+## System Y — Inventory Screen & Equipment
+
+### Requirement 63: Inventory Screen and Worn-Gear Equipment Slots
+
+**User Story:** As a player, I want an inventory screen that shows my worn gear, consumables,
+potions, ammo, and active item, and lets me equip helmet, body, shoes, and an armor style, so that I
+can read what everything does and build a defensive loadout alongside my single active item.
+
+#### Acceptance Criteria
+
+1. WHEN the Player opens the Inventory/Pause input per Requirement 1 and Requirement 2, THE Game
+   SHALL present the Inventory_Screen and SHALL pause the world while the Inventory_Screen is open,
+   consistent with the pausing-menus behavior of Requirement 47.
+2. THE Game SHALL provide the Player_Character with three Worn_Gear Gear_Slots — a Helmet slot, a
+   Body/Clothes slot, and a Shoes/Footwear slot — each holding at most one gear Item.
+3. THE Game SHALL provide an Armor_Type selection of exactly one of Tactical or Armor that sets the
+   Player_Character's body/defense style, where Tactical emphasizes mobility/utility modifiers and
+   Armor emphasizes defense (damage reduction), with the specific modifier/defense emphasis held as
+   data-driven Tunables and per-item data (see Requirement 48).
+4. THE Game SHALL keep the Worn_Gear Gear_Slots and Armor_Type separate from the single active
+   Equipped_Item bound to the Item (Y) button of Requirement 2, such that equipping, unequipping, or
+   changing Worn_Gear SHALL NOT change the Equipped_Item and SHALL NOT violate the one-active-item
+   rule of Requirement 2.
+5. WHILE a Worn_Gear Item or the chosen Armor_Type is equipped, THE Game SHALL apply that gear's
+   defense (damage reduction) and/or stat modifiers to the Player_Character, where the specific
+   values are data-driven per item and per Armor_Type.
+6. THE Game SHALL assign each Worn_Gear Item a Tier anchored to the area's Base_Level per
+   Requirement 61, such that a higher or lower Tier scales that gear Item's modifiers along the
+   data-driven Tier ladder.
+7. WHEN a Worn_Gear Item's resulting absolute Tier is negative, THE Game SHALL treat that gear Item
+   as a Cursed_Item per Requirement 62, applying its data-driven penalty while equipped and allowing
+   it to be uncursed at the great tradeoff whose exact cost and location are a deferred decision
+   (TBD / `[verify]`) per Requirement 62.
+8. WHEN the Player_Character takes damage, THE Game SHALL have the equipped Worn_Gear's defense
+   contribute to the Player_Character's damage reduction, composing with the mail/tunic reduction of
+   Requirement 10, where the specific stacking/composition rule is data-driven (see Requirement 48).
+9. THE Game SHALL treat Worn_Gear as Run-Scoped_State that is PASSIVE_Item-like per the item taxonomy
+   of Requirement 13, such that Worn_Gear does not Attune and is discarded when the Run ends per
+   Requirement 44, consistent with the mail/shield PASSIVE_Item handling of Requirement 10 and
+   Requirement 13 and without changing the maximum-health persistence exception of Requirement 42.
+10. THE Inventory_Screen SHALL display the three Worn_Gear Gear_Slots (Helmet, Body/Clothes, Shoes)
+    and the current Armor_Type (Tactical or Armor), each showing the equipped Item and that Item's
+    Tier and modifiers.
+11. THE Inventory_Screen SHALL display the Player_Character's CONSUMABLE_Items and potions, each with
+    its modifier and/or healing values, so that the Player can read what each consumable or potion
+    does.
+12. THE Inventory_Screen SHALL display the AMMO counts for arrows, bombs, and bullets, where bullets
+    are the ammo type defined in Requirement 52.
+13. THE Inventory_Screen SHALL display the current active Equipped_Item (the Y-button item of
+    Requirement 2).
+14. WHEN the Player selects a Worn_Gear Item for a Gear_Slot whose slot type matches that Item's gear
+    type in the Inventory_Screen, THE Game SHALL equip that Item into the matching Gear_Slot,
+    unequip any Item previously in that Gear_Slot, and apply the newly equipped Item's modifiers.
+15. IF the Player selects a Worn_Gear Item for a Gear_Slot whose slot type does not match that Item's
+    gear type, THEN THE Game SHALL NOT equip that Item into that Gear_Slot.
