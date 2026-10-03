@@ -366,8 +366,10 @@ traversal feels like LTTP rather than grid-stepping.
 2. THE Game SHALL resolve Player_Character collision against a 16 × 16 px tile grid using a
    collision bounds smaller than the Player_Character's sprite so corners can be slipped past.
 3. WHEN the Player_Character pushes against a wall adjacent to a one-tile doorway, THE Game SHALL
-   nudge the Player_Character into alignment with the tile edge so the doorway can be entered cleanly
-   (edge alignment).
+   actively slide and nudge the Player_Character toward and into alignment with the one-tile doorway
+   opening so the doorway can be entered cleanly, as an active assist rather than only passing the
+   Player_Character through when the raw movement vector already aligns with the opening (edge
+   alignment).
 4. THE Game SHALL set the Player_Character's facing to one of 4 cardinal directions determined by
    the last-pressed movement axis, even while moving diagonally, and SHALL direct sword attacks along
    that facing.
@@ -418,7 +420,9 @@ or bounce away.
    Spin_Attack over the configured spin-charge duration while still permitting walking.
 2. WHEN the Player releases the Attack input after the spin-charge duration is met, THE Game SHALL
    perform a 360° attack hitting the surrounding tiles for approximately double a normal swing's
-   damage and SHALL lock the Player_Character's facing for the duration of the spin.
+   damage and SHALL lock the Player_Character's facing for the duration of the spin; IF the Player
+   releases the Attack input before the spin-charge duration is met, THEN THE Game SHALL perform a
+   normal, uncharged sword swing rather than cancelling the attack with no damage.
 3. IF the Spin_Attack is not unlocked WHEN the Player holds and releases the Attack input, THEN THE
    Game SHALL perform a normal swing on tap and SHALL NOT perform a Spin_Attack.
 4. THE Game SHALL define the spin-charge duration and spin damage multiplier as Tunables.
@@ -431,8 +435,9 @@ staying topped up is rewarded.
 #### Acceptance Criteria
 
 1. WHEN the Player swings the sword WHILE the Player_Character is at full health AND holds the Master
-   Sword or a higher tier, THE Game SHALL fire a Sword_Beam projectile along the facing direction
-   dealing normal sword damage.
+   Sword or a higher tier, THE Game SHALL always fire a Sword_Beam projectile along the facing
+   direction dealing normal sword damage, with no additional prerequisite such as a cooldown or
+   target-availability condition suppressing the Sword_Beam.
 2. IF the Player_Character is below full health OR does not hold the Master Sword or higher WHEN
    swinging, THEN THE Game SHALL NOT fire a Sword_Beam.
 
@@ -529,8 +534,10 @@ ground with a hold while keeping the six-input scheme intact.
    dash) in the facing direction at the configured dash/run speed.
 4. WHILE running, THE Game SHALL NOT allow the Player_Character to turn, and WHEN the Player presses
    a different movement direction, THE Game SHALL end the run.
-5. WHILE dodge-dashing or running, WHEN the Player_Character contacts an Enemy, a pot, a breakable
-   block, or a cracked wall, THE Game SHALL damage the Enemy or break the object.
+5. WHILE dodge-dashing or running, WHEN the Player_Character contacts an Enemy, THE Game SHALL apply
+   damage and Knockback to that Enemy as an offensive dash-attack rather than only halting the dash;
+   AND WHILE dodge-dashing or running, WHEN the Player_Character contacts a pot, a breakable block, or
+   a cracked wall, THE Game SHALL break that object.
 6. THE Game SHALL distinguish a tap from a hold using the configured hold-threshold duration Tunable:
    a Context_Action release before the hold-threshold duration is a dodge-dash, and a Context_Action
    hold past the hold-threshold duration begins the run.
@@ -554,8 +561,9 @@ persist and what resets.
    PASSIVE_Item, or CONSUMABLE_Item.
 2. THE Game SHALL read item definitions from a data-driven catalogue keyed by item id, each carrying
    at least name, kind, verb, magic cost, gate, biome, tier, attune flag, and description.
-3. THE Game SHALL start a brand-new Player_Character with only the bare sword swing and no other
-   attack or utility verb unlocked.
+3. THE Game SHALL start a brand-new Player_Character with the bare sword swing as the single starting
+   cataloged Item in the Inventory — an Item instance in the data-driven catalogue of criterion 2
+   rather than an innate non-Item action — and with no other attack or utility verb unlocked.
 
 ### Requirement 14: Attack and Utility Unlocks
 
@@ -600,7 +608,7 @@ are both a weapon and a key.
 1. WHEN a bomb detonates, THE Game SHALL apply blast damage to Enemies within the blast radius and
    apply Knockback to those Enemies.
 2. WHEN a bomb detonates WHILE the Player_Character is within the blast radius, THE Game SHALL apply
-   Knockback to the Player_Character.
+   both blast damage and Knockback to the Player_Character.
 3. WHEN a bomb detonates adjacent to a cracked dungeon wall, THE Game SHALL open that cracked wall
    (cracked-wall Gate).
 4. THE Game SHALL define bomb blast radius and bomb knockback magnitude as Tunables.
@@ -612,8 +620,10 @@ can grow my toolkit.
 
 #### Acceptance Criteria
 
-1. THE Generator SHALL give each non-start Room a chance to hold exactly one Pedestal item, weighted
-   by the Room's biome and Depth, such that deeper and rarer biomes draw from a better pool.
+1. THE Generator SHALL NOT place a Pedestal item in the start Room, and SHALL give each non-start
+   Room a chance to hold exactly one Pedestal item, weighted by the Room's biome and Depth, such that
+   deeper and rarer biomes draw from a better pool, so that the per-Room Pedestal chance applies only
+   to non-start Rooms and the start Room never holds a Pedestal item.
 2. THE Generator SHALL place on Pedestals only items not already in the Attuned_Set.
 3. WHEN the Player_Character defeats the Dungeon's Boss, THE Game SHALL drop one to two guaranteed
    ATTACK/UTILITY items the Player_Character does not already own, never duplicating an Attuned_Item.
@@ -695,7 +705,9 @@ that encounters read well in generated layouts.
    corridors.
 2. THE Spawner SHALL place at most one SUMMONER per Room.
 3. THE Spawner SHALL NOT place any SUMMONER in the first Room of a Run.
-4. THE Spawner SHALL place the Boss, with its fixed escort, only in the Dungeon's exit Room.
+4. THE Spawner SHALL place the Boss, with its fixed escort, only in the Dungeon's exit Room, and
+   SHALL NOT place the Boss or its escort in any Room that is not the Dungeon's exit Room, so that
+   placing the Boss or its escort outside the exit Room is a hard violation.
 5. WHEN the same Seed is used, THE Spawner SHALL produce the same enemy placement.
 
 ### Requirement 23: Corrupted Elite Leak
@@ -798,7 +810,10 @@ screen-to-screen snaps.
    hard room-to-room screen snap, AND SHALL clamp the camera to the bounds of the active stitched
    generated region so the camera never shows outside the generated space.
 4. THE Generator SHALL place locked doors with matching keys and the boss/exit room as part of the
-   Door_Graph.
+   Door_Graph, and SHALL guarantee that every locked door's matching key is reachable before that
+   locked door — never placing a key behind the locked door it unlocks or in an area unreachable
+   without that door — so that key-before-lock reachability holds for every locked door, consistent
+   with the Reachability rule of Requirement 30.
 5. THE Generator SHALL treat each Room as the unit of generation, collision, and Reachability even
    though Rooms are not individually screen-locked.
 
@@ -809,9 +824,13 @@ descent feels like escalation rather than only bigger numbers.
 
 #### Acceptance Criteria
 
-1. THE Generator SHALL scale enemy density and encounter composition by Room Depth, adding new
-   archetype combinations at greater Depth rather than only increasing HP.
-2. THE Generator SHALL weight Pedestal loot quality upward with Depth and biome rarity.
+1. WHERE a Room's Depth is 0 or greater, THE Generator SHALL scale enemy density and encounter
+   composition by Room Depth, adding new archetype combinations at greater Depth rather than only
+   increasing HP, so that Depth-based scaling applies from Depth 0 upward (the Depth 0 entry Room is a
+   valid, scaled Room).
+2. THE Generator SHALL set Pedestal loot quality to a positive baseline and SHALL scale that quality
+   only upward with Room Depth and biome rarity, so that Pedestal loot quality is positive even at
+   Depth 0 and zero biome rarity and increases from the baseline as Depth and biome rarity increase.
 
 ### Requirement 29: Run Length Scaling with Biome Count
 
@@ -871,7 +890,9 @@ and deterministic.
 1. THE Generator SHALL thread a single seeded random number generator through Dungeon layout, loot
    placement, and enemy placement.
 2. WHEN two Dungeons are generated with the same Seed and the same Attuned_Set, THE Generator SHALL
-   produce identical Door_Graph structure, Room layouts, loot placement, and enemy placement.
+   produce an identical Dungeon — identical Door_Graph structure, Room layouts, loot placement, and
+   enemy placement — strictly and deterministically, so that the same Seed and the same inputs always
+   reproduce the same Dungeon.
 3. THE Game SHALL display the current Seed and allow it to be read for sharing.
 
 ---
@@ -887,9 +908,10 @@ constant home between dungeons.
 
 1. WHEN a Run ends by Clear or by death, THE Game SHALL return the Player_Character to Vigil with
    that visit's purchases reset and the Attuned_Set intact.
-2. THE Game SHALL present Vigil containing the enterable buildings The_Last_Call (bar),
-   The_Warm_Machine (restaurant), The Forge, The Apothecary, The_Chapel, The_Board, and The
-   Pawnbroker.
+2. THE Game SHALL have Vigil contain the enterable buildings The_Last_Call (bar), The_Warm_Machine
+   (restaurant), The Forge, The Apothecary, The_Chapel, The_Board, and The Pawnbroker as a global,
+   persistent fact that holds regardless of the Player_Character's current location, so that Vigil
+   contains those buildings whether or not the Player_Character is in Vigil.
 3. WHEN the Player chooses a Dungeon at The_Board and enters it, THE Game SHALL begin a new Run.
 
 ### Requirement 33: The Bar — One Drink per Visit
@@ -916,7 +938,9 @@ prepare to survive.
 1. WHILE in The_Warm_Machine, THE Game SHALL allow the Player to buy at most one meal per town visit.
 2. WHEN the Player buys a meal, THE Game SHALL fully restore the Player_Character's health and apply
    that meal's run-long Buff.
-3. THE Game SHALL NOT allow a second drink Buff or a second meal Buff to be active at the same time.
+3. IF a second drink Buff is active OR a second meal Buff is active, THEN THE Game SHALL treat that
+   condition as invalid, so that a second drink Buff or a second meal Buff being active is itself a
+   violation regardless of the state of the first drink Buff or first meal Buff.
 
 ### Requirement 35: Town Buffs Are Run-Scoped
 
@@ -936,11 +960,14 @@ the dungeon funds preparation.
 #### Acceptance Criteria
 
 1. WHEN an Enemy or Boss is defeated, THE Game SHALL drop Sparks scaled by the Dungeon's Rank and the
-   Room's Depth.
+   Room's Depth, with the Dungeon's Rank greater than 0 whenever Sparks are dropped, so that Sparks
+   are dropped only with a positive Rank scaling factor and never with a zero or unset Rank.
 2. THE Game SHALL scale town prices with the next Dungeon's Rank by the factor (1 + Rank × 0.05).
 3. WHEN a Run ends in a Clear, THE Game SHALL bank that Run's collected Sparks into Persistent_State.
 4. WHEN a Run ends in death, THE Game SHALL lose that Run's unbanked Sparks.
-5. THE Game SHALL allow the Pawnbroker to convert unclaimed loot into Sparks.
+5. THE Game SHALL allow the Pawnbroker to convert unclaimed loot into Sparks WHEN unclaimed loot is
+   present AND SHALL NOT allow the Pawnbroker to convert unclaimed loot into Sparks WHEN no unclaimed
+   loot is present, so that the conversion is available exactly when unclaimed loot exists.
 6. IF the Player cannot afford an option, THEN THE Game SHALL display its price and dim the purchase
    option.
 
@@ -975,7 +1002,8 @@ unsettling without ever being explained.
    Dungeons.
 5. THE Game SHALL concentrate Simulacra density at its highest value in and immediately around Vigil.
 6. WHERE a location lies farther from Vigil into wild Overworld areas or into a Dungeon, THE Game
-   SHALL place progressively fewer Simulacra as distance from Vigil increases.
+   SHALL place progressively fewer Simulacra as a continuous, gradual gradient that decreases
+   smoothly with distance from Vigil, rather than dropping sharply at zone or biome boundaries.
 
 ### Requirement 39: Rare Human NPCs Recruited from Dungeons
 
@@ -986,9 +1014,10 @@ town can gain genuine inhabitants worth protecting.
 
 1. THE Game SHALL make Human_NPCs encounterable within any Biome, including wild Overworld areas and
    Dungeons, as a rare occurrence.
-2. THE Game SHALL concentrate Human_NPC density at its highest value near Vigil and SHALL place
-   progressively fewer Human_NPCs as distance from Vigil into wild Overworld areas or into a Dungeon
-   increases.
+2. THE Game SHALL concentrate Human_NPC density at its highest value near Vigil, which alone
+   satisfies the density requirement, as an obligation independent of and separate from Human_NPC
+   placement; and as a distinct placement obligation THE Game SHALL place progressively fewer
+   Human_NPCs as distance from Vigil into wild Overworld areas or into a Dungeon increases.
 3. WHEN the Player leads a Human_NPC back to Vigil, THE Game SHALL grant that Human_NPC a persistent
    town role as Persistent_State.
 4. THE Game SHALL glitch Human_NPCs emotionally (panic, mistimed jokes, tears) rather than
@@ -1025,6 +1054,9 @@ that my growth is visible at a glance.
    progression, a yellow star in mid progression, and a rainbow star at end-game progression.
 3. WHEN the Player_Character's progression crosses a defined icon threshold, THE Health_System SHALL
    change the Health_Container icon to the next form.
+4. WHEN the Player_Character's progression crosses a defined icon threshold WHILE current health is 0,
+   THE Health_System SHALL update only the Health_Container icon appearance and SHALL leave current
+   health unchanged at 0, performing no refill or adjustment of current health.
 
 ### Requirement 42: Persistent Maximum Health
 
@@ -1223,8 +1255,9 @@ run, continue a saved run, or exit from a clear menu.
 4. WHEN the Player selects "Continue Saved Run" AND a Resumable_Save exists, THE Game SHALL restore
    and resume that saved in-progress Run.
 5. IF the Player selects "Continue Saved Run" AND the Resumable_Save is missing or corrupt, THEN THE
-   Game SHALL return to the Title Screen without starting a Run and SHALL leave existing state
-   unchanged.
+   Game SHALL present an error indication and THEN automatically begin a new Run from Vigil, while
+   retaining all Persistent_State (the Attuned_Set, persisted maximum health, banked Sparks,
+   Boss_Ladder position, and recruited Human_NPC roles) as in a new-run start per criterion 2.
 6. WHEN the Player selects "Exit", THE Game SHALL quit the application.
 
 ---
@@ -1261,7 +1294,10 @@ each Boss is a genuine run-ender whose timing I earn the right to beat rather th
 6. WHEN a Boss crosses a phase threshold defined in Requirement 24.3 and Requirement 26.5, THE Game
    SHALL introduce at least one new attack pattern or new delayed or feint variant for the later
    phase, governed by the Boss phase-new-move count per phase transition Tunable, rather than only
-   raising HP or speed, and SHALL present a readable phase-transition moment.
+   raising HP or speed, and SHALL present a readable phase-transition moment; and WHILE the Boss
+   remains in the later phase, THE Game SHALL keep that updated phase behavior in effect, so that the
+   phase behavior stays consistent with the Boss's current phase throughout the phase and not only at
+   the moment of the threshold crossing.
 7. THE Game SHALL scale the delayed and feint intensity and the damage-per-hit of a Boss upward with
    that Boss's Rank along the Boss_Ladder.
 8. WHEN the Player_Character's recorded Clears count is 0 AND the Boss is Gloamwing, THE Game SHALL
@@ -1416,9 +1452,11 @@ specific Biomes.
    least one Biome_Puzzle.
 2. THE Game SHALL treat biome-only Items as obtainable only within their defining Biome, reinforcing
    the biome-weighted item sourcing of Requirement 17 and the item taxonomy of Requirement 13.
-3. IF a biome-only Item is required to complete a Route, THEN THE Generator SHALL place that Item so
-   the Route remains completable under the Reachability rule of Requirement 30, so a required
-   biome-only Item never produces an uncompletable Route.
+3. IF a biome-only Item is required to complete a Route, THEN THE Generator SHALL constrain
+   generation upfront so a valid placement for that Item always exists, and SHALL reject and
+   regenerate any layout in which no valid placement for that required biome-only Item exists, so the
+   Route remains completable under the Reachability rule of Requirement 30 and a required biome-only
+   Item never produces an unsolvable Route, consistent with the re-roll rule of Requirement 30.5.
 4. THE Game SHALL retain the full Biome_Library even when only a subset of its Biomes has been
    authored with complete Biome_Content, so that unauthored Biomes exist as defined structure while
    authored Biomes carry their NPCs, secrets, biome-only Items, puzzle, and resources.
@@ -1569,10 +1607,11 @@ playthroughs.
 1. THE Generator SHALL procedurally generate the Unlock_Rules — the conditions — for unlocking
    additional Biomes, Biome_Puzzles, Human_NPCs, and Enemies, generating the unlock conditions
    themselves rather than only the unlocked content.
-2. WHEN the Generator generates an Unlock_Rule for a given Seed and inputs, THE Generator SHALL
-   produce the same Unlock_Rule for the same Seed and the same inputs, so that generated unlock
-   conditions are deterministic, reproducible, and shareable, consistent with the single-seeded
-   determinism of Requirement 31.
+2. THE Generator SHALL produce the same Unlock_Rule for the same Seed and the same inputs
+   unconditionally, so that generated unlock conditions are deterministic, reproducible, and
+   shareable for any given Seed and inputs regardless of whether Unlock_Rule generation has yet
+   occurred for that Seed and those inputs, consistent with the single-seeded determinism of
+   Requirement 31.
 3. WHEN the Generator composes an Unlock_Rule, THE Generator SHALL draw its condition types from an
    open, data-driven condition-type set — for example defeat a specific Boss (Boss_Ladder,
    Requirement 26), solve a specific Biome_Puzzle (Requirement 57), find a specific biome-only Item
@@ -1649,7 +1688,9 @@ reward.
    Base_Level, THE Game SHALL treat that Item as a Cursed_Item.
 2. WHILE an area's Base_Level is low enough that the window [Base_Level − 5, Base_Level + 5] includes
    Tiers below 0, THE Generator SHALL allow that window to produce negative resulting Tiers, forming
-   the cursed band for that area, consistent with the Tier window of Requirement 61.
+   the cursed band for that area, consistent with the Tier window of Requirement 61; and THE
+   Generator SHALL keep negative, cursed Tiers rare unconditionally, independent of whether an area's
+   level window includes Tiers below 0.
 3. THE Game SHALL make negative, cursed Tiers rare and special, consistent with the rarity-by-
    distance curve of Requirement 61 and the reserved "negative is special" treatment of Boss Rank in
    Requirement 26.
@@ -1723,4 +1764,6 @@ can read what everything does and build a defensive loadout alongside my single 
     type in the Inventory_Screen, THE Game SHALL equip that Item into the matching Gear_Slot,
     unequip any Item previously in that Gear_Slot, and apply the newly equipped Item's modifiers.
 15. IF the Player selects a Worn_Gear Item for a Gear_Slot whose slot type does not match that Item's
-    gear type, THEN THE Game SHALL NOT equip that Item into that Gear_Slot.
+    gear type, THEN THE Game SHALL reject the equip, SHALL NOT equip that Item into that Gear_Slot,
+    and SHALL present visible feedback to the Player indicating the mismatched equip was rejected,
+    rather than silently ignoring the selection.

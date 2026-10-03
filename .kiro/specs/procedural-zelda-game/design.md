@@ -182,7 +182,7 @@ graph LR
     Title -->|Exit| Quit(["get_tree().quit()"])
     Town -->|start_run| Main
     Main -->|end_run| Town
-    Main -. "resume fails / corrupt run.json" .-> Title
+    Title -. "resume fails / corrupt run.json\nerror, then auto start new run\n(keep Persistent_State)" .-> Town
 ```
 
 The base pixel canvas is **320×224 (20×14 tiles @ 16 px)** with integer scaling only (nearest,
@@ -1116,6 +1116,13 @@ rooms, player position, run items, keys, buffs, unbanked Sparks) rather than the
 resume rebuilds the same Route from `route_length` and regenerates the dungeon, then replays recorded
 progress — reproducing the identical dungeon (Property 1, Property 4).
 
+**Resume-failure handling.** If a resume is attempted against a **missing or corrupt** `run.json`,
+`SaveSystem` reports the failure (consistent with the Req 45 corrupt/missing-save handling) rather
+than entering a broken run. The caller (`Game.continue_saved_run()`, System T) then **surfaces an
+error indication and automatically starts a new Run from Vigil** — discarding any unusable
+`Resumable_Save` while retaining `Persistent_State` (Req 45, Req 50.5). A failed resume never crashes
+and never dead-ends; it recovers into a fresh run.
+
 ### System P — UI / HUD
 
 **Responsibilities.** In-dungeon HUD (hearts with evolving icon, equipped item, seed, depth); boss HP
@@ -1488,7 +1495,7 @@ options (System K): an unavailable entry is dimmed/disabled rather than silently
 # Game.gd additions (System T)
 func _boot() -> void                 # show TitleScreen.tscn at launch (entry point)
 func start_new_run() -> void         # SaveSystem.discard(); enter Vigil (keep Persistent_State)
-func continue_saved_run() -> void    # SaveSystem.resume(); enter Dungeon; fall back to Title on failure
+func continue_saved_run() -> void    # SaveSystem.resume(); enter Dungeon; on failure surface error + auto start_new_run() into Vigil
 func quit_game() -> void             # get_tree().quit()
 
 # TitleScreen.gd (NEW) — CanvasLayer/Control, 320×224 integer-scaled
@@ -1505,15 +1512,19 @@ the boot-flow diagram in the Architecture section.
 
 **Graceful fallback.** If **Continue Saved Run** is somehow selected but the resumable save is
 missing or corrupt (a race, or `run.json` damaged between `has_resumable()` and `resume()`),
-`continue_saved_run()` reuses the existing missing/corrupt `run.json` handling (Error Handling table,
-Req 45): it treats the state as "no resumable run" and returns to the Title Screen rather than
-crashing or entering a broken run (Req 50.5).
+`continue_saved_run()` reuses the existing missing/corrupt `run.json` detection (Error Handling table,
+Req 45): rather than crashing or entering a broken run, it **surfaces an error indication** and then
+**automatically starts a new Run** — invoking the Start New Run flow (`start_new_run()`: discard any
+`Resumable_Save`, keep `Persistent_State`) to drop the player into **Vigil** and begin a fresh run
+(Req 50.5). A failed resume therefore never dead-ends at the Title Screen; it recovers straight into a
+new run from Vigil.
 
 **Requirements note.** This System T realizes **Requirement 50 (Title / Start Screen)**: launch
 presents a Title Screen with Start New Run / Continue Saved Run / Exit (50.1); Start New Run discards
 the Resumable_Save while keeping Persistent_State (50.2); Continue Saved Run is selectable iff a
-resumable save exists (50.3) and resumes the saved Run when it does (50.4); a missing/corrupt save
-falls back gracefully to the Title Screen (50.5); and Exit quits the application (50.6). The two
+resumable save exists (50.3) and resumes the saved Run when it does (50.4); a missing/corrupt save on
+a resume attempt surfaces an error indication and then automatically starts a new Run from Vigil,
+retaining Persistent_State (50.5); and Exit quits the application (50.6). The two
 documents are in sync.
 
 ### System V — Route Progression & Biome Content
@@ -2683,9 +2694,12 @@ overlays.)
 if `SaveSystem.has_resumable()` is true; whenever no resumable save exists the entry is hidden or
 disabled, so a resume is never initiated with nothing to restore. *(This reflects Requirement 50
 (Title / Start Screen) — specifically 50.3 — and the resumable-save existence check of 45.1; see
-System T.)*
+System T.)* The iff gating is unchanged; and in the rare case a resume is attempted but the save is
+missing or corrupt (e.g. `run.json` damaged after the check), the handling is to surface an error and
+**automatically start a new Run from Vigil** (keeping Persistent_State), never dead-end at the Title
+Screen (Req 50.5; see System T and the Error Handling table).
 
-**Validates: Requirements 50.3, 45.1**
+**Validates: Requirements 50.3, 45.1, 50.5**
 
 ### Property 38: Death-drop quantity and quality scale with enemy rarity and depth
 
@@ -2808,7 +2822,7 @@ re-stated here.)
 | Generation produces an uncompletable layout | `Reachability.completable()` returns false during the generation loop | Re-roll from the same seed stream up to `MAX_REROLLS`; if still failing, fall back to an ungated (trivially completable) layout. The player is never handed a broken dungeon; the scaffold's hard `assert(all_reachable)` is replaced by this graceful gate. | 30.5 |
 | Corrupted or unreadable `meta.json` | `Meta._load()` JSON parse fails or wrong type | Return the default `{"attuned": {}, "clears": 0, ...}` (already in scaffold) and continue; apply the old-format migration path. Never crash on load; the player keeps a clean persistent slate rather than losing the session. | 44.3, 42 |
 | Missing / corrupt resumable `run.json` | `SaveSystem.has_resumable()` / parse check | Treat as "no resumable run"; the player starts fresh from Vigil. A failed resume never blocks starting a new run. | 45 |
-| **Continue Saved Run** selected but the save is missing/corrupt | `SaveSystem.resume()` finds no readable `run.json` (reuses the missing/corrupt `run.json` detection above) | Abort the resume and **return to the Title Screen** (System T) with Continue now hidden/dimmed, rather than crashing or entering a broken run. The player can then Start New Run. | 45 |
+| **Continue Saved Run** selected but the save is missing/corrupt | `SaveSystem.resume()` finds no readable `run.json` (reuses the missing/corrupt `run.json` detection above) | Abort the resume, **show an error indication, then automatically start a new Run from Vigil** (System T) — discard the unusable `Resumable_Save`, keep `Persistent_State` — rather than crashing or entering a broken run. The failed resume recovers straight into a fresh run instead of dead-ending at the Title Screen. | 45, 50.5 |
 | Insufficient magic/ammo on item use | `Inventory.can_use()` returns false | No-op: the verb does not activate and the resource is unchanged (no partial spend). | 14.3 |
 | Unaffordable town purchase | `Wallet.can_afford(price)` false | Show the price and dim the option; the purchase cannot be confirmed. No negative balance is possible. | 36.6 |
 | Attempt to attune a non-attunable item on clear | `Items.can_attune()` false | Silently excluded by `Inventory.attunable_now()`; PASSIVE/CONSUMABLE never enter the Attuned_Set. | 18.2 |
@@ -2885,7 +2899,8 @@ never null.
   playing before the first damaging frame (ties to Property 23). The **Title Screen (System T)** is also
   integration-tested: boot shows `TitleScreen.tscn`; Start New Run discards the Resumable_Save and
   keeps Persistent_State before entering Vigil; Continue Saved Run resumes into the Dungeon when a save
-  exists and falls back to the Title Screen when `run.json` is missing/corrupt; Exit calls
+  exists and, when `run.json` is missing/corrupt, surfaces an error and automatically starts a new Run
+  from Vigil (keeping Persistent_State) per Req 50.5; Exit calls
   `get_tree().quit()`. The pure gating predicate behind **Property 37** (Continue enabled iff
   `SaveSystem.has_resumable()`) is checked directly against `SaveSystem` state without a scene tree.
 
