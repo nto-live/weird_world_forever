@@ -170,17 +170,24 @@ included.
 - **Bestiary**: The data-driven catalogue of Enemy definitions, biome rosters, and boss data.
 - **Biome**: A themed region vocabulary (Hollow Crypts, Silkfall Warrens, Thornwild, Emberdeep,
   Glacier Barrow, Sunken Ruins, The Arcanum), each with its own enemies, hazards, and boss, and each
-  asking a different question. These seven are the core / first-iteration set; the Biome_Library
-  ALSO includes the catalogued base Biomes Graveyard, Noir City (a 16-bit noir city with a distinct
-  noir palette and art treatment), and Temple, whose ruined/corrupted forms are produced via
-  Biome_Variant (see Requirement 58) rather than as separate Biomes. These three additional base
-  Biomes are catalogued structure and are not part of the fixed first-iteration Route (see
-  Requirement 56.9).
+  asking a different question. These seven (Crypts … Arcanum) are the scaffold's core route data; the
+  Biome_Library ALSO includes the catalogued base Biomes Grasslands, Graveyard, Noir City (a 16-bit
+  noir city with a distinct noir palette and art treatment), and Temple. Of these, Grasslands is the
+  Biome authored and used for the first iteration / tutorial proof-of-concept — the single plain,
+  Route_Length-of-1 Biome leading to the short first Dungeon and the tutorial Boss Gloamwing (see
+  Requirement 56.10 and Requirement 56.7). The ruined/corrupted forms of Graveyard, Noir City, and
+  Temple are produced via Biome_Variant (see Requirement 58) rather than as separate Biomes. These
+  catalogued additional base Biomes are catalogued structure; apart from Grasslands as the authored
+  first-iteration Biome, they are not part of the fixed first-iteration Route (see Requirement 56.9
+  and Requirement 56.10).
 - **Biome_Library**: The full retained set of all potential Biomes kept in the project. The
   Biome_Library is retained in full even when only a subset of its Biomes has been authored with
   complete Biome_Content; Biomes gain their content incrementally as development scales. The
-  Biome_Library grows with catalogued entries beyond the core seven — for example Graveyard, Noir
-  City, and Temple — added as defined structure to be authored later (see Requirement 56).
+  Biome_Library grows with catalogued base Biomes beyond the scaffold's core seven — Grasslands,
+  Graveyard, Noir City, and Temple — each added as a data-driven entry. Grasslands is the authored
+  first-iteration / tutorial proof-of-concept Biome (see Requirement 56.10 and Requirement 56.7),
+  while Graveyard, Noir City, and Temple are catalogued as defined structure to be authored later
+  (see Requirement 56).
 - **Biome_Content**: The required per-Biome content a Biome definition carries, authored as
   data-driven structure: multiple NPCs, multiple secrets, one or more biome-only Items (Items, keys,
   or power-ups obtainable only within that Biome), and at least one Biome_Puzzle (see
@@ -1488,6 +1495,23 @@ specific Biomes.
    Biome_Content (NPCs, secrets, biome-only Items, and Biome_Puzzle) and any route-order or unlock
    placement authored later per Requirement 55 and Requirement 60, and SHALL NOT change the
    first-iteration scope of criteria 7 and 8 (still the single tutorial Biome).
+10. THE Biome_Library SHALL include a GRASSLANDS base Biome as a data-driven Biome_Library entry
+    authored like the other catalogued base Biomes of criterion 9, and THE Game SHALL use GRASSLANDS
+    as the single authored Biome of the first iteration / tutorial proof-of-concept per criterion 7 —
+    the one Route_Length-of-1 Biome leading to the short first Dungeon and the tutorial Boss Gloamwing
+    (Requirement 26.2 and Requirement 51.8). WHERE the build is the first iteration, THE Game SHALL
+    build the GRASSLANDS instance as a plain Biome carrying no Biome_Variant, consistent with
+    Requirement 58.10, and SHALL author its Biome_Content (NPCs, secrets, biome-only Items, and
+    Biome_Puzzle) per criterion 1 for the proof-of-concept.
+11. THE Game SHALL define the first-iteration GRASSLANDS tutorial Enemy roster as exactly three
+    Enemies that each cover a distinct Archetype to teach the core loop: a PATROL fodder Enemy (a
+    field critter that walks a fixed path), a CHASE Enemy (a hound that pursues the Player_Character
+    within aggro range), and a CHARGER Enemy (a horned boar that winds up with a readable Telegraph
+    and then dashes). THE CHARGER Enemy SHALL present a readable Telegraph before its dash, consistent
+    with the telegraph-first fairness of Requirement 20. THE Game SHALL hold each roster Enemy's name
+    and stats as data in the Bestiary, consistent with the data-driven Bestiary of Requirement 19,
+    while this criterion fixes the roster composition (one PATROL, one CHASE, one CHARGER) as the
+    authored first-iteration GRASSLANDS roster.
 
 ### Requirement 57: Biome Puzzle Placement and Solvability
 
