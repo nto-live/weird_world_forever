@@ -3,7 +3,7 @@
 ## Overview
 
 This design describes a top-down, *A Link to the Past*-style action-adventure **roguelike** built in
-**Godot 4 (GDScript)**. It realizes the 49 requirements (Systems A–R) by extending an existing,
+**Godot 4 (GDScript)**. It realizes the requirements (Systems A–U) by extending an existing,
 reviewed-but-unvalidated Godot 4 scaffold under `_incoming/godot/` rather than starting fresh. The
 scaffold already proves out the hardest "feel" problems — a seeded run, a BFS reachability gate, a
 player state machine with LTTP damage feel (knockback + i-frames + passive facing shield), a
@@ -17,11 +17,22 @@ The game is framed around two places and one loop:
   the bar (*The Last Call*), the restaurant (*The Warm Machine*), *The Board*, *The Chapel*, the
   Forge, the Apothecary, and the Pawnbroker, and is populated mostly by **simulacra** whose reality
   is never confirmed.
-- **Dungeon** — one seeded, procedurally generated descent of `20×14`-tile rooms following a fixed
-  biome route (Hollow Crypts → Silkfall Warrens → Thornwild → Emberdeep → Glacier Barrow → Sunken
-  Ruins → The Arcanum), ending in exactly one **Boss** drawn from the 100-rung ladder. Rooms are the
+- **Dungeon** — the one seeded, procedurally generated descent at the end of a **Route**. A Route is
+  the ordered sequence of Biomes a single Run traverses — the first `Route_Length` biomes of the fixed
+  ordered progression (Hollow Crypts → Silkfall Warrens → Thornwild → Emberdeep → Glacier Barrow →
+  Sunken Ruins → The Arcanum) — and it ends in exactly **one** end Dungeon holding exactly one **Boss**
+  drawn from the 100-rung ladder. A Route of N biomes is N biomes in sequence leading to one Dungeon,
+  **not** one Dungeon per biome (System V, Requirement 55). Rooms built from `20×14`-tile grids are the
   generation/collision/reachability unit; the camera **free-scrolls** across stitched contiguous rooms
   (see System S), so there are no hard room-to-room screen snaps.
+
+**Phased content / iteration-1 scope.** The full **Biome_Library** is kept in the project even though
+only a subset is fully authored. For **iteration 1**, exactly **one** biome plus the first Dungeon is
+fully built and tested as a playable, end-to-end **Route_Length 1** run; the remaining biomes exist as
+defined structure (content stubs resolved to placeholders via `AssetResolver`) to be authored later,
+without the generator changing (System V, Requirement 56.7). The Route system and the per-biome
+`Biome_Content` schema are designed up front so later biomes are authored by adding data and resources,
+not by editing the central generator.
 
 Three pillars drive the whole architecture, and all three are already seeded in the scaffold:
 
@@ -197,15 +208,27 @@ be updated to reflect free-scroll.
 Because determinism (Req 31) and reachability (Req 30) are the two prime correctness properties, the
 architecture fixes a **single, ordered draw sequence** from `Game.rng`:
 
-1. Layout: room cells scattered and connected (`DungeonGenerator.generate`).
-2. Route/depth: biome assigned per room by depth (`Bestiary.biome_for_depth`).
-3. Gate plan + opener placement (NEW gate planner in the generator).
-4. Loot: pedestal pool shuffled and placed, filtered against the Attuned_Set.
+0. Route: build the ordered Biome Route of the chosen `Route_Length` — the first `Route_Length`
+   biomes of the fixed progression (`RouteBuilder.build`, NEW; System V) — before any layout draw.
+0.5. Variants: for each traversed biome **in route order**, draw its plain-or-single Biome_Variant from
+   `Game.rng` via `BiomeVariants.pick(rng, biome, unlocked_variants)` (NEW; System V), drawing only
+   from the persistent unlocked set — before layout, so the variant's reshaped difficulty/pickups/
+   puzzle feed the steps below.
+1. Layout: room cells scattered and connected (`DungeonGenerator.generate`), sized by the Route.
+2. Route/depth: biome assigned per room by depth along the built Route (`Bestiary.biome_for_depth`).
+3. Gate plan + opener placement (NEW gate planner in the generator), **including each traversed
+   biome's `Biome_Puzzle` as a puzzle-gate whose opener is placed before it** (System V / System I).
+4. Loot: pedestal pool shuffled and placed, filtered against the Attuned_Set (incl. biome-only Items).
 5. Enemies: per-room spawns (`Spawner.spawn_room`).
 
 No subsystem may draw from `Game.rng` out of this order, and no subsystem may use `randi()` /
 `randf()` globally. Any sub-stream (e.g. a boss's internal `rng`) is seeded from `Game.rng.randi()`
-so the whole tree remains a pure function of `(seed, Attuned_Set)`.
+so the whole tree remains a pure function of `(seed, Attuned_Set, Route_Length)` — the chosen
+`Route_Length` is folded into the deterministic generation inputs (System J, System V, Property 1).
+The **per-biome variant assignment** (step 0.5) is likewise a pure function of these inputs: the
+persistent **unlocked-variant set** parameterizes determinism the same way the Attuned_Set does, so
+the same `(seed, Attuned_Set, Route_Length)` under the same unlocked set yields the same variant
+assignment (System V, Req 58.5; Property 1).
 
 ## Keep / Extend / Replace: scaffold mapping
 
@@ -215,29 +238,34 @@ This table maps every scaffold script and names the new ones.
 | Script / scene | Disposition | Work needed |
 |---|---|---|
 | `Game.gd` (autoload) | **KEEP + EXTEND** | Add Sparks balance + banking, `has_pegasus_boots`/dash gating, equipped-item binding, resumable-save hooks, return-to-town instead of auto-`_new_run`; **boot to the Title Screen at launch (`_boot()`) and expose `start_new_run()` / `continue_saved_run()` / `quit_game()` helpers** (System T). |
-| `Meta.gd` | **KEEP + EXTEND** | Persist max-health count, banked Sparks, recruited NPC roles alongside `attuned`/`clears`; keep JSON format + migration. |
+| `Meta.gd` | **KEEP + EXTEND** | Persist max-health count, banked Sparks, recruited NPC roles alongside `attuned`/`clears`; **add `max_route_length` (highest unlocked Route_Length, Persistent_State, default 1) with `unlock_next_route_length()` on clearing the highest unlocked length (System V, Req 55.4, 55.5)**; **add `unlocked_variants` (Array of unlocked Biome_Variant ids, Persistent_State, default `[]`) with an `unlock_variant(id)` / `unlocked_variants()` hook for variant discovery (System V, Req 58.7, 58.8)**; keep JSON format + migration. |
 | `Feel.gd` | **KEEP + EXTEND** | Add the missing Tunables (dodge-dash, hold-threshold, dash/run speed usage, mail factors, bomb radius, Weak_Window, boss formulas, authentic-diagonal default = authentic-fast, target run duration) with confidence flags. |
 | `Player.gd` | **KEEP + EXTEND** | Implement `_interact()` context verbs; add dodge-dash/run states; add `Area2D` hurtbox/sword hitbox; per-type i-frames; mail reduction; sword-tier multipliers; spin facing-lock. |
 | `Room.gd` | **KEEP + EXTEND** | Add real interior layout (not just a wall border), gate tiles, hazard tiles, door-type (locked/key) metadata. |
-| `DungeonGenerator.gd` | **EXTEND** | Route-ordered biome sizing by biome count; gate planning + opener-before-gate placement; depth-scaled composition; re-roll loop on reachability failure. |
-| `Reachability.gd` | **KEEP + EXTEND** | `completable()` already models item gates; wire it into generation as the pre-play gate and the re-roll trigger. |
-| `Bestiary.gd` | **KEEP** | Data already covers 9 archetypes, 7 biomes, hazards-by-tag; add hazard-tile effects + telegraph data if missing. |
-| `Enemy.gd` | **KEEP + EXTEND** | Telegraph-first on every harmful action; weakness-by-tag resolution; honor spawn-rule context from Spawner. |
-| `Boss.gd` | **KEEP** | 7 patterns + phase machine + weak window already present; bind Weak_Window/double-damage to Tunables. |
+| `DungeonGenerator.gd` | **EXTEND** | Consume the ordered Route from `RouteBuilder`; size rooms by `Route_Length` (biome count); gate planning + opener-before-gate placement **including each traversed biome's Biome_Puzzle as a puzzle-gate and required biome-only Items on reachable pre-gate paths (System V, Req 56.3, 57)**; **per traversed biome call `BiomeVariants.pick()` (step 0.5) then `apply_variant()` to reshape that instance's difficulty/pickups/puzzle/NPCs/story before layout, declaring the variant's puzzle/required-items to the gate planner so reachability runs post-variant (System V, Req 58.4, 58.11)**; depth-scaled composition; re-roll loop on reachability failure. |
+| `Reachability.gd` | **KEEP + EXTEND** | `completable()` already models item gates; wire it into generation as the pre-play gate and the re-roll trigger; **extend `GATE_ITEMS` with a `puzzle:<id>` gate kind so a Biome_Puzzle's opener is checked opener-before-gate like any item gate (System I, System V, Req 57)**. **No variant-specific change: the same check runs on the post-variant Route, so it already enforces validity after `apply_variant` reshapes an instance's puzzle/pickups (System V, Req 58.11).** |
+| `Bestiary.gd` / Biome data | **KEEP + EXTEND** | Data already covers 9 archetypes, 7 biomes, hazards-by-tag; add hazard-tile effects + telegraph data if missing; **extend each Biome with data-driven `Biome_Content` — `npcs`, `secrets`, `biome_only_items`, `puzzle` — with content-stub/placeholder fallback for unauthored biomes so the generator still runs (System V, Req 56)**; **a generated Biome instance also carries a runtime-only `variant` field (plain `""` or one unlocked Biome_Variant id) reshaped by `BiomeVariants.apply_variant` — the authored biome definition is unchanged (System V, Req 58)**. |
+| `Enemy.gd` | **KEEP + EXTEND** | Telegraph-first on every harmful action; weakness-by-tag resolution; honor spawn-rule context from Spawner; **on `died`, roll `DropTable` for Death_Drops (Req 52)**. |
+| `Boss.gd` | **KEEP + EXTEND** | 7 patterns + phase machine + weak window already present; bind Weak_Window/double-damage to Tunables; **add per-attack variable strike delay + feint flag + heavy damage + committal recovery for Souls difficulty (Req 51), params from Feel/Tunables scaled by Rank**. |
 | `BossRoster.gd` | **KEEP** | 100-rung ladder + HP/speed/phase formulas present; expose formulas as Tunables (Req 26.5). |
-| `Spawner.gd` | **KEEP + EXTEND** | Add room-shape-aware weighting (SWARM/CHASE wide, TURRET/LOBBER cover, CHARGER corridor); keep elite leak + one-summoner + no-summoner-first-room rules. |
+| `Spawner.gd` | **KEEP + EXTEND** | Add room-shape-aware weighting (SWARM/CHASE wide, TURRET/LOBBER cover, CHARGER corridor); keep elite leak + one-summoner + no-summoner-first-room rules; **pass enemy rarity/depth context into the death-drop roll (Req 52)**. |
 | `Items.gd` | **KEEP + EXTEND** | Catalogue is data-driven; add `biome`/`tier`/`desc` coverage and depth-weighting metadata for pedestals. |
-| `Inventory.gd` | **KEEP + EXTEND** | Add single Equipped_Item binding; CONSUMABLE/ammo/magic resource tracking. |
-| `Pickup.gd` | **KEEP** | Walk-into pickup; reuse for pedestal + boss drop + claim-to-clear. |
+| `Inventory.gd` | **KEEP + EXTEND** | Add single Equipped_Item binding; CONSUMABLE/ammo/magic resource tracking; **add `bullets` ammo type and a `notes` collection alongside arrows/bomb ammo and keys (Req 52)**. |
+| `Pickup.gd` | **KEEP + EXTEND** | Walk-into pickup; reuse for pedestal + boss drop + claim-to-clear; **route Death_Drops to their pool (ammo/bullets/keys/health/Notes/weapon/EXP/chevron/sparks) and play pickup VFX (Req 52.6, 52.7)**. |
 | `Projectile.gd` | **KEEP + EXTEND** | Straight/lob/laser/spread present; add shield-block and blast-radius interactions. |
-| `Main.gd` | **EXTEND** | Replace auto-`_new_run` clear loop with return-to-Vigil; add HUD/Map; claim-to-clear already modeled. |
+| `Main.gd` | **EXTEND** | Replace auto-`_new_run` clear loop with return-to-Vigil; add HUD/Map; claim-to-clear already modeled; **extend `_on_enemy_died`/`_reward_item` to roll `DropTable` and spawn Death_Drops for every enemy (Req 52)**. |
 | **`TitleScreen.gd`** + `TitleScreen.tscn` | **NEW** | Launch scene (System T): title/logo + three-entry menu (Start New Run / Continue Saved Run / Exit); enables/dims Continue from `SaveSystem.has_resumable()`; a `CanvasLayer`/`Control` rendered at the 320×224 integer-scaled canvas with art per System S. |
-| **`Town.gd`** | **NEW** | Vigil hub scene, buildings, return-to-town flow, per-visit purchase reset. |
+| **`Town.gd`** (incl. The Board) | **NEW** | Vigil hub scene, buildings, return-to-town flow, per-visit purchase reset; **The Board EXTEND: route-length selection — show lengths 1..`MAX_ROUTE_LENGTH`, dim locked ones (affordability-dimming), set the next Run's `Route_Length` composed with the Req 37 dungeon/rank choice (System K, System V, Req 55.6, 55.7)**. |
 | **`Buff.gd`** | **NEW** | Timed/run-scoped buff (`stat`, `amount`, `duration_rooms` or `run_long`); never attuned. |
 | **`TownStock.gd`** | **NEW** | Data tables for drinks + meals, mirroring `Items.gd`'s style; price scaling. |
 | **`Rumors.gd`** | **NEW** | Reads the already-generated next dungeon; emits a truthful, partial hint. |
 | **`Wallet.gd`** | **NEW** (or fold into `Game.gd`) | Sparks balance, banking on clear, affordability checks. |
-| **`SaveSystem.gd`** | **NEW** | Single resumable in-progress run (`user://run.json`); discard on new game / run end. |
+| **`DropTable.gd`** | **NEW** | Data-driven rarity-weighted enemy Death_Drop table keyed by Enemy rarity + Room Depth; `roll(rng, rarity, depth)` returns 0..N drop descriptors drawn in fixed order from `Game.rng` (Req 52). |
+| **`Chevrons.gd`** | **NEW** (or fold into the economy) | Per-color Chevron balances for the 8 colors; persistence split (shiny light purple / rainbow / black persist via `Meta`; gold / silver / blue / brown / pink run-scoped via `SaveSystem`); spend hooks for trade / chevron-doors / environment (Req 53, 54). |
+| **`SaveSystem.gd`** | **NEW** | Single resumable in-progress run (`user://run.json`); discard on new game / run end; **record the Run's chosen `route_length` and ordered `route` so resume reproduces the same Route (System O, System V, Req 55)**. |
+| **`RouteBuilder.gd`** | **NEW** | Build the ordered Biome Route of the chosen length — the first `Route_Length` biomes of `Bestiary.BIOME_ORDER` — and feed it to `DungeonGenerator`; clamp to `[1, min(MAX_ROUTE_LENGTH, Biome_Library size)]` (System V, Req 55). **Per traversed biome, invoke `BiomeVariants.pick()` / `apply_variant()` as the variant-assignment step folded into the biome-region build (System V, Req 58).** |
+| **`BiomeVariants.gd`** | **NEW** | Data-driven, OPEN set of Biome_Variant modifier descriptors (`VARIANTS` keyed by variant id: difficulty mult, pickup overrides, puzzle override/ref, NPC override/set, story/flavor ref, art/overlay ref, rarity weight); `pick(rng, biome_id, unlocked)` returns a variant id or `""` (plain), deterministic + rarity-weighted drawn only from the unlocked set; `apply_variant(biome_inst, id)` overlays the descriptor onto a copy of that instance's `Biome_Content` and declares puzzle/required-items to the gate planner (System V, Req 58). |
+| **`BiomePuzzle.gd`** | **NEW** | Biome puzzle placement within each traversed biome's region + opener declaration; emits a `puzzle:<id>` gate entry for the generator so `Reachability` enforces opener-before-gate solvability (System V, System I, Req 57). |
 | **`HUD.gd`** + `HUD.tscn` | **NEW** | Hearts (evolving icon), equipped item, seed, depth, boss HP bar. |
 | **`MapView.gd`** + scene | **NEW** | Door-graph map; pauses the world. |
 | **`HealthContainer.gd`** | **NEW** | Max/current in containers, evolving leaf→star→rainbow icon by progression. |
@@ -245,7 +273,7 @@ This table maps every scaffold script and names the new ones.
 | **`Simulacrum.gd` / `HumanNPC.gd`** | **NEW** | Mechanical glitch vs. emotional glitch; recruiting a human to a town role. |
 | **`RuinedVigil.gd`** | **NEW** | Mirror-dungeon variant reusing the Crypts undead roster, reskinned. |
 | **`DodgeDash` (Player sub-state)** | **NEW** | Tap-dodge / hold-run gated on Pegasus Boots; i-frames; contact damage/break. |
-| **`AssetResolver.gd`** | **NEW** | Data-driven art swap-in (System S): resolves sprite/tileset/palette/icon ids to real `res://art/...` resources or procedural placeholders; graceful fallback on missing art. |
+| **`AssetResolver.gd`** | **NEW** | Data-driven art swap-in (System S): resolves sprite/tileset/palette/icon ids to real `res://art/...` resources or procedural placeholders; graceful fallback on missing art. **Also resolves a Biome_Variant's optional `overlay_ref` / palette swap (System V, Req 58) — e.g. a corrupted/rainbow visual treatment — reusing the System S overlay/palette path with the same no-overlay/placeholder fallback (Property 36).** |
 | **`BiomeOverlay.gd`** | **NEW** | Data-driven ambient environmental overlay layer (System S): selects the active biome's signature overlay (fireflies in Thornwild, swarming bugs in Sunken Ruins, drifting ash in the Ruined City / Ruined_Vigil, etc.), resolved via `AssetResolver` from the Biome `overlay_ref`; drives `GPUParticles2D`/`CPUParticles2D` and/or a scrolling shader layer tinted to the biome palette; graceful no-overlay fallback when none is defined or `OVERLAYS_ENABLED` is off. |
 | **Camera2D rig (Player child)** | **NEW** | Free-scroll camera (System S): position smoothing + look-ahead + limits clamped to the stitched active bounds; replaces per-room screen lock. |
 | **Procedural placeholder generator** | **EXTEND** | Upgrade scaffold's flat `Polygon2D` placeholders to pixel-arty 3-tone ramps + outlines + dithered gradients + one signature prop per biome (System S), behind `AssetResolver`. |
@@ -398,6 +426,50 @@ occupies and its stitched neighbours currently on-camera; because the free-scrol
 the stitched active bounds (System S), no enemy outside the visible region deals a first hit, and
 telegraphs still apply to anything entering view (Req 20.2).
 
+#### Enemy death drops (Req 52)
+
+When an Enemy dies it may spawn one or more **Death_Drops** at its position. A new data-driven
+**`DropTable.gd`** owns a rarity-weighted drop table keyed by **Enemy rarity + Room Depth**; the
+drop-spawn path reuses the existing `Enemy.died` signal and `Main._on_enemy_died` / `_reward_item`
+hook (today used only for boss ATTACK/UTILITY loot), extending them to roll ordinary drops for every
+enemy. Collection reuses the existing walk-into `Pickup.gd`.
+
+```gdscript
+# DropTable.gd (NEW) — data-driven, rarity + depth weighted
+func roll(rng: RandomNumberGenerator, rarity: String, depth: int) -> Array[Dictionary]
+#   returns 0..N Death_Drop descriptors: { "kind": String, "color": String?, "amount": int }
+#   kind ∈ bomb|arrow|bullet|key|note|weapon|health|exp|chevron|sparks
+WEIGHTS: Dictionary   # [rarity][depth-band] -> weighted kind table; higher rarity/depth => more + better
+```
+
+- **Deterministic draw order (Req 52.5).** The roll is drawn from **`Game.rng`** inside the existing
+  fixed per-room/enemy draw sequence (Architecture → Determinism and ordering), **in a fixed order**:
+  each defeated enemy's drop roll happens in the enemy's spawn/defeat order, and within a single roll
+  the kind, color, and amount are drawn in a fixed sub-order. Same `(seed, Attuned_Set)` ⇒ identical
+  defeat order ⇒ identical drops. This is covered by the determinism guarantee of **Property 1**
+  rather than a new property.
+- **Rarity + depth scaling (Req 52.1, 52.4).** Common enemies roll fewer and lower-quality drops;
+  rarer/elite enemies and bosses roll more and higher-quality drops, and weights shift upward with
+  Room Depth consistent with the depth scaling of Req 28. The whole table is a Tunable (Req 48).
+- **Drop pool (Req 52.2, 52.3).** bombs, arrows, **bullets** (a NEW ammo type added alongside
+  arrows/bomb ammo in the ammo model / `Inventory`), keys, **Notes** (a NEW collectible, lore-flavored,
+  tradeable drop), sometimes **weapons** (routed to `Inventory` per the existing item rules of Req 17),
+  sometimes **health** pickups (restore current health via `HealthContainer`/`Game.hearts`), and —
+  **only WHERE an EXP/leveling system exists** — **EXP** pickups. No EXP/leveling system is otherwise
+  specified in this document; EXP is a **conditional hook only** (a `kind:"exp"` entry gated off by
+  default), not a full leveling system (Req 52.3).
+- **Collection routing (Req 52.7).** On overlap, `Pickup.gd` routes each drop to the right pool:
+  ammo → its ammo count (arrows/bombs/**bullets**), keys → key count, health → current health,
+  **Notes** → the Notes collection, weapons → `Inventory` (per Req 17), EXP → the EXP total (where
+  applicable), and chevron/sparks drops into their respective balances (System K).
+- **Run-scoped (Req 52.8).** Collected consumables/ammo/bullets/keys/Notes are **Run-Scoped_State**,
+  discarded on death per Req 44 — unless a drop type is otherwise defined as Persistent_State (the
+  persistent chevron colors are the exception; System K / System M).
+
+Chevron and Sparks drops are produced by this same table (as `kind:"chevron"`/`kind:"sparks"`
+entries) but accounted into the two separate economies described in **System K**. Pickup/spawn VFX for
+all three (drops, chevrons, Sparks) are defined in **System S** (Req 52.6).
+
 ### System G — Bosses
 
 **Responsibilities.** Telegraphed, phased boss cycle over the 7 patterns; weak window after a big
@@ -415,25 +487,122 @@ Deltas: bind `Weak_Window` duration, double-damage multiplier, and the HP/speed 
 already partly in `Main._on_enemy_died` + `_reward_item`); count the Clear only when loot is claimed
 (Req 25.2 — `Main._check_clear` already requires `items_root` empty).
 
+#### Souls-style difficulty (Req 51)
+
+The scaffold's `idle → telegraph → act → recover` cycle is **pre-Souls**: the strike lands at a fixed
+beat after the telegraph, every attack is honest, and damage is light. Req 51 upgrades the *timing and
+commitment* of that cycle **without weakening the fairness guarantees** (telegraph-first, Property 23;
+no off-screen first contact, System F). The phase machine, the 7 patterns, and the Weak_Window are all
+kept — each attack simply carries two new per-attack parameters pulled from `Feel`/Tunables and scaled
+by Rank from `BossRoster`.
+
+```gdscript
+# Boss.gd additions — per-attack Souls parameters, all data-driven from Feel + Rank
+func _begin_attack(pattern: String) -> void   # EXTEND: telegraph, then schedule the strike
+func _strike_delay(pattern: String) -> float  # NEW: randf_range(BOSS_DELAY_MIN, BOSS_DELAY_MAX) scaled by Rank;
+                                               #      drawn from the boss sub-rng (seeded from Game.rng)
+func _is_feint(pattern: String) -> bool        # NEW: true with BOSS_FEINT_PROB(rank); feint withholds/delays the strike
+func _attack_damage(rank: int) -> int          # NEW: heavy damage from BOSS_DMG_PER_HIT scaling + BOSS_HITS_TO_KILL target
+func _in_recovery() -> bool                    # NEW: committal, non-cancelable recovery gate (Req 51.5)
+```
+
+The attack cycle becomes `idle → telegraph → (variable-delay | feint) → strike → committal recovery`:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Telegraph: choose pattern (readable tell, Req 24.1 / Property 23)
+    Telegraph --> Delay: schedule strike after variable delay (BOSS_DELAY_MIN..MAX, scaled by Rank)
+    Delay --> Strike: delay elapses (real attack)
+    Delay --> Feint: is_feint (BOSS_FEINT_PROB by Rank) — withhold/extend, no damage this commit
+    Feint --> Recover
+    Strike --> Recover: heavy damage if PC overlaps and not in I_Frames
+    Recover --> WeakWindow: after a defined big attack (Req 24.4)
+    Recover --> Idle: otherwise
+    WeakWindow --> Idle
+    note right of Recover
+      Committal: recovery cannot be
+      cancelled into another action (Req 51.5)
+    end note
+```
+
+- **Variable-timing strikes (Req 51.1).** After the telegraph, the strike resolves after a delay
+  drawn `randf_range(BOSS_DELAY_MIN, BOSS_DELAY_MAX)` (Rank-scaled) from the boss's sub-rng, so the
+  telegraph never resolves at one predictable beat. The telegraph frame still plays first and stays
+  readable, so Property 23 holds — the delay lives *between* a shown telegraph and the strike.
+- **Feint attacks (Req 51.2).** With probability `BOSS_FEINT_PROB(rank)`, an attack plays its
+  telegraph but withholds the strike entirely (or extends the delay) on the first commit, punishing a
+  Player who dodge-dashes early. A feint flag rides on the per-attack schedule (Data Models).
+- **Heavy damage (Req 51.3).** A connecting strike on a Player not in I_Frames deals damage from
+  `BOSS_DMG_PER_HIT` scaling and a `BOSS_HITS_TO_KILL` target (hits-to-kill at full health per Rank),
+  so a small, configurable number of unavoided strikes ends a full-health run — without hardcoding an
+  exact kill count.
+- **Dodge-dash as the counter (Req 51.4, ties System D / Req 12.2).** The intended answer is the
+  dodge-dash's `DODGE_IFRAME_TIME` window from System D; a strike landing inside that window passes
+  through, but if the i-frames elapse before the delayed strike lands the Player is left vulnerable —
+  this is exactly what the variable delay and feints exploit.
+- **Committal recovery (Req 51.5).** Both boss and Player attack/dodge recovery are non-cancelable
+  (`_in_recovery()` blocks new actions), so spacing and patience are required and the Weak_Window
+  (Req 24.4) stays the primary punish.
+- **Phase transitions add behavior (Req 51.6).** Crossing an HP phase threshold introduces at least
+  `BOSS_PHASE_NEW_MOVES` new pattern(s) or a new delayed/feint variant for the later phase (not just
+  more HP/speed), with a readable phase-transition moment. This extends `_apply_phase`.
+- **Rank-scaled intensity (Req 51.7).** Delay spread, feint probability, and damage-per-hit all scale
+  upward with the boss's Rank from `BossRoster.for_clear`.
+- **Gloamwing stays gentle (Req 51.8).** When `Meta.clears() == 0` (the tutorial dragon Gloamwing),
+  the boss uses slow, honest timing, **no feints** (`BOSS_FEINT_PROB` floored to 0 at rank 1), and
+  reduced damage, so a new player learns the telegraph → dodge-dash → Weak_Window loop before
+  Souls-level timing applies.
+- **No auto-easing (Req 51.9).** The design never reduces delay difficulty, feint frequency, or
+  damage after repeated deaths — there is no death counter feeding the Tunables.
+- **Fairness preserved (Req 51.10, 51.11).** A boss strike reducing health to 0 ends the Run as a
+  death (System N / Req 44). Every strike is still telegraph-first and gated to on-camera stitched
+  bounds, so no off-screen first-contact hit is possible (System F) — Souls-level difficulty stays
+  tight-but-fair.
+
 ### System H — Dungeon Generation
 
 **Responsibilities.** `20×14`-tile rooms on a door graph; start + far exit; locked doors with keys;
-depth-based difficulty; run length scaling with biome count. Rooms are the generation/collision/
-reachability unit; adjacent rooms are stitched into one continuous world for the free-scroll camera
-(System S) — there are **no hard room-to-room screen snaps**. (This supersedes the locked-screen
-scroll transition of Requirement 27.3; see System S and the Architecture note.)
+depth-based difficulty; run length scaling with the chosen Route_Length (biome count). Rooms are the
+generation/collision/reachability unit; adjacent rooms are stitched into one continuous world for the
+free-scroll camera (System S) — there are **no hard room-to-room screen snaps**. (This supersedes the
+locked-screen scroll transition of Requirement 27.3; see System S and the Architecture note.)
 
-`DungeonGenerator.generate(rng, count)` scatters `count` rooms on a cell grid, connects orthogonal
-neighbors bidirectionally, assigns depth (`cell.length()`) and biome by depth, tags start + farthest
-exit, and asserts full reachability. Deltas:
+**Route model and the Route_Length reconciliation (Req 55).** The ordered biome progression (Hollow
+Crypts → Silkfall Warrens → Thornwild → Emberdeep → Glacier Barrow → Sunken Ruins → The Arcanum) is
+**kept**, but a Run no longer traverses all 7 biomes by default. Instead a Run traverses the **first
+`Route_Length` biomes of that ordered progression**, then its one end Dungeon with its single Boss:
+
+- Route_Length 1 → just Hollow Crypts, then the end Dungeon.
+- Route_Length 2 → Hollow Crypts → Silkfall Warrens, then the end Dungeon.
+- … up to Route_Length 7 → the full ordered progression, then the end Dungeon.
+
+The ordered sequence is a prefix: a Route of length N is the first N biomes in that fixed order. There
+is still exactly **one** end Dungeon with **one** Boss per Run (the Boss_Ladder model of Requirement 26
+is unchanged) — the Route is **not** one dungeon per biome. The ordered Route of length `Route_Length`
+is built up front by the NEW `RouteBuilder.build(route_length)` (System V) and threaded into generation
+as the biome plan. The maximum `Route_Length` is a Tunable (`MAX_ROUTE_LENGTH`, first-iteration 7),
+architected to extend up to the `Biome_Library` size — not a hard 7-biome limit.
+
+`DungeonGenerator.generate(rng, route)` scatters rooms on a cell grid sized by the Route, connects
+orthogonal neighbors bidirectionally, assigns depth (`cell.length()`) and biome by depth **along the
+built Route**, places each traversed biome's `Biome_Puzzle` within that biome's region, tags start +
+farthest exit, and asserts full reachability. Deltas:
 ```gdscript
-func generate(rng, biome_count: int) -> void  # EXTEND: size from biome_count -> target run duration (Req 29)
-func _plan_gates(rng) -> Array                 # NEW: choose gate plan + place openers before gates (Req 30)
-func _place_loot(rng) -> void                  # NEW: shuffled unattuned pool, depth/biome weighted (Req 17, 28)
+func generate(rng, route: Array) -> void       # EXTEND: route = ordered biomes of length Route_Length;
+                                               #   room count sized from len(route) -> target run duration (Req 29, 55)
+func _plan_gates(rng) -> Array                 # NEW: choose gate plan + place openers before gates,
+                                               #   including each biome's Biome_Puzzle as a puzzle-gate (Req 30, 57)
+func _place_loot(rng) -> void                  # NEW: shuffled unattuned pool, depth/biome weighted,
+                                               #   including biome-only Items on reachable pre-gate paths (Req 17, 28, 56)
+func _place_biome_puzzles(rng, route) -> void  # NEW: place each traversed biome's puzzle in its region (Req 57)
 func _generate_room_interior(room, rng) -> void# NEW: real tile layout, not just a border (README #1)
 ```
-- **Run length (Req 29).** Room count derives from a `TARGET_RUN_MINUTES` Tunable that grows with the
-  number of available biomes; the first world targets 15–25 min.
+- **Run length (Req 29, 55).** Room count derives from a `TARGET_RUN_MINUTES` Tunable scaled by the
+  chosen `Route_Length` (the number of biomes the Run traverses): the shortest unlocked routes
+  (Route_Length 1) target the 15–25 min first-world window, and longer routes scale up proportionally.
+  `TARGET_RUN_MINUTES` grows with the available biome count only insofar as a larger `Route_Length`
+  can be chosen.
 - **Depth scaling (Req 28).** Composition adds archetype combinations with depth (via Spawner) rather
   than only inflating HP; pedestal quality weights upward with depth and biome rarity.
 - **Locked doors/keys (Req 27.4).** Door edges carry a `locked`/`key` type in the graph; the gate
@@ -442,19 +611,54 @@ func _generate_room_interior(room, rng) -> void# NEW: real tile layout, not just
 ### System I — Reachability & Validity
 
 **Responsibilities.** Guarantee completability; place each gate's opener in a room reachable before
-the gate without the gated item; re-roll on failure.
+the gate without the gated item; treat each traversed biome's `Biome_Puzzle` as a gate whose opener
+must precede it; guarantee any required biome-only Item sits on a reachable pre-gate path; re-roll on
+failure.
 
 `Reachability.completable(rooms, start, exit, have_ids)` already does a gated BFS: a room with a
 `gate` is only entered if the opener (`GATE_ITEMS[gate]`) is held, mapping cracked→bombs,
 water→flippers, gap→hookshot, web→fire_rod, boulder→titans_mitt, peg→hammer. `all_reachable` /
 `farthest` support start/exit tagging. The generator wraps this as a validity gate:
 
+**Biome_Puzzle as a gate (Req 57).** A placed `Biome_Puzzle` folds into exactly this machinery as a
+**puzzle-gate**: the puzzle's required ability/item is its opener, and `Reachability.completable`
+treats a puzzle-gated room (or the progression blocked behind an unsolved puzzle) the same way it
+treats an item gate — it is only passable once the opener is reachable. `GATE_ITEMS` is extended with a
+`puzzle:<id>` gate kind keyed to that puzzle's required opener, so the **opener-before-gate** rule
+(Property 3) and the re-roll loop guarantee that every traversed biome's puzzle is solvable with
+something obtainable **earlier in the same Run** — a puzzle can never soft-lock a Route (Req 57.2,
+57.3). Puzzle logic itself lives in a NEW small `BiomePuzzle.gd` (placement + opener declaration), and
+the puzzle's gate entry is produced by the generator's gate planner (System H) so the solvability check
+runs inside the existing validity loop below. Puzzle placement keeps each biome's puzzle **within that
+biome's region** of the Route (Req 57.1).
+
+**Biome-only Items on the critical path (Req 56.3).** When a biome-only Item (an Item/Key_Item/
+power-up obtainable only in a given biome) is **required to complete the Route** — e.g. it is a gate
+opener, or an earlier biome's puzzle opener — the generator must place it on a Room reachable **before**
+that gate without already holding it, under the same opener-before-gate rule. If a required biome-only
+Item cannot be placed on a reachable pre-gate path, the layout fails the check and is re-rolled, so a
+required biome-only Item never produces an uncompletable Route (Property 2/Property 3 unchanged in
+spirit, extended to cover biome-only openers).
+
+**Biome_Variant validity (Req 58.11).** A Biome_Variant reshapes an instance's pickups, Biome_Puzzle,
+and difficulty **before** this validity loop runs (Architecture step 0.5 / System V). The variant's
+`apply_variant` **declares** its puzzle override and any changed required biome-only Items to the gate
+planner, so the **same** `Reachability.completable()` check and the **same** re-roll loop run on the
+**post-variant** Route exactly as for a plain biome. A variant can therefore never make a Route
+uncompletable: a variant puzzle whose opener is unreachable, or a variant pickup change that strands a
+required opener, simply fails the check and is re-rolled (falling back to the ungated layout in the
+worst case). Opener-before-gate (Property 3) and completability (Property 2) hold on the variant-
+modified Route without any new machinery.
+
 ```gdscript
 # DungeonGenerator (EXTEND)
 var MAX_REROLLS := 32
 for attempt in MAX_REROLLS:
-    _build_layout(rng); _plan_gates(rng); _place_loot(rng)
-    var openers := _openers_before_each_gate()               # Attuned_Set + openers placed pre-gate
+    _build_layout(rng, route)                                 # route = ordered biomes of chosen Route_Length
+    _plan_gates(rng)                                          # item gates + each biome's Biome_Puzzle as a puzzle-gate
+    _place_biome_puzzles(rng, route)                          # puzzle placed in its biome's region (Req 57.1)
+    _place_loot(rng)                                          # incl. biome-only Items on reachable pre-gate paths (Req 56.3)
+    var openers := _openers_before_each_gate()                # Attuned_Set + openers (item + puzzle) placed pre-gate
     if Reachability.completable(rooms, start_cell, far, openers):
         return
 # else: fall back to an ungated layout (always completable) — never hand over a broken dungeon
@@ -465,14 +669,22 @@ generator re-rolls from the same seed stream; it never hands an uncompletable du
 
 ### System J — Seeding
 
-**Responsibilities.** One seeded RNG threaded through layout, loot, and enemy placement; same
-Seed + same Attuned_Set ⇒ identical dungeon; seed visible and shareable.
+**Responsibilities.** One seeded RNG threaded through route, layout, loot, and enemy placement; same
+Seed + same Attuned_Set + same Route_Length ⇒ identical dungeon; seed visible and shareable.
 
 `Game.rng` is a single `RandomNumberGenerator` seeded in `start_run()` and passed into
-`DungeonGenerator.generate(Game.rng, …)` and `Spawner.spawn_room(…, Game.rng, …)`. The design forbids
-global `randi()`/`randf()` and fixes the draw order (see Architecture) so output is a pure function of
-`(seed, Attuned_Set)`. `Game.seed_value` is displayed in the HUD (Req 46) and readable for sharing
-(Req 31.3).
+`RouteBuilder.build(route_length)` → `DungeonGenerator.generate(Game.rng, route)` and
+`Spawner.spawn_room(…, Game.rng, …)`. The design forbids global `randi()`/`randf()` and fixes the draw
+order (see Architecture) so output is a pure function of `(seed, Attuned_Set, Route_Length)` — the
+chosen `Route_Length` is a deterministic generation input alongside the seed and Attuned_Set (System V,
+Property 1). The ordered Route itself (which biomes, in order, up to `Route_Length`) is derived
+deterministically from these inputs. Each traversed biome's **Biome_Variant** (plain or one id) is
+drawn from `Game.rng` in the fixed order (step 0.5) from the persistent **unlocked-variant set**, so
+the variant assignment is part of the deterministic result; like the Attuned_Set, the unlocked set is
+a persistent input that parameterizes determinism — same seed + same unlocked set ⇒ same variant
+assignment (System V, Req 58.5). `Game.seed_value` is displayed in the HUD (Req 46) and readable for
+sharing (Req 31.3); a shared seed reproduces the same dungeon only at the same Route_Length **and the
+same unlocked-variant set**.
 
 ### System K — Town / Vigil & Economy
 
@@ -508,6 +720,75 @@ func bank(amount: int) -> void                  # on Clear only
   unaffordable options are shown with price and dimmed.
 - **Board + Chapel (Req 37).** The Board shows the next dungeon's Rank + one hint and sets the next
   run's dungeon; the Chapel displays the Attuned_Set (from `Meta.load_attuned()`).
+- **Board route-length selection (Req 55.6, 55.7).** The Board is also where the Player chooses an
+  **unlocked `Route_Length`** for the next Run, composed with — but distinct from — the dungeon/rank
+  selection above. The Board reads `Meta.max_route_length()` and shows every `Route_Length` from 1 to
+  `MAX_ROUTE_LENGTH`; those at or below the highest unlocked length are selectable, and locked ones are
+  **dimmed via the same affordability-dimming pattern** used for unaffordable shop options (System K /
+  Property 33) — shown but not confirmable. Choosing a shorter unlocked length is always allowed once a
+  longer one is unlocked (Req 55.6). The chosen length sets the next Run's `Route_Length`, which
+  `Game.start_run()` threads into `RouteBuilder.build` → `DungeonGenerator.generate` (System H, System
+  V). GDScript hooks:
+  ```gdscript
+  # Meta.gd (EXTEND)
+  func max_route_length() -> int                 # highest unlocked Route_Length (Persistent_State; default 1)
+  func unlock_next_route_length() -> void        # on clearing the highest unlocked length, +1 up to MAX_ROUTE_LENGTH
+  # Town.gd / The Board (EXTEND)
+  func board_route_lengths() -> Array            # [{len:int, unlocked:bool}] for 1..MAX_ROUTE_LENGTH (dim locked)
+  func choose_route_length(n: int) -> bool       # set next run's Route_Length iff 1 <= n <= max_route_length()
+  # Game.gd (EXTEND)
+  var next_route_length: int                     # chosen at the Board; defaults to 1
+  func start_run() -> void                       # builds route = RouteBuilder.build(next_route_length)
+  ```
+
+#### Dual economy — Sparks and Chevrons (Req 53, 54)
+
+Vigil runs **two independent economies** with independent accounting: **Sparks** (money) and
+**Chevrons** (tokens). They never cross: spending or losing one never changes the other (Req 54.4).
+
+**Sparks — shop money (Req 54.1, Req 36).** Sparks are the primary spendable currency at the Forge,
+Apothecary, bar (*The Last Call*), restaurant (*The Warm Machine*), and Pawnbroker; banked on a Clear,
+and unbanked Sparks are lost on death. Unchanged from System K above — handled by `Wallet.gd` /
+`Meta.sparks`.
+
+**Chevrons — trade / door / environment tokens (Req 53, 54.2).** Chevrons are a token economy, **not
+shop money**. A new `Chevrons.gd` (or a fold into the economy) tracks a **per-color balance** for the
+eight colors — gold, silver, black, blue, rainbow, brown, pink, and the ever-rarest **shiny light
+purple**:
+
+```gdscript
+# Chevrons.gd (NEW, or fold into Wallet/Game)
+const COLORS := ["gold","silver","black","blue","rainbow","brown","pink","shiny_light_purple"]
+const PERSISTENT := ["shiny_light_purple","rainbow","black"]   # saved to meta.json (Req 53.5, 54.3)
+const RUN_SCOPED := ["gold","silver","blue","brown","pink"]    # lost on run end (Req 53.6, 54.3)
+func balance(color: String) -> int
+func add(color: String, n := 1) -> void          # on pickup overlap (Req 53.7)
+func spend(color: String, n: int) -> bool         # trade / chevron-door / environment; false if insufficient
+func on_run_end() -> void                          # keep PERSISTENT, clear RUN_SCOPED (Req 53.5, 53.6)
+```
+
+- **Sources (Req 53.1, 53.3).** Chevrons drop from defeated enemies via the same rarity-weighted
+  `DropTable` (as `kind:"chevron", color:<c>` entries), with **per-color drop weights** as Tunables
+  (shiny light purple the rarest), and MAY also spawn from the environment (an environment emitter in
+  `Room`/`Main` adds `chevron` pickups outside the enemy-death path, still drawn from `Game.rng` in
+  draw order so determinism holds).
+- **Uses (Req 53.4).** Chevrons are spent to **trade** (vendors/NPCs in Vigil or dungeon NPCs), to
+  **open certain doors** (a new **chevron-door** gate type), and to **alter the environment**
+  (chevron-cost environment interactions/puzzles in `Room`). These hooks call `Chevrons.spend()`.
+- **Chevron-doors vs. completability (critical).** Chevron-doors are **cosmetic/economy gates and are
+  NOT part of the reachability/completability logic** (`Reachability.gd`). **Default stance:
+  chevron-doors are OPTIONAL / side-content only**, so they can never threaten the Req 30
+  completability guarantee or the item-gate reachability model (System I). If a chevron-door is ever
+  placed on a **critical path**, it falls under the same **opener-before-gate** reachability rule as
+  item gates — the generator must guarantee the required chevrons are obtainable in a Room reachable
+  before that door — otherwise it stays off critical paths entirely. The default keeps them off
+  critical paths, so Property 2/Property 3 are unaffected.
+- **Persistence split (Req 53.5, 53.6, 54.3).** **shiny light purple, rainbow, black PERSIST** across
+  runs (Persistent_State, saved to `user://meta.json` via `Meta`); **gold, silver, blue, brown, pink
+  are Run-Scoped_State**, lost on death/run-end exactly like unbanked Sparks. See System M / System N
+  and the save schema.
+- **Independence (Req 54.4).** `Wallet` (Sparks) and `Chevrons` (per-color counts) are separate
+  totals updated by separate paths; no spend/loss on one touches the other.
 
 ### System L — NPCs & Ruined Vigil
 
@@ -542,15 +823,34 @@ func icon_form() -> String                     # "leaf" | "yellow_star" | "rainb
 `Meta` persists the container count on Clear and restores it at run start (Req 42); death retains the
 previously persisted count (Req 42.4).
 
+**Unlocked Biome_Variants (Req 58.7).** Alongside the container count, banked Sparks, NPC roles, the
+highest unlocked `Route_Length`, and the persistent chevrons, `Meta` also persists `unlocked_variants`
+— the set of discovered Biome_Variant ids — in `user://meta.json`. These survive both Clear and death
+and seed `BiomeVariants.pick()` each Run (System V / System J); a fresh or corrupt save defaults to the
+empty set, so early builds see plain biomes only (Req 58.9, 58.10).
+
+**Persistent chevrons (Req 53.5, 54.3).** Alongside the container count, banked Sparks, and NPC roles,
+`Meta` also persists the three ultra-rare chevron colors — **shiny light purple, rainbow, black** — in
+`user://meta.json`. These survive both Clear and death, in contrast to the five run-scoped colors
+(System N / System O). See the save schema in Data Models.
+
 ### System N — Run & Death
 
 **Responsibilities.** Town → dungeon → town lifecycle; death ends the run, discards run-scoped state,
 keeps persistent state, no save-based recovery.
 
-`Game.start_run()` grants the Attuned_Set + persisted max health and clears run-scoped finds;
-`complete_run()` attunes + banks + records the clear; `end_run(won)` emits `run_ended`. The delta
+`Game.start_run()` grants the Attuned_Set + persisted max health, clears run-scoped finds, and builds
+the Run's Route from the chosen `next_route_length` via `RouteBuilder.build` (System V);
+`complete_run()` attunes + banks + records the clear **and, on clearing the currently highest unlocked
+Route_Length, calls `Meta.unlock_next_route_length()` (Req 55.4)**; `end_run(won)` emits `run_ended`. The delta
 replaces `Main`'s auto-`_new_run()` with a return to `Town` (Req 43.3) and ensures death discards all
 Run-Scoped_State and the Resumable_Save (Req 44), with no recovery path (Req 44.4).
+
+**Run-scoped vs. persistent on run end (Req 52.8, 53.5, 53.6, 54.3).** Ending a Run (Clear or death)
+calls `Chevrons.on_run_end()`, which **keeps** the persistent colors (shiny light purple, rainbow,
+black) and **clears** the five run-scoped colors (gold, silver, blue, brown, pink). Collected
+Death_Drop consumables/ammo/bullets/keys/Notes are Run-Scoped_State discarded the same way (Req 52.8),
+exactly like unbanked Sparks — unless a drop type is explicitly Persistent_State.
 
 ### System O — Save / Resume
 
@@ -564,9 +864,11 @@ func has_resumable() -> bool
 func resume() -> void          # restore exactly (Req 45.3)
 func discard() -> void         # on new game or run end (Req 45.4, 45.5)
 ```
-Because generation is deterministic from `(seed, Attuned_Set)`, the resumable save stores the seed
-plus mutable progress (cleared rooms, player position, run items, keys, buffs, unbanked Sparks) rather
-than the whole generated graph; resume regenerates the dungeon and replays recorded progress.
+Because generation is deterministic from `(seed, Attuned_Set, Route_Length)` (System V), the resumable
+save stores the seed, **the Run's `route_length` and ordered `route`**, plus mutable progress (cleared
+rooms, player position, run items, keys, buffs, unbanked Sparks) rather than the whole generated graph;
+resume rebuilds the same Route from `route_length` and regenerates the dungeon, then replays recorded
+progress — reproducing the identical dungeon (Property 1, Property 4).
 
 ### System P — UI / HUD
 
@@ -577,7 +879,9 @@ bar; pause-the-world menus.
 hearts via `HealthContainer.icon_form()` (the evolving leaf → yellow-star → rainbow-star icon), the
 equipped item, `Game.seed_value`, and `Game.depth` (Req 46). The HUD is a screen-space `CanvasLayer`
 over the **320×224** canvas, so it is unaffected by the free-scroll `Camera2D` and renders at integer
-scale (System S). `MapView` and the inventory sub-screen set `get_tree().paused = true` while open
+scale (System S). The HUD MAY also surface the two economies (System K): the **Sparks** balance and
+the **Chevron** per-color balances — at least the three persistent colors (shiny light purple,
+rainbow, black) — shown as distinct readouts so money and tokens read as separate systems (Req 54). `MapView` and the inventory sub-screen set `get_tree().paused = true` while open
 (Req 47). All HUD/UI art (hearts/health icon, magic meter, item box, map, boss HP bar, menus,
 dialogue, pixel font) is referenced as data and sourced from `res://art/ui/` (System S).
 
@@ -749,6 +1053,20 @@ driven by `GPUParticles2D`/shaders. Per-biome lighting uses dynamic `Light2D`: t
 red-orange (Emberdeep), frost cyan (Glacier), neon magenta/cyan (Arcanum); emissive pixels feed the
 selective-bloom mask.
 
+**Pickup VFX (Req 52.6).** Death_Drops, Chevrons, and Sparks pickups all share a defined
+pickup-feedback effect played **both on spawn and on collect**: **multi-colored clouds with purple and
+sparkles**, and **green leaves**. These are two named first-party `GPUParticles2D` effects in the VFX
+set:
+
+| Effect id | Look | Trigger |
+|---|---|---|
+| `vfx/pickup_cloud` | multi-colored puff cloud tinted toward **purple**, with bright **sparkles** (the sparkle layer is **emissive → feeds the selective-bloom mask**) | drop/chevron/Sparks **spawn** and **collect** |
+| `vfx/pickup_leaves` | drifting **green leaves** burst | drop/chevron/Sparks **spawn** and **collect** |
+
+Both are authored under `res://art/vfx/` (first-party art, no third-party packs) and resolve through
+`AssetResolver` like every other asset, so missing art degrades to the procedural placeholder rather
+than crashing (Property 36). `Pickup.gd` plays both on spawn and again on overlap/collect.
+
 #### UI art
 
 Hearts render through `HealthContainer.icon_form()` as the **evolving health icon** (leaf → yellow
@@ -770,7 +1088,8 @@ res://art/
   enemies/<biome>/         # per-biome enemy sheets (e.g. enemies/sunken/frogfolk.png)
   bosses/                  # boss sheets + name-card portraits
   tilesets/<biome>/        # floor/wall/door/hazard/deco/light/transition
-  vfx/                     # sword arc, sparks, ichor, bursts, trails, frost, splash
+  vfx/                     # sword arc, sparks, ichor, bursts, trails, frost, splash,
+                           #   pickup_cloud (purple+sparkles), pickup_leaves (green) — Req 52.6
   overlays/<biome>/        # per-biome ambient overlay art (System S): ash, fireflies, bugs,
                            #   snow, embers, dust, silk, glitch (first-party; no third-party packs)
   ui/                      # hearts/health icon, magic meter, item box, map, boss bar, font
@@ -895,6 +1214,235 @@ resumable save exists (50.3) and resumes the saved Run when it does (50.4); a mi
 falls back gracefully to the Title Screen (50.5); and Exit quits the application (50.6). The two
 documents are in sync.
 
+### System V — Route Progression & Biome Content
+
+**Responsibilities.** Own the **Route** concept and its progression: build the ordered Biome Route of
+the chosen length, let the Player choose an unlocked `Route_Length` at The Board, carry the required
+per-biome `Biome_Content` as data-driven structure (NPCs, secrets, biome-only Items, a Biome_Puzzle),
+place each traversed biome's puzzle so it is always solvable, assign each traversed biome a plain or
+single **Biome_Variant** deterministically from the unlocked set, and define the phased authoring model
+and iteration-1 scope. This system binds the new behavior to existing systems — generation (System H),
+reachability (System I), seeding (System J), the economy/Board (System K), biome NPCs (System L),
+persistence (System M / Meta.gd), run lifecycle (System N), save/resume (System O), and art (System S)
+— without changing their conventions.
+
+**Realizes Requirements 55 (Route-Length Progression), 56 (Per-Biome Required Content), 57 (Biome
+Puzzle Placement and Solvability), and 58 (Biome Variants).**
+
+#### Route builder (`RouteBuilder.gd`, NEW)
+
+A Route is the ordered sequence of biomes a Run traverses before its one end Dungeon. `RouteBuilder`
+takes a `Route_Length` and returns the **first `Route_Length` biomes of the fixed ordered progression**
+(`Bestiary.BIOME_ORDER`); the end Dungeon with its single Boss (Boss_Ladder, System G / Req 26) sits at
+the end of that route. A Route of length N is N biomes in sequence leading to one Dungeon — not one
+dungeon per biome (Req 55.1, 55.2).
+
+```gdscript
+# RouteBuilder.gd (NEW)
+func build(route_length: int) -> Array        # ordered biome ids = BIOME_ORDER.slice(0, route_length)
+#   e.g. build(1) -> ["crypts"]; build(3) -> ["crypts","warrens","thornwild"]
+#   route_length is clamped to [1, min(MAX_ROUTE_LENGTH, Biome_Library size)]
+func end_dungeon_rank() -> int                 # unchanged Boss_Ladder selection: BossRoster.for_clear(Meta.clears())
+```
+
+`DungeonGenerator.generate(rng, route)` consumes this ordered list: room count is sized from `len(route)`
+toward `TARGET_RUN_MINUTES` (System H / Req 29), and biome-by-depth assignment walks the route in order.
+Determinism (Property 1) ranges over `(seed, Attuned_Set, Route_Length, unlocked_variants)` because the
+route is a pure function of the chosen length and the fixed order, and each traversed biome's variant is
+a pure function of the seed and the persistent unlocked set (Biome variants subsection below).
+
+#### Route-length unlock and persistence (Req 55.3–55.5, 55.8)
+
+Progression is a monotonic unlock ladder stored in `Meta` as Persistent_State:
+
+- First launch: only `Route_Length` **1** is unlocked (Req 55.3).
+- Clearing the currently highest unlocked length N unlocks N+1 (Req 55.4), up to the
+  `MAX_ROUTE_LENGTH` Tunable (first-iteration **7**, architected to extend up to the `Biome_Library`
+  size — Req 55.8). The unlock happens in `Game.complete_run()` after a Clear, alongside the existing
+  attune/bank/record-clear steps, calling `Meta.unlock_next_route_length()`.
+- The highest unlocked length is `max_route_length` in `user://meta.json`; it survives death and
+  persists across Runs, next to the Attuned_Set, clears, max health, Sparks, NPC roles, persistent
+  chevrons, and the unlocked Biome_Variants (Req 55.5, 44.3). Unlocks never decrease.
+
+```gdscript
+# Meta.gd (EXTEND)
+func max_route_length() -> int                 # Persistent_State; default 1 on a fresh/corrupt save
+func unlock_next_route_length() -> void        # min(max_route_length()+1, MAX_ROUTE_LENGTH); never decreases
+```
+
+#### Board route-length selection (Req 55.6, 55.7)
+
+The Board (System K) presents every length 1..`MAX_ROUTE_LENGTH`; lengths ≤ `max_route_length()` are
+selectable, higher ones are **dimmed** (affordability-dimming pattern). The Route_Length choice is a
+selection **distinct from, and composed with**, the dungeon/rank selection of Req 37 — two parts of one
+Board decision for the next Run. The Player MAY pick any unlocked length, including a shorter one than
+the highest unlocked (Req 55.6). The chosen length is stored on `Game.next_route_length` and threaded
+into `start_run()` → `RouteBuilder.build`. (Interfaces listed under System K.)
+
+#### Biome content schema and incremental authoring (Req 56)
+
+Each biome definition carries required, data-driven **`Biome_Content`**: multiple `npcs`, multiple
+`secrets`, one or more `biome_only_items`, and at least one `puzzle` (a Biome_Puzzle descriptor). These
+are new fields on the Biome dictionary (Data Models → Enemy / Bestiary schema). Because they are data,
+a biome is fully authored by adding its data and resources — no change to the central generator (Req
+56.6), consistent with the data-driven bestiary (System F) and the `AssetResolver` swap-in (System S).
+
+- **Biome-only Items (Req 56.2).** Certain Items/keys/power-ups come **only** from their defining
+  biome, reinforcing the biome-weighted sourcing of Req 17 and the taxonomy of Req 13. If a biome-only
+  Item is required to complete a Route, the generator must place it on a reachable pre-gate path so
+  Reachability (System I / Req 30) still holds (Req 56.3).
+- **Biome NPCs vs. the Vigil simulacra (Req 56.1, ties System L).** The biome `npcs` are the NPCs
+  encounterable **within a biome's dungeon region**, distinct from but coherent with the Vigil
+  simulacra/`Human_NPC` system (System L). They MAY include rare `Human_NPC`s encounterable in dungeons
+  (Req 39) — recruitable back to a persistent Vigil role via `Meta.npc_roles` — and biome-flavored
+  simulacra/creatures from that biome's roster. `NpcDensity.gd` and the `Simulacrum.gd`/`HumanNPC.gd`
+  tells (System L) are reused unchanged; `Biome_Content.npcs` is simply the data list of who can appear
+  in that biome.
+- **Content stubs / incremental authoring (Req 56.4, 56.5).** The full `Biome_Library` is retained in
+  the project even when only a subset of biomes is fully authored. A biome always has defined content
+  **structure** (the schema slots), which may be **populated incrementally**. An unauthored biome's
+  content slots resolve to **placeholders** — a "content stub" built the same way `AssetResolver`
+  resolves missing art (System S): missing NPCs/secrets/puzzle/items degrade to generated placeholder
+  content so the generator still runs and still produces a completable Route, never an error (see Error
+  Handling). Adding real content later never reduces the `Biome_Library`.
+
+#### Biome puzzle placement and solvability (`BiomePuzzle.gd`, NEW — Req 57)
+
+Each traversed biome's `Biome_Puzzle` is placed **within that biome's region** of the Route (Req 57.1).
+The puzzle is handled as a **puzzle-gate** in the reachability model (System I): its required ability/
+item is its opener, and the generator's gate planner emits a `puzzle:<id>` gate whose opener must be
+placed in a Room reachable **before** the puzzle, within the same Run (Req 57.2). The generator never
+places a puzzle whose opener is only reachable **after** it (Req 57.3), enforced by the same
+opener-before-gate rule and re-roll loop that guarantee item-gate completability (Property 2/Property
+3). A new small `BiomePuzzle.gd` owns puzzle placement and declares each puzzle's opener; the actual
+gate entry and solvability check run inside `DungeonGenerator._plan_gates` + `Reachability.completable`
+so a puzzle can never soft-lock a Route.
+
+```gdscript
+# BiomePuzzle.gd (NEW)
+func place_in_biome(route, biome: String, rng) -> Dictionary  # puzzle instance within the biome's region
+#   -> { "id": String, "biome": String, "opener": String, "cell": Vector2i }   # opener = required ability/item id
+func gate_entry(puzzle: Dictionary) -> Dictionary             # { gate = "puzzle:<id>", opener = <ability/item id> }
+```
+
+#### Biome variants (`BiomeVariants.gd`, NEW — Req 58)
+
+A **Biome_Variant** is a **data-driven, open set of modifiers** layered on top of a base Biome. When
+the Generator builds a Biome instance for a Route, that instance is either **plain** (no variant) or
+carries **exactly one** Biome_Variant — variants never stack (Req 58.2, 58.3). The base Biome's
+identity and place are unchanged; the variant **reshapes that instance's** difficulty, possible
+pickups (Death_Drops, Items, and biome-only Items), Biome_Puzzle, NPCs, and story/flavor, overriding
+or augmenting the `Biome_Content` of Req 56 for that one instance (Req 58.4). Because the set is open,
+new variants — the user's examples are **Corrupted/Infected, Negative, Rainbow**, with more to follow —
+are added purely as data in the catalogue, exactly like adding a biome (System F) or an art asset
+(System S); the central generator never changes (Req 58.1).
+
+**Catalogue + selector.** A new `BiomeVariants.gd` holds a `VARIANTS` dict keyed by variant id, each a
+**modifier descriptor**, plus a deterministic rarity-weighted selector that draws **only from the
+unlocked set**:
+
+```gdscript
+# BiomeVariants.gd (NEW) — data-driven, open set of biome modifiers (Req 58.1)
+VARIANTS: Dictionary = {
+  <variant_id: String>: {                 # e.g. "corrupted" | "negative" | "rainbow" (open set)
+    "name":        String,                # display name
+    "difficulty":  float,                 # difficulty multiplier applied to the instance (Req 58.4)
+    "pickups":     Dictionary,            # overrides/augments to Death_Drops / Items / biome_only_items
+                                          #   (DropTable weight deltas + biome_only_item add/replace) (Req 58.4)
+    "puzzle":      Dictionary,            # override/ref for the instance's Biome_Puzzle descriptor; must
+                                          #   still declare a solvable opener (Req 58.11, 57) — {} => keep base
+    "npcs":        Array,                 # override/added biome NPCs for the instance (Req 58.4; System L)
+    "story_ref":   String,                # story/flavor id (dialogue/lore overlay); resolved as data
+    "overlay_ref": String,                # OPTIONAL variant art/overlay/palette id (System S); "" => keep base
+    "weight":      float,                 # per-variant rarity/selection weight (Tunable; Req 58.6, 48)
+  }
+}
+# Deterministic, rarity-weighted selection drawn ONLY from the unlocked set:
+func pick(rng: RandomNumberGenerator, biome_id: String, unlocked: Array) -> String
+#   -> a variant id present in `unlocked`, or "" for plain.
+#   Draw order: first a plain-vs-variant roll (PLAIN_VS_VARIANT_WEIGHT Tunable), then — if "variant" —
+#   a rarity-weighted choice over the unlocked variants' `weight`s. Draws from `rng` (Game.rng) only,
+#   in this fixed sub-order, so the result is a pure function of (seed, unlocked set) at that draw point.
+#   unlocked == [] => always "" (every biome plain, Req 58.9).
+```
+
+- **Deterministic selection from the Seed (Req 58.5, 58.6).** `pick()` is driven entirely by
+  `Game.rng` in the fixed draw order (see Architecture → Determinism and ordering and System J), so the
+  variant assignment is **folded into the deterministic generation inputs**: the per-biome variant is
+  part of what `(seed, Attuned_Set, Route_Length)` — parameterized by the persistent unlocked-variant
+  set — determines. The plain-vs-variant weighting and the per-variant rarity weights are **Tunables**
+  (Req 48; see the Tunables table). Same seed + same unlocked set ⇒ same variant assignment, so
+  Property 1 still holds.
+- **Unlock, discovery, and persistence (Req 58.7, 58.8, 58.9).** The set of **unlocked**
+  Biome_Variants is **Persistent_State** in `user://meta.json` (`unlocked_variants`), discovered over
+  time and surviving death, next to the Attuned_Set, clears, max health, Sparks, NPC roles, persistent
+  chevrons, and `max_route_length`. `pick()` draws **only** from the unlocked set, so an undiscovered
+  variant never appears in a Route; with **nothing unlocked**, every biome is plain (Req 58.9).
+- **Application (Req 58.4).** The chosen variant id is applied as a **modifier when the biome region is
+  built** — folded into the generation pass, not a second generator. `DungeonGenerator.generate`
+  (via `RouteBuilder`) asks `BiomeVariants.pick()` per traversed biome, then applies the descriptor:
+  scaling the instance's difficulty, merging its `pickups` deltas into the depth/biome-weighted loot
+  and `DropTable`, swapping/augmenting its `Biome_Puzzle` and `npcs`, and binding its `story_ref` /
+  `overlay_ref`. The base Biome identity (which place it is, its position on the Route) is untouched.
+
+```gdscript
+# BiomeVariant application — folded into the biome-region build (RouteBuilder / DungeonGenerator)
+func apply_variant(biome_inst: Dictionary, variant_id: String) -> Dictionary
+#   variant_id == "" -> return biome_inst unchanged (plain).
+#   else overlay VARIANTS[variant_id] onto a COPY of the instance's Biome_Content:
+#     difficulty *= descriptor.difficulty; merge pickups; override puzzle/npcs if present;
+#     bind story_ref + overlay_ref. Base biome id/place unchanged (Req 58.2, 58.4).
+#   The resulting puzzle/opener and required biome-only items are declared to the gate planner
+#     so opener-before-gate + reachability still run on the modified instance (Req 58.11; System I).
+```
+
+- **Validity (Req 58.11).** After a variant modifies an instance's pickups/puzzle/difficulty, the
+  **same** Reachability check (System I, Property 2/Property 3) runs on the resulting Route, and the
+  re-roll loop (System H / System I) applies unchanged. The variant must **declare** its puzzle override
+  and any required biome-only-item changes to the gate planner so the opener-before-gate rule still
+  holds, so a variant can **never** make a Route uncompletable.
+- **Iteration-1 is plain (Req 58.10).** The first iteration / proof-of-concept build uses **plain
+  biomes only** — `unlocked_variants` is empty, so `pick()` always returns `""` — consistent with the
+  iteration-1 scope of Req 56.7–56.8. Variants come online later by unlocking them as data, with no
+  generator change.
+- **Variant art (System S).** A variant MAY carry an `overlay_ref` (and/or palette swap) so a
+  Corrupted/Rainbow instance *looks* reshaped; these resolve through `AssetResolver` and tie into the
+  System S overlay/palette layer exactly like a biome's own `overlay_ref` — a graceful,
+  placeholder/no-overlay fallback when absent (Property 36). The look change is cosmetic; the gameplay
+  reshape is the descriptor above.
+
+#### Iteration-1 scope (Req 56.7, 58.10)
+
+For **iteration 1**, exactly **one** biome (the first, Hollow Crypts) plus the first Dungeon is fully
+built and tested as a playable, end-to-end **Route_Length 1** run — one biome's authored
+`Biome_Content` (NPCs, secrets, biome-only Items, one solvable Biome_Puzzle) leading to the first
+Dungeon and its single Boss. All biomes are **plain** in this build (`unlocked_variants` empty, Req
+58.10). The remaining biomes of the `Biome_Library` are present as **defined structure / content
+stubs** to be authored later. The Route system, the Board selection, the `Biome_Content` schema, the
+`Biome_Variant` catalogue, and the puzzle-gate reachability are all designed up front so later biomes,
+longer Route_Lengths, and unlocked variants are enabled by adding data — not by rewriting the
+generator.
+
+#### Flow
+
+```mermaid
+graph TD
+    Meta["Meta.gd\nmax_route_length (Persistent_State)"] -->|"board_route_lengths()\n(dim locked)"| Board["The Board (System K)\nchoose unlocked Route_Length\n+ dungeon/rank (Req 37)"]
+    Board -->|"choose_route_length(n)"| GameSR["Game.start_run()\nnext_route_length"]
+    GameSR -->|"build(route_length)"| RB["RouteBuilder.gd (NEW)\nfirst N biomes of BIOME_ORDER"]
+    RB -->|"ordered route"| Gen["DungeonGenerator.generate(rng, route)\nsize by len(route) -> TARGET_RUN_MINUTES"]
+    MetaV["Meta.gd\nunlocked_variants (Persistent_State)"] -->|"unlocked set"| BV["BiomeVariants.gd (NEW)\npick(rng, biome, unlocked)\nplain or ONE variant, rarity-weighted"]
+    Gen -->|"per traversed biome\n(fixed draw order)"| BV
+    BV -->|"apply_variant()\nreshape difficulty/pickups/puzzle/npcs/story"| Gen
+    Gen -->|"place each biome's puzzle\n(in-region, post-variant)"| BP["BiomePuzzle.gd (NEW)\nopener declaration"]
+    BP -->|"gate = puzzle:<id>"| Reach["Reachability.completable()\nopener-before-gate (puzzle + biome-only item)"]
+    Gen --> Reach
+    Reach -->|"ok"| Dungeon["End Dungeon + one Boss\n(Boss_Ladder, Req 26)"]
+    Reach -. "fail" .-> Gen
+    Clear(["Clear highest unlocked length"]) -->|"unlock_next_route_length()"| Meta
+    DiscoverV(["Discover a Biome_Variant"]) -->|"unlock_variant(id)"| MetaV
+```
+
 ## Data Models
 
 ### Item catalogue schema (`Items.gd`)
@@ -936,10 +1484,32 @@ BIOMES: Dictionary = {
       "emissive": bool,             #   true => feeds the selective-bloom mask (fireflies/embers/glitch)
       "drift": Vector2,             #   drift direction (normalized)
       "drift_speed": float },       #   drift speed px/s
+    # --- NEW: Biome_Content (System V / Req 56), data-driven; unauthored biomes resolve to content stubs ---
+    "npcs": Array[Dictionary],      # NEW: biome NPCs encounterable in this biome's dungeon region (Req 56.1);
+                                    #      MAY include rare Human_NPCs (Req 39) + biome-flavored simulacra (System L);
+                                    #      min count = MIN_NPCS_PER_BIOME Tunable; [] => stub (placeholder NPCs)
+    "secrets": Array[Dictionary],   # NEW: biome secrets (hidden rooms/caches/passages); min = MIN_SECRETS_PER_BIOME;
+                                    #      [] => stub (placeholder secrets)
+    "biome_only_items": Array[String], # NEW: Items/keys/power-ups obtainable ONLY in this biome (Req 56.2);
+                                    #      count = BIOME_ONLY_ITEM_COUNT Tunable; required ones placed on a
+                                    #      reachable pre-gate path by the generator (Req 56.3)
+    "puzzle": {                     # NEW: at least one Biome_Puzzle descriptor (Req 56.1, 57); omit => stub puzzle
+      "id": String,                 #   puzzle id (gate kind becomes "puzzle:<id>")
+      "opener": String,             #   ability/item id required to solve; must be obtainable earlier in the Run (Req 57.2)
+      "kind": String },             #   puzzle flavor (block-push, switch, light, etc.)
+    "authored": bool,               # NEW: true => fully authored Biome_Content; false => content stub (Req 56.4, 56.5)
+    "variant": String,              # NEW: RUNTIME-ONLY resolved Biome_Variant for THIS generated instance
+                                    #      (Req 58) — "" => plain, else a variant id present in unlocked_variants;
+                                    #      NOT part of the authored biome definition — set per-run by
+                                    #      BiomeVariants.pick() (step 0.5) and consumed by apply_variant();
+                                    #      see the BiomeVariants catalogue schema below
     "enemies": Array[Dictionary],   # see enemy entry below
     "boss":    Dictionary,          # boss entry (shares enemy fields + boss extras)
   }
 }
+# Content stub: when "authored" is false (or a content slot is empty), the generator substitutes
+#   placeholder NPCs/secrets/biome-only Items/puzzle (the AssetResolver placeholder philosophy, System S),
+#   so an unauthored biome still produces a completable Route rather than erroring (Error Handling, Req 56.4).
 # enemy entry:
 { "id": String, "name": String, "arch": Arch,  # one of 9 archetypes
   "hp": int,            # base sword hits (spin counts as 2)
@@ -958,6 +1528,44 @@ BIOME_ORDER := ["crypts","warrens","thornwild","emberdeep","glacier","sunken","a
 GLOBAL: Array   # any-biome enemies;  RARE: Array  # low-chance anywhere
 ```
 
+### Biome_Variant catalogue schema (`BiomeVariants.gd`, System V / Req 58)
+
+Biome_Variants are a **data-driven, open set** of modifier descriptors keyed by variant id. Adding a
+variant is adding a `VARIANTS` entry (plus any art refs) — the central generator never changes (Req
+58.1). A generated Biome instance carries at most one variant id in its runtime `variant` field (""
+= plain); `apply_variant` overlays the descriptor onto a copy of that instance's `Biome_Content`.
+
+```gdscript
+VARIANTS: Dictionary = {
+  <variant_id: String>: {          # e.g. "corrupted" | "negative" | "rainbow" (OPEN set — examples)
+    "name":        String,         # display name
+    "difficulty":  float,          # multiplier applied to the instance's difficulty (Req 58.4)
+    "pickups": {                   # overrides/augments to the instance's possible pickups (Req 58.4):
+      "drop_weight_deltas": Dictionary,  #   deltas merged into DropTable weights (Death_Drops / Items)
+      "biome_only_add":     Array,       #   extra biome-only Item ids this variant adds
+      "biome_only_replace": Dictionary } ,#   id -> id substitutions for the instance's biome-only Items
+    "puzzle":      Dictionary,     # override Biome_Puzzle descriptor ({} => keep base); if present it MUST
+                                   #   declare a solvable "opener" so Reachability still holds (Req 58.11, 57)
+    "npcs":        Array,          # overridden/added biome NPCs for the instance (Req 58.4; System L)
+    "story_ref":   String,         # story/flavor id (dialogue/lore overlay) — resolved as data
+    "overlay_ref": String,         # OPTIONAL variant art/overlay/palette id (System S); "" => keep base look
+    "weight":      float,          # per-variant rarity/selection weight (Tunable; Req 58.6, 48)
+  }
+}
+# Selection (deterministic, unlocked-only; drawn from Game.rng in fixed order — Architecture step 0.5):
+func pick(rng: RandomNumberGenerator, biome_id: String, unlocked: Array) -> String
+#   -> variant id in `unlocked`, or "" (plain). unlocked == [] => always "" (Req 58.9).
+#   plain-vs-variant roll uses PLAIN_VS_VARIANT_WEIGHT (Tunable); the variant choice is rarity-weighted
+#   by each unlocked variant's `weight` (Tunable). Pure function of (seed, unlocked set) at that draw.
+func apply_variant(biome_inst: Dictionary, variant_id: String) -> Dictionary
+#   "" -> unchanged (plain). else overlay the descriptor onto a COPY of the instance's Biome_Content
+#   (scale difficulty, merge pickups, override puzzle/npcs, bind story_ref/overlay_ref); base biome
+#   id/place unchanged (Req 58.2). Declares the resulting puzzle/required-items to the gate planner so
+#   opener-before-gate + reachability run on the modified instance (Req 58.11; System I).
+# The set of UNLOCKED variant ids is Persistent_State (Meta.unlocked_variants, user://meta.json);
+#   discovered over time, surviving death (Req 58.7, 58.8). Iteration-1 build: empty => all plain (Req 58.10).
+```
+
 ### Boss ladder entry schema (`BossRoster.gd`)
 
 ```gdscript
@@ -969,6 +1577,15 @@ ROSTER: Array[Dictionary] = [
 { "id","rank","name","arch","hp"=12+rank*2,"dmg"=8+floor(r/20)*2,
   "speed"=48+rank*0.8,"aggro","color","tags"+["boss"],"boss":true,
   "loot","gimmick","phases": Array }   # phase count 2→3→4 at ranks 20/60/85, later phases faster
+
+# Souls per-attack schedule (Req 51) — carried on each pattern as it is scheduled at runtime,
+#   with params resolved from Feel/Tunables and scaled by Rank (not stored in the fixed ROSTER):
+{ "pattern": String,          # one of the 7 patterns
+  "delay": float,             # strike delay after telegraph, randf_range(BOSS_DELAY_MIN,MAX) scaled by Rank (Req 51.1)
+  "is_feint": bool,           # true with BOSS_FEINT_PROB(rank); withhold/extend strike on first commit (Req 51.2)
+  "damage": int }             # heavy damage from BOSS_DMG_PER_HIT scaling + BOSS_HITS_TO_KILL target (Req 51.3)
+# At rank 1 (Gloamwing, clears==0): delay uses the gentle end of the window, is_feint is forced false,
+#   and damage is reduced (Req 51.8). Delay spread, feint prob, and damage scale up with Rank (Req 51.7).
 ```
 
 ### Room / door-graph model (`Room.gd`, `DungeonGenerator.gd`)
@@ -985,6 +1602,26 @@ gate: String                   # "" | cracked/water/gap/web/boulder/peg
 # Reachability.GATE_ITEMS maps gate tag -> opener item id
 # Rooms are stitched into continuous TileMapLayer(s) for the free-scroll camera (System S);
 #   generation/collision/reachability still operate per-room on these 20×14 grids.
+```
+
+### Route model (`RouteBuilder.gd`, System V)
+
+The **Route** is a derived structure, not persisted raw: an ordered list of biome ids of length
+`Route_Length`, built as the first `Route_Length` biomes of the fixed order. It is a pure function of
+the chosen length and `Bestiary.BIOME_ORDER`, so it is reproduced on resume from the saved
+`route_length` (and recorded explicitly in `run.json` as `route` for clarity / forward-compat).
+
+```gdscript
+# Route (derived, built by RouteBuilder.build(route_length))
+Route = Array[String]                 # ordered biome ids, e.g. ["crypts","warrens","thornwild"]
+#   len(Route) == Route_Length; Route == Bestiary.BIOME_ORDER.slice(0, route_length)
+#   The one end Dungeon (one Boss, Boss_Ladder/Req 26) follows the last biome in Route.
+#
+# Per-biome variant assignment (System V / Req 58) is NOT stored on the Route itself; it is drawn
+#   deterministically per traversed biome by BiomeVariants.pick(Game.rng, biome, unlocked_variants)
+#   during generation (Architecture step 0.5). Because it is a pure function of
+#   (seed, Attuned_Set, Route_Length, unlocked_variants) it is regenerated on resume rather than
+#   stored raw — the same convention the Route biomes themselves use (see run.json below).
 ```
 
 ### Art-asset reference schema (`AssetResolver.gd`, System S)
@@ -1019,6 +1656,42 @@ func has_real_asset(ref_id: String)  -> bool              # false => placeholder
 Every id resolves to **either** a real asset **or** an explicit placeholder — missing art never
 crashes a system (see Error Handling and Property 36).
 
+### Death_Drop / DropTable schema (`DropTable.gd`, System F / Req 52)
+
+```gdscript
+# A single Death_Drop descriptor produced by a roll:
+Death_Drop = {
+  "kind":  String,   # bomb | arrow | bullet | key | note | weapon | health | exp | chevron | sparks
+  "color": String,   # only for kind=="chevron": one of the 8 Chevron colors; "" otherwise
+  "amount": int,     # ammo/bullet count, sparks amount, chevron count (usually 1), health units, etc.
+}
+
+# The data-driven, rarity + depth weighted table (a Tunable per Req 48):
+DROP_WEIGHTS: Dictionary = {
+  <rarity: String>: {              # "common" | "rare" | "elite" | "boss"
+    <depth_band: int>: {           # banded Room Depth (consistent with Req 28 depth scaling)
+      "count":  { ... },           # weighted distribution over how many drops (0..N) — higher rarity/depth => more
+      "kinds":  { <kind>: weight },# weighted kind table — higher rarity/depth => better (weapons/health/rare chevrons)
+      "chevron_colors": { <color>: weight },  # per-color weights (Req 53.3); shiny_light_purple rarest
+    }
+  }
+}
+# exp kind weight is 0 by default (conditional hook; enabled only if an EXP/leveling system exists — Req 52.3).
+# roll(rng, rarity, depth): draw count, then each drop's kind, then (if chevron) color, then amount —
+#   all from Game.rng in this FIXED sub-order so Property 1 determinism holds.
+```
+
+### Chevron balance model (`Chevrons.gd`, System K / Req 53, 54)
+
+```gdscript
+# Per-color integer balances for the 8 colors; split by persistence:
+Chevron_Balance = { <color: String>: int }   # color ∈ the 8 defined colors
+COLORS      := ["gold","silver","black","blue","rainbow","brown","pink","shiny_light_purple"]
+PERSISTENT  := ["shiny_light_purple","rainbow","black"]   # saved to user://meta.json (Req 53.5, 54.3)
+RUN_SCOPED  := ["gold","silver","blue","brown","pink"]    # in user://run.json; lost on run end (Req 53.6, 54.3)
+# Independent of the Sparks balance (Wallet): no operation on one touches the other (Req 54.4).
+```
+
 ### Save-file schemas
 
 ```gdscript
@@ -1027,15 +1700,37 @@ crashes a system (see Error Handling and Property 36).
   "clears": int,                       # boss-ladder position
   "max_containers": int,               # NEW: persistent max health (Req 42)
   "sparks": int,                       # NEW: banked currency (Req 36.3)
-  "npc_roles": { <role>: <npc_id> } }  # NEW: recruited human NPC roles (Req 39.3)
+  "npc_roles": { <role>: <npc_id> },   # NEW: recruited human NPC roles (Req 39.3)
+  "max_route_length": int,             # NEW: highest unlocked Route_Length (Persistent_State, default 1,
+                                       #      first-iteration cap MAX_ROUTE_LENGTH = 7); default 1 on corrupt (Req 55.5, 55.8)
+  "unlocked_variants": Array,          # NEW: unlocked Biome_Variant ids (Persistent_State, Req 58.7, 58.8);
+                                       #      default [] => plain biomes only (Req 58.9, 58.10); discovered over
+                                       #      time, survives death; unknown/corrupt entries ignored (Error Handling)
+  "chevrons": {                        # NEW: persistent Chevron balances (Req 53.5, 54.3)
+    "shiny_light_purple": int, "rainbow": int, "black": int } }
 
 # Resumable_Save — user://run.json (SaveSystem.gd, NEW)
 { "seed": int,
+  "route_length": int,                                       # NEW: this Run's chosen Route_Length (Req 55)
+  "route": Array,                                            # NEW: ordered biome ids of the Run's Route;
+                                                             #      derivable from (seed, route_length) but stored so
+                                                             #      resume reproduces the same Route (Req 55, Property 4)
+  # NOTE: the per-biome Biome_Variant assignment (Req 58) is NOT stored here — it is a pure function of
+  #   (seed, Attuned_Set, route_length, Meta.unlocked_variants) and is regenerated on resume by replaying
+  #   BiomeVariants.pick() in the fixed draw order (Architecture step 0.5), the same approach used for the
+  #   dungeon layout itself. Because unlocked_variants is Persistent_State that cannot shrink mid-run, the
+  #   regenerated assignment matches what was saved (Property 1, Property 4).
   "depth": int, "current_cell": [x,y],
   "player_pos": [x,y], "hearts": int,
   "run_items": { <id>: true }, "equipped": String,
   "keys": int, "buffs": Array, "unbanked_sparks": int,
+  "ammo": { "arrows": int, "bombs": int, "bullets": int },  # NEW: bullets alongside arrows/bombs (Req 52.2)
+  "notes": int,                                             # NEW: collected Notes count (Req 52.2)
+  "exp": int,                                               # NEW: conditional — only when an EXP system exists (Req 52.3)
+  "chevrons": {                                             # NEW: run-scoped Chevron balances (Req 53.6, 54.3)
+    "gold": int, "silver": int, "blue": int, "brown": int, "pink": int },
   "cleared_rooms": Array }   # mutable progress; dungeon itself is regenerated from seed
+# "health" is already captured by "hearts" above (collected health pickups restore current hearts, Req 52.7).
 ```
 
 ### Tunables table (`Feel.gd`) — confidence flags per Requirement 48
@@ -1065,8 +1760,23 @@ crashes a system (see Error Handling and Property 36).
 | weak-window damage mult | ×2 | design |
 | boss HP formula | 12 + Rank×2 | design |
 | boss speed formula | 48 + Rank×0.8 | design |
+| `BOSS_DELAY_MIN` (strike delay window min, Rank-scaled) | TBD | [verify] |
+| `BOSS_DELAY_MAX` (strike delay window max, Rank-scaled) | TBD | [verify] |
+| `BOSS_FEINT_PROB` (feint probability per Rank; 0 at rank 1 / Gloamwing) | TBD | [approx] |
+| `BOSS_DMG_PER_HIT` (damage-per-hit scaling with Rank) | TBD | [verify] |
+| `BOSS_HITS_TO_KILL` (target hits-to-kill at full health per Rank) | TBD | [verify] |
+| `BOSS_PHASE_NEW_MOVES` (new patterns/variants added per phase transition) | TBD | [approx] |
+| `DROP_WEIGHTS` (rarity-weighted enemy Death_Drop table, keyed by rarity + Depth) | TBD | [verify] |
+| `CHEVRON_COLOR_WEIGHTS` (per-color drop weights, 8 colors; shiny light purple rarest) | TBD | [approx] |
+| `EXP_DROP_WEIGHT` (conditional — 0 unless an EXP/leveling system exists) | 0 (disabled) | [verify] |
 | bomb blast radius / knockback | TBD | [verify] |
-| `TARGET_RUN_MINUTES` | 15–25 (grows with biome count) | [verify] |
+| `TARGET_RUN_MINUTES` | 15–25 at Route_Length 1 (scales up with chosen Route_Length) | [verify] |
+| `MAX_ROUTE_LENGTH` (max unlockable Route_Length; architected up to Biome_Library size) | 7 (first-iteration) | [approx] |
+| `MIN_NPCS_PER_BIOME` (minimum biome NPCs in Biome_Content, Req 56) | TBD (≥2) | [approx] |
+| `MIN_SECRETS_PER_BIOME` (minimum biome secrets in Biome_Content, Req 56) | TBD (≥2) | [approx] |
+| `BIOME_ONLY_ITEM_COUNT` (biome-only Items per biome, Req 56) | TBD (≥1) | [verify] |
+| `BIOME_VARIANT_WEIGHTS` (per-Biome_Variant rarity/selection weights governing which unlocked variant the Generator rolls, Req 58.6) | TBD (per-id) | [approx] |
+| `PLAIN_VS_VARIANT_WEIGHT` (plain-vs-variant weighting — how often a Biome instance is plain vs. carrying a variant, Req 58.6) | TBD | [approx] |
 | `BASE_CANVAS` | 320 × 224 px | exact (LOCKED by art spec) |
 | `SCALE_FACTOR` | ×6 → 1920×1344 (×5 → 1600×1120 fallback); integer only | design (LOCKED) |
 | `CAMERA_SMOOTH` | ~5–8 (position-smoothing speed) | [verify] |
@@ -1087,42 +1797,67 @@ reachability** (Property 2). They are the strongest reasons to invest in propert
 are universal statements over an infinite seed space, and both are the kind of invariant a handful of
 example seeds would never adequately cover.
 
-### Property 1: Deterministic generation from seed and attuned set
+### Property 1: Deterministic generation from seed, attuned set, route length, and unlocked variants
 
-*For all* seeds and Attuned_Sets, generating a Dungeon twice produces an identical Door_Graph
-structure, identical Room grids, identical loot placement, and identical enemy/boss placement. (Spawn
-determinism, Req 22.5, is subsumed here.)
+*For all* seeds, Attuned_Sets, Route_Lengths, **and unlocked-variant sets**, generating a Dungeon twice
+from the same `(seed, Attuned_Set, Route_Length, unlocked_variants)` produces an identical ordered
+**Route** (same biomes in the same order), identical **per-biome variant assignment** (each traversed
+biome plain or the same single variant id), identical Door_Graph structure, identical Room grids,
+identical loot placement, identical enemy/boss placement, identical **Biome_Puzzle placement**, and
+identical **Death_Drop outcomes** (drop kinds, chevron colors, and amounts). (Spawn determinism, Req
+22.5, is subsumed here; **Death_Drop determinism, Req 52.5, is also subsumed here** because drops are
+drawn from `Game.rng` in the fixed per-room/enemy draw order; **Route_Length is folded into the
+deterministic inputs (System V, Req 55)**, and the **variant assignment is folded in too — the
+persistent unlocked-variant set parameterizes determinism alongside the Attuned_Set (System V, Req
+58.5)**, so same `(seed, Attuned_Set, Route_Length, unlocked_variants)` ⇒ same dungeon — no separate
+determinism property is needed.)
 
-**Validates: Requirements 31.1, 31.2, 22.5**
+**Validates: Requirements 31.1, 31.2, 22.5, 52.5, 55.9, 58.5**
 
 ### Property 2: Every handed-over dungeon is completable
 
-*For all* seeds, the Dungeon actually handed to the Player is reachable from its start Room to its
-exit Room using the Attuned_Set plus the openers placed before each Gate; a layout that fails the
-reachability check is re-rolled and never handed over.
+*For all* seeds **and unlocked-variant sets**, the Dungeon actually handed to the Player is reachable
+from its start Room to its exit Room using the Attuned_Set plus the openers placed before each Gate; a
+layout that fails the reachability check is re-rolled and never handed over. This holds on the
+**post-variant** Route: any Biome_Variant's reshaped pickups/puzzle/difficulty (System V / Req 58.4)
+are applied before the same reachability check and re-roll loop, so a variant can never make the
+handed-over Route uncompletable (Req 58.11).
 
-**Validates: Requirements 30.4, 30.5**
+**Validates: Requirements 30.4, 30.5, 58.11**
 
-### Property 3: Each gate's opener is placed before the gate
+### Property 3: Each gate's opener is placed before the gate (items, keys, and biome puzzles)
 
-*For all* seeds and gate plans, for every Gate in the Dungeon, a source of that Gate's required
-item/key sits in a Room reachable from the start without holding the gated item.
+*For all* seeds and gate plans, for every Gate in the Dungeon — **including every placed Biome_Puzzle,
+which is modeled as a `puzzle:<id>` gate (System V / Req 57)** — a source of that Gate's required
+item/key/ability (the puzzle's opener) sits in a Room reachable from the start without holding the
+gated item, and **within the same Run before the gate**. In particular every traversed biome's
+Biome_Puzzle is solvable with an opener obtainable earlier in the Run, so a puzzle never soft-locks a
+Route; and any **biome-only Item required to complete the Route** is likewise placed on a reachable
+pre-gate path (Req 56.3). (This extends the opener-before-gate guarantee to puzzle-gates and required
+biome-only openers rather than adding a near-duplicate property.) This holds equally when a
+**Biome_Variant** has reshaped the instance's puzzle or biome-only Items (System V / Req 58.4): the
+variant declares its puzzle override and changed required items to the gate planner, so
+opener-before-gate is enforced on the **post-variant** instance and a variant can never soft-lock a
+Route (Req 58.11).
 
-**Validates: Requirements 30.1, 30.2, 30.3, 27.4**
+**Validates: Requirements 30.1, 30.2, 30.3, 27.4, 56.3, 57.1, 57.2, 57.3, 58.11**
 
 ### Property 4: Resumable-save round-trip is identity
 
-*For all* in-progress Run states, deserializing a serialized save restores an equal Run state, and
-the dungeon regenerated from the saved Seed matches the Dungeon that was saved.
+*For all* in-progress Run states, deserializing a serialized save restores an equal Run state
+(including the Run's `route_length` and ordered `route`), and the dungeon regenerated from the saved
+Seed **and `route_length`** matches the Dungeon that was saved.
 
 **Validates: Requirements 45.2, 45.3**
 
 ### Property 5: Persistent-state serialization round-trip
 
 *For all* Persistent_State dictionaries (Attuned_Set, clears, max-health containers, banked Sparks,
-NPC roles), loading what was saved yields an equal dictionary.
+NPC roles, persistent chevrons, the highest unlocked `Route_Length`, **and the set of unlocked
+Biome_Variants**), loading what was saved yields an equal dictionary (unknown/malformed variant ids are
+dropped on load, so the round-trip is over the catalogue-valid unlocked set).
 
-**Validates: Requirements 18.1, 42.1, 36.3**
+**Validates: Requirements 18.1, 42.1, 36.3, 55.5, 58.7**
 
 ### Property 6: Diagonal-speed law
 
@@ -1228,7 +1963,8 @@ items that are ATTACK/UTILITY and not already Attuned, and no PASSIVE or CONSUMA
 
 *For all* Run-Scoped_States and Persistent_States, ending a Run in death empties the Run-Scoped_State
 (found items, passives, consumables, keys, town Buffs, unbanked Sparks) while leaving the
-Persistent_State (Attuned_Set, persisted max health, banked Sparks, clears, NPC roles) unchanged.
+Persistent_State (Attuned_Set, persisted max health, banked Sparks, clears, NPC roles, the highest
+unlocked `Route_Length`, and the set of unlocked Biome_Variants) unchanged.
 
 **Validates: Requirements 18.4, 44.2, 44.3, 36.4, 42.4**
 
@@ -1249,9 +1985,13 @@ defined effect, with no dependence on hardcoded enemy identity.
 ### Property 23: Every harmful action is telegraphed before it damages
 
 *For all* harmful Enemy and Boss actions, a readable Telegraph is shown before the action's first
-damaging frame.
+damaging frame. For Bosses under Souls difficulty (System G / Req 51), the variable strike delay lives
+*between* the shown Telegraph and the strike and always stays within the configured
+`[BOSS_DELAY_MIN, BOSS_DELAY_MAX]` window, and no Boss deals first-contact damage from off-screen — so
+telegraph-first fairness holds even as timing becomes unpredictable. (This extends the property to the
+Souls fairness-under-difficulty guarantee rather than adding a near-duplicate.)
 
-**Validates: Requirements 20.1, 24.1**
+**Validates: Requirements 20.1, 24.1, 51.1, 51.11, 20.2**
 
 ### Property 24: Spawn-rule invariants hold
 
@@ -1361,6 +2101,74 @@ System T.)*
 
 **Validates: Requirements 50.3, 45.1**
 
+### Property 38: Death-drop quantity and quality scale with enemy rarity and depth
+
+*For all* enemy rarities and Room Depths, the expected number and quality of Death_Drops rolled from
+the `DropTable` are **non-decreasing** as enemy rarity increases (common → rare → elite → boss) and as
+Room Depth increases — common enemies yield fewer/lower-quality drops and rarer/elite enemies and
+bosses yield more/higher-quality drops. (Determinism of the actual draw is covered by Property 1; this
+property captures the rarity/depth *scaling* that Property 1 does not.)
+
+**Validates: Requirements 52.1, 52.4**
+
+### Property 39: Chevron persistence partition
+
+*For all* run outcomes (Clear or death), exactly the three colors {shiny light purple, rainbow, black}
+are retained as Persistent_State and exactly the five colors {gold, silver, blue, brown, pink} are
+discarded as Run-Scoped_State — the eight colors partition cleanly into these two sets with no color in
+both or neither.
+
+**Validates: Requirements 53.5, 53.6, 54.3**
+
+### Property 40: Dual-economy independence
+
+*For all* sequences of Sparks operations (earn/spend/bank/lose) and Chevron operations
+(add/spend/lose) in any interleaving, a Sparks operation never changes any per-color Chevron balance
+and a Chevron operation never changes the Sparks balance — the two economies are accounted as
+independent totals.
+
+**Validates: Requirements 54.4**
+
+### Property 41: Route-length monotonic unlock
+
+*For all* clear histories, a `Route_Length` N is selectable at The Board **if and only if** N == 1 or
+the Player has previously cleared Route_Length N−1 (equivalently, N ≤ the highest unlocked length), and
+the highest unlocked `Route_Length` is **monotonically non-decreasing** over a session — clearing the
+currently highest unlocked length raises it by exactly one (capped at `MAX_ROUTE_LENGTH`), and no
+outcome (including death) ever lowers it.
+
+**Validates: Requirements 55.3, 55.4, 55.5, 55.6**
+
+### Property 42: Route composition is the first N biomes ending in one dungeon
+
+*For all* chosen Route_Lengths N (1 ≤ N ≤ `MAX_ROUTE_LENGTH`), the built Route is exactly the first N
+biomes of the fixed ordered progression (`Bestiary.BIOME_ORDER.slice(0, N)`, in order) and the Run ends
+in exactly **one** end Dungeon containing exactly **one** Boss (from the Boss_Ladder, Req 26) — N biomes
+in sequence leading to one Dungeon, never one Dungeon per biome.
+
+**Validates: Requirements 55.1, 55.2, 55.9**
+
+### Property 43: Authored biomes carry complete Biome_Content
+
+*For all* biomes flagged `authored`, the biome's `Biome_Content` includes at least `MIN_NPCS_PER_BIOME`
+NPCs, at least `MIN_SECRETS_PER_BIOME` secrets, at least one biome-only Item, and at least one
+Biome_Puzzle; an unauthored biome instead resolves its empty content slots to placeholder content stubs
+(so the generator still produces a completable Route rather than erroring — see Error Handling).
+
+**Validates: Requirements 56.1, 56.4, 56.5**
+
+### Property 44: Biome variant selection is deterministic and drawn only from the unlocked set
+
+*For all* `(seed, unlocked_variants, route_length)`, the per-biome variant assignment produced during
+generation gives each traversed biome a variant that is **either plain (`""`) or exactly one id present
+in `unlocked_variants`** — never a stacked pair, never an id outside the unlocked set — and that
+assignment is **identical across regenerations** from the same inputs. In particular, when
+`unlocked_variants` is empty every traversed biome is plain. (Variant *application* preserving
+completability and opener-before-gate is covered by Properties 2 and 3 extended for Req 58.11, not
+re-stated here.)
+
+**Validates: Requirements 58.3, 58.5, 58.8, 58.9**
+
 ## Error Handling
 
 | Condition | Detection | Handling | Requirement |
@@ -1374,14 +2182,22 @@ System T.)*
 | Attempt to attune a non-attunable item on clear | `Items.can_attune()` false | Silently excluded by `Inventory.attunable_now()`; PASSIVE/CONSUMABLE never enter the Attuned_Set. | 18.2 |
 | Death with unbanked Sparks | `Game.damage_player()` reaches 0 | End the run as death: discard run-scoped state including unbanked Sparks; retain all persistent state; clear the resumable save. No recovery. | 44 |
 | Pedestal/boss pool exhausted (player owns everything) | `_unowned_pool()` empty | Return `""` / drop nothing rather than duplicating an owned item; the Pawnbroker remains the Spark sink. | 17.3, 25.1 |
+| Death_Drop pool exhausted / no valid drop for the rolled slot | `DropTable.roll()` finds no valid kind (e.g. weapon pool empty because the player owns everything) | Spawn **nothing** for that slot (or fall back to a small Sparks drop) rather than erroring; a zero-drop roll is a valid outcome. Determinism (Property 1) is preserved because the same draw order still runs. | 52.1, 52.2 |
+| Chevron-door selected without sufficient chevrons | `Chevrons.spend(color, n)` returns false | Reject the open and give feedback (reuse the town affordability-dimming pattern); the door stays closed and the balance is never driven negative. Since chevron-doors default to optional/side-content, this never blocks a required path (System K). | 53.4, 54.4 |
+| Corrupt / missing `meta.json` chevron fields | `Meta._load()` finds the `chevrons` key absent or malformed | Default the three persistent chevron colors to **zero** on load (consistent with the existing corrupt-`meta.json` default-slate handling above); never crash, and never fabricate a balance. | 53.5, 44.3 |
 | Missing / unresolved art asset (sprite, tileset, palette, icon, overlay) | `AssetResolver.has_real_asset()` false / resource load fails | Fall back to the procedural placeholder (3-tone ramp + outline + dither) for that id and continue; for a per-biome overlay with no `overlay_ref` (or `OVERLAYS_ENABLED` off), render **no overlay**; log the unresolved id once. Missing art degrades to placeholder/no-overlay, never a crash — the swap-in integrity guarantee (System S, Property 36). | 49.2 |
+| Locked `Route_Length` selected at The Board | `choose_route_length(n)` finds `n > Meta.max_route_length()` | Reject the selection — the locked length is **dimmed** (affordability-dimming pattern) and never confirmable, so a Run never starts at a locked Route_Length; the current choice is unchanged. | 55.6, 55.3 |
+| Unauthored biome traversed (content stub) | Biome `authored` is false or a `Biome_Content` slot is empty | Resolve the empty NPC/secret/biome-only-item/puzzle slots to **placeholder content stubs** (the `AssetResolver` placeholder philosophy, System S) and still produce a **completable Route** rather than erroring; the `Biome_Library` is never reduced. | 56.4, 56.5 |
+| Corrupt / missing `meta.json` `max_route_length` | `Meta._load()` finds the key absent, non-int, or out of range | Default to **1** (the safe minimum — only Route_Length 1 unlocked) on load, consistent with the existing corrupt-`meta.json` default-slate handling above; never crash, never fabricate a higher unlock. | 55.5, 44.3 |
+| Rolled Biome_Variant id not in `unlocked_variants`, or an unknown/invalid variant id | `BiomeVariants.pick()` / `apply_variant()` receives an id absent from the unlocked set or from the `VARIANTS` catalogue | Treat the instance as **plain** (no variant) — return/apply `""` — never error; an undiscovered or unknown variant simply does not appear (Req 58.8, 58.9). Determinism is preserved because the plain fallback is the same at that draw point. | 58.8, 58.9 |
+| Corrupt / missing `meta.json` `unlocked_variants` | `Meta._load()` finds the key absent, non-array, or containing non-string / unknown ids | Default to **`[]`** (plain biomes only) on load; drop any unknown/malformed entries, keeping only ids present in the `VARIANTS` catalogue. Consistent with the corrupt-`meta.json` default-slate handling above; never crash, never fabricate an unlock. | 58.7, 58.9, 44.3 |
 
 ## Testing Strategy
 
 The game splits cleanly into a **pure logic layer** (generation, reachability, item/attunement rules,
 boss ladder math, movement/combat math, persistence serialization) and a **scene/engine layer**
 (rendering, input, physics, UI). Property-based testing is applied to the pure logic layer, where the
-37 correctness properties above live; example and integration tests cover the engine layer. The art
+44 correctness properties above live; example and integration tests cover the engine layer. The art
 layer (System S) is mostly engine-side — rendering, lighting, shaders, parallax, and the free-scroll
 camera are covered by example/integration tests, not PBT — with the one exception that the
 **data-driven asset-reference resolution (Property 36)** is pure logic and is property-tested: for all
@@ -1390,10 +2206,18 @@ never null.
 
 **Dual testing approach**
 
-- **Property tests** verify the universal properties above — determinism, reachability,
-  opener-before-gate, serialization round-trips, scaling monotonicity, the item/attunement partition,
-  and the combat/movement math. These are the highest-value tests because they cover an infinite seed
-  space no example set could.
+- **Property tests** verify the universal properties above — determinism (now including Death_Drop
+  outcomes, Property 1), reachability, opener-before-gate, serialization round-trips, scaling
+  monotonicity (including Death_Drop rarity/depth scaling, Property 38), the item/attunement partition,
+  the **Chevron persistence partition (Property 39)**, **dual-economy independence (Property 40)**, the
+  **route-length monotonic unlock (Property 41)**, **route composition — first N biomes ending in one
+  dungeon (Property 42)**, **authored-biome content presence (Property 43)**, **deterministic
+  unlocked-only biome-variant selection (Property 44)**, and the combat/movement math. Determinism
+  (Property 1) now generates each dungeon twice from the same
+  `(seed, Attuned_Set, Route_Length, unlocked_variants)`, and opener-before-gate (Property 3) and
+  completability (Property 2) now cover Biome_Puzzle puzzle-gates, required biome-only openers, and
+  **variant-modified instances (Req 58.11)**. These are the highest-value tests because they cover an
+  infinite seed space no example set could.
 - **Unit (example) tests** cover concrete scenarios and gating edges: no-Crest tap→swing (6.3),
   fresh-start only-the-swing (13.3), dodge grants i-frames (12.2), no-boots A falls through to verbs
   (12.7), seed display (31.3).
@@ -1435,9 +2259,11 @@ reimplement a bespoke framework per test. Each property test:
   (shrunk) toward the smallest failing input.
 
 **Determinism and reachability under test.** Property 1 generates each dungeon twice from the same
-`(seed, Attuned_Set)` and asserts deep structural equality of the door graph, room grids, loot, and
-enemy placement — this is the single most important regression guard, since any accidental global
-`randi()`/`randf()` call or out-of-order draw breaks it. Property 2 asserts
+`(seed, Attuned_Set, Route_Length, unlocked_variants)` and asserts deep structural equality of the
+door graph, room grids, loot, enemy placement, **and the per-biome variant assignment** — this is the
+single most important regression guard, since any accidental global `randi()`/`randf()` call or
+out-of-order draw breaks it. Property 44 additionally asserts each biome's variant is plain or a single
+id from `unlocked_variants` and never leaks an un-unlocked id. Property 2 asserts
 `Reachability.completable()` holds on the dungeon the generator actually returns, across hundreds of
 seeds, and that the re-roll loop never returns a failing layout. Serialization round-trips (Properties
 4 and 5) follow the classic `decode(encode(x)) == x` pattern, the recommended default test for any

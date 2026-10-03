@@ -61,15 +61,29 @@ included.
 - **Run**: A single playthrough, beginning when the Player enters the chosen Dungeon from Vigil and
   ending when the Player returns to Vigil, whether by clearing the Dungeon or by Player_Character
   defeat.
+- **Route**: The ordered sequence of Biomes a single Run traverses in sequence before its one end
+  Dungeon. A Route leads to exactly one end Dungeon containing exactly one Boss (see Boss_Ladder,
+  Requirement 26); a Route is not one Dungeon per Biome. (See Requirement 55.)
+- **Route_Length**: The number of Biomes in a Route. Route_Lengths are unlocked progressively
+  (1 unlocks 2, 2 unlocks 3, and so on) up to a configurable maximum (first-iteration value 7, with
+  the system architected to support higher values up to every Biome in the Biome_Library). The
+  highest unlocked Route_Length is Persistent_State. (See Requirement 55.)
+- **First_Iteration**: The tutorial / proof-of-concept build: a single authored Biome plus one short
+  first Dungeon played as a Route_Length of 1, forming a complete playable vertical slice of the core
+  loop (Vigil → one-Biome Route → short Dungeon → Gloamwing → Clear → return to Vigil), with the rest
+  of the Biome_Library present as defined structure to be authored later. (See Requirement 56.7–56.8
+  and Requirement 55.3.)
 - **Clear**: A Run outcome in which the Player_Character reaches the Dungeon's exit alive, defeats
   the Boss, and claims its guaranteed loot. A Clear triggers Attunement, banks Sparks, and advances
   the Boss_Ladder.
 - **Run-Scoped_State**: State belonging only to the current Run and discarded when the Run ends,
   including found ATTACK/UTILITY items not yet Attuned, PASSIVE items, CONSUMABLE items, keys, town
-  Buffs, and unbanked Sparks.
+  Buffs, unbanked Sparks, and the five run-scoped Chevron colors (gold, silver, blue, brown, pink).
 - **Persistent_State**: State retained across Runs and surviving defeat (meta-progression): the
   Attuned set, persistent maximum-health upgrades, banked Sparks, the Boss_Ladder position (Clears
-  count), and recruited human NPC roles.
+  count), recruited human NPC roles, the three ultra-rare persistent Chevron colors (shiny light
+  purple, rainbow, black), the highest unlocked Route_Length (see Route_Length and
+  Requirement 55), and the set of unlocked Biome_Variants (see Biome_Variant and Requirement 58).
 
 ### Control and feel
 
@@ -100,8 +114,8 @@ included.
 - **PASSIVE_Item**: A run-scoped stat upgrade (for example Sword tier, Shield, Mail, Magic upgrade).
   Does not Attune. (Note: maximum-health upgrades are an explicit exception and persist — see
   Health_Container and Persistent_State.)
-- **CONSUMABLE_Item**: A run-scoped spendable (for example potions, fairies, arrows, bomb ammo).
-  Does not Attune.
+- **CONSUMABLE_Item**: A run-scoped spendable (for example potions, fairies, arrows, bomb ammo, and
+  bullets — bullets being a distinct ammo type alongside arrows and bombs). Does not Attune.
 - **Attunement**: The meta-progression rule by which ATTACK/UTILITY items carried to a Clear become
   permanent and are granted at the start of future Runs.
 - **Attuned_Item**: An ATTACK or UTILITY item that has been Attuned and is part of Persistent_State.
@@ -119,6 +133,26 @@ included.
 - **Biome**: A themed region vocabulary (Hollow Crypts, Silkfall Warrens, Thornwild, Emberdeep,
   Glacier Barrow, Sunken Ruins, The Arcanum), each with its own enemies, hazards, and boss, and each
   asking a different question.
+- **Biome_Library**: The full retained set of all potential Biomes kept in the project. The
+  Biome_Library is retained in full even when only a subset of its Biomes has been authored with
+  complete Biome_Content; Biomes gain their content incrementally as development scales (see
+  Requirement 56).
+- **Biome_Content**: The required per-Biome content a Biome definition carries, authored as
+  data-driven structure: multiple NPCs, multiple secrets, one or more biome-only Items (Items, keys,
+  or power-ups obtainable only within that Biome), and at least one Biome_Puzzle (see
+  Requirement 56).
+- **Biome_Puzzle**: A puzzle associated with a Biome and placed within that Biome's region of a
+  Route. A Biome_Puzzle SHALL be solvable using only an ability or item obtainable before it within
+  the same Run, so it never soft-locks a Route (see Requirement 57).
+- **Biome_Variant**: A data-driven modifier layered on top of a base Biome — for example
+  Corrupted/Infected, Negative, or Rainbow, among an open set that grows as data without changing
+  the central generation algorithm — that reshapes that Biome instance's difficulty, possible
+  pickups (Death_Drops, Items, and biome-only Items), Biome_Puzzle, NPCs, and story/flavor while the
+  underlying Biome identity and place remain. A Biome instance is either plain (no variant) or
+  carries exactly one Biome_Variant; variants do not stack. The Generator chooses a Biome instance's
+  variant (or plain) deterministically from the Seed, rarity-weighted per variant, drawing only from
+  the unlocked set. The set of unlocked Biome_Variants is Persistent_State, discovered over time and
+  persisting across Runs (see Requirement 58).
 - **Telegraph**: A readable wind-up (flash, recoil, glow, crouch) preceding any harmful Enemy or
   Boss action.
 - **Corrupted_Elite**: A rare Techno-Priest or Laser Warthog that leaks into any biome at Depth ≥ 5.
@@ -149,7 +183,27 @@ included.
 ### Town, economy, people
 
 - **Sparks**: The currency, written "⚡," dropped by Enemies and Bosses; banked on a Clear, lost on
-  death if unbanked.
+  death if unbanked. Sparks are the Game's money — the primary spendable resource at Vigil's shops
+  (Forge, Apothecary, The_Last_Call, The_Warm_Machine, Pawnbroker) — and are a system distinct from
+  Chevrons, which are tradeable tokens rather than shop money (see Chevron and Requirement 54).
+- **Death_Drop**: An Item or token spawned at an Enemy's position when that Enemy is defeated, drawn
+  from a rarity-weighted drop table and collected on overlap by the Player_Character (see
+  Requirement 52).
+- **Note**: A collectible, lore-flavoured, tradeable Death_Drop item; a drop type distinct from ammo,
+  keys, weapons, health, and EXP (see Requirement 52).
+- **EXP**: An experience pickup used by an experience/leveling system. EXP is conditional: it applies
+  only WHERE the Game includes an EXP/leveling system. No EXP/leveling system is otherwise specified
+  in this document; such a system would require its own requirement (see Requirement 52).
+- **Chevron**: An upward-pointing, chevron-shaped collectible token that drops from defeated Enemies
+  (rarity-scaled) and sometimes from the environment. Chevrons form a token economy that is separate
+  from Sparks money; they are spent to trade with vendors/NPCs, to open certain doors, and to alter
+  the environment (see Requirement 53). There are eight Chevron colors: gold, silver, black, blue,
+  rainbow, brown, pink, and the ever-rare shiny light purple (seven standard colors plus one
+  ultra-rare special). Of the eight, exactly three are ultra-rare and persist between Runs as
+  Persistent_State — shiny light purple, rainbow, and black — while the other five — gold, silver,
+  blue, brown, and pink — are Run-Scoped_State and are lost on death or Run end.
+- **Shiny_Light_Purple_Chevron**: The rarest, special eighth Chevron color; ultra-rare and persistent
+  across Runs (Persistent_State).
 - **Buff**: A timed or run-scoped effect bought in town; never Attuned.
 - **Rumor**: A truthful-but-partial hint about the next Dungeon drawn from its real generation.
 - **The_Last_Call**: The bar, run by the barkeep Marrow; sells one drink per visit (short Buff plus
@@ -670,12 +724,21 @@ descent feels like escalation rather than only bigger numbers.
 **User Story:** As a player, I want the first world to take 15–25 minutes and runs to grow as more
 biomes unlock, so that session length scales with content.
 
+> **Cross-reference (Route_Length):** The explicit Route_Length the Player chooses at The_Board (see
+> Requirement 55) is the concrete driver of how many Biomes a Run traverses, and therefore of Run
+> length. The looser "scales with the number of available Biomes" wording in this requirement is
+> clarified by, and reconciled with, that model: the chosen Route_Length determines the Biome count
+> for the Run, the shortest unlocked routes target the 15–25 minute first-world duration below, and
+> longer routes take proportionally longer. This note ties the two requirements together without
+> changing the behavior of either.
+
 #### Acceptance Criteria
 
 1. THE Generator SHALL size the first available world so a representative Clear targets a
    15–25 minute Run duration.
 2. THE Generator SHALL derive the target Run duration from a configurable Tunable that increases as
-   the number of Biomes available to the generator increases.
+   the number of Biomes available to the generator increases, where the number of Biomes traversed
+   by a Run is the chosen Route_Length (see Requirement 55).
 3. WHEN more Biomes become available to the generator, THE Generator SHALL lengthen the generated
    Dungeon (more Rooms along the route) so the target Run duration grows accordingly.
 
@@ -986,7 +1049,22 @@ flags, so that we can tune by playtest instead of editing code.
    duration), dodge i-frame duration (~0.3–0.5 s), tap-vs-hold hold-threshold duration (~0.15–0.25 s),
    hit-stun duration, knockback magnitude, sword reach (~1 tile), swing-active duration, Weak_Window
    duration (~1.5 s), Boss HP formula (12 + Rank × 2), Boss speed formula (48 + Rank × 0.8), bomb
-   blast radius, bomb knockback magnitude, authentic-diagonal toggle, and target Run duration.
+   blast radius, bomb knockback magnitude, authentic-diagonal toggle, target Run duration, Boss
+   attack delay window minimum (`[verify]`), Boss attack delay window maximum (`[verify]`), Boss
+   feint probability per Rank (`[approx]`), Boss damage-per-hit scaling with Rank (`[verify]`), Boss
+   target hits-to-kill at full health per Rank (`[verify]`), Boss phase-new-move count per phase
+   transition (`[approx]`), the rarity-weighted enemy Death_Drop table keyed by Enemy rarity and
+   Depth (`[verify]`), per-Chevron-color rarity/drop weights for all eight colors (`[approx]`), the maximum unlockable
+   Route_Length (first-iteration value 7, `[approx]`, architected to support higher values up to the
+   Biome_Library size per Requirement 55), the tutorial / short first-Dungeon maximum Room count
+   (first-iteration value ~5–8 Rooms, `[approx]`, per Requirement 56.7), the minimum NPC count per Biome (`[approx]`), the minimum
+   secret count per Biome (`[approx]`), the per-Biome biome-only item count (`[verify]`, per
+   Requirement 56), the per-Biome_Variant rarity/selection weights governing which unlocked variant
+   the Generator rolls for a Biome instance (`[approx]`, per Requirement 58), the plain-vs-variant
+   chance/weighting governing how often a Biome instance is plain versus carrying a variant
+   (`[approx]`, per Requirement 58), and —
+   WHERE an EXP/leveling system applies — EXP drop amount/weight (`[verify]`, conditional; no
+   EXP/leveling system is otherwise specified in this document).
 2. THE Game SHALL record a confidence flag of `exact`, `[approx]`, or `[verify]` for each Tunable,
    matching the reference, and SHALL flag the i-frame duration and the dodge i-frame duration
    `[approx]` and marked tune-first.
@@ -1036,3 +1114,279 @@ run, continue a saved run, or exit from a clear menu.
    Game SHALL return to the Title Screen without starting a Run and SHALL leave existing state
    unchanged.
 6. WHEN the Player selects "Exit", THE Game SHALL quit the application.
+
+---
+
+## System G — Bosses (continued)
+
+### Requirement 51: Souls-Style Boss Difficulty
+
+**User Story:** As a player, I want Bosses that demand mastery and are learned through death, so that
+each Boss is a genuine run-ender whose timing I earn the right to beat rather than brute-force.
+
+#### Acceptance Criteria
+
+1. WHEN a Boss begins an attack, THE Game SHALL resolve that attack's strike after a variable delay
+   following its Telegraph, bounded by the Boss attack delay window minimum and maximum Tunables, so
+   that a Telegraph does not resolve into a strike at a single fixed, predictable beat, while the
+   Telegraph itself remains readable per Requirement 24.1.
+2. WHERE a Boss attack is defined as a feint, WHEN the Boss plays that attack's Telegraph, THE Game
+   SHALL either withhold the strike entirely or delay the strike on the first commit so the feint
+   deals no damage on that first commit, with the feinting subset governed by the Boss feint
+   probability per Rank Tunable, so that a Player_Character who dodges too early is punished.
+3. WHEN a Boss attack strikes an overlapping Player_Character that is not in I_Frames, THE Game SHALL
+   deal heavy damage scaled by the Boss damage-per-hit scaling with Rank and the Boss target
+   hits-to-kill at full health per Rank Tunables, such that a small configurable number of unavoided
+   strikes defeats a full-health Player_Character, without hardcoding an exact kill count.
+4. WHEN the Player performs a dodge-dash during a Boss attack's actual strike, THE Game SHALL apply
+   the dodge-dash I_Frames of Requirement 12.2 so the strike passes through without dealing damage;
+   IF the dodge-dash I_Frames elapse before the delayed strike lands, THEN THE Game SHALL leave the
+   Player_Character vulnerable to that strike, with the dodge i-frame duration remaining the Tunable
+   defined in Requirement 48.
+5. WHILE a Boss or the Player_Character is in the recovery of an attack or dodge, THE Game SHALL NOT
+   allow that recovery to be cancelled into another action, so that spacing and patience are
+   required and the Weak_Window of Requirement 24.4 remains the primary punish opportunity.
+6. WHEN a Boss crosses a phase threshold defined in Requirement 24.3 and Requirement 26.5, THE Game
+   SHALL introduce at least one new attack pattern or new delayed or feint variant for the later
+   phase, governed by the Boss phase-new-move count per phase transition Tunable, rather than only
+   raising HP or speed, and SHALL present a readable phase-transition moment.
+7. THE Game SHALL scale the delayed and feint intensity and the damage-per-hit of a Boss upward with
+   that Boss's Rank along the Boss_Ladder.
+8. WHEN the Player_Character's recorded Clears count is 0 AND the Boss is Gloamwing, THE Game SHALL
+   use slow, honest, forgiving attack timing with no feints and reduced damage, so that a new Player
+   learns the Telegraph then dodge-dash then Weak_Window punish loop before Souls-level timing
+   applies at higher Ranks.
+9. THE Game SHALL NOT automatically reduce any Boss's attack timing difficulty, feint frequency, or
+   damage after repeated Player_Character deaths.
+10. WHEN a Boss attack strikes a Player_Character and reduces health to 0, THE Game SHALL end the Run
+    as a death per Requirement 44, discarding Run-Scoped_State and retaining Persistent_State, so a
+    Boss death is a full run-ender.
+11. THE Game SHALL ensure every Boss attack obeys telegraph-first fairness per Requirement 24.1 and
+    SHALL NOT allow a Boss to deal first-contact damage from off-screen per Requirement 20.2, so that
+    Souls-level difficulty remains tight-but-fair and never unreadable.
+
+---
+
+## System U — Drops, Chevrons & Economy
+
+### Requirement 52: Enemy Death Drops
+
+**User Story:** As a player, I want enemies to drop useful things when they die, so that combat
+feeds my run with ammo, keys, weapons, health, and tokens.
+
+#### Acceptance Criteria
+
+1. WHEN an Enemy is defeated, THE Game SHALL have a chance to spawn one or more Death_Drops at the
+   Enemy's position, with the drop chance and drop quality scaling by the Enemy's rarity, such that
+   common Enemies yield fewer and lower-quality Death_Drops and rarer or elite Enemies and Bosses
+   yield more and higher-quality Death_Drops.
+2. THE Game SHALL draw each Death_Drop from a drop pool that includes consumable ammo-and-key types —
+   bombs, arrows, bullets, keys, and Notes — and SHALL sometimes include weapons and sometimes
+   include health pickups.
+3. WHERE the Game includes an EXP/leveling system, THE Game SHALL also include EXP pickups in the
+   Death_Drop pool. (No EXP/leveling system is otherwise specified in this document; such a system
+   would require its own requirement, so the EXP Death_Drop is a conditional hook only.)
+4. THE Game SHALL express the Death_Drop pool as a configurable, data-driven rarity-weighted drop
+   table (a Tunable per Requirement 48) whose weights scale by Enemy rarity and by Room Depth,
+   consistent with the Depth-based scaling of Requirement 28.
+5. WHEN a Dungeon is generated and played from a given Seed with a given Attuned_Set, THE Game SHALL
+   produce identical Death_Drop outcomes, consistent with the single seeded RNG of Requirement 31
+   (same Seed produces the same drops).
+6. WHEN a Death_Drop, a Chevron, or a Sparks pickup spawns or is collected, THE Game SHALL present
+   the defined pickup visual effects — multi-colored clouds with purple and sparkles, and green
+   leaves — as spawn and collect feedback. (These effects are cosmetic VFX tied to pickups; the
+   detailed overlay/graphics treatment belongs to the design, but the feedback behavior is required
+   here.)
+7. WHEN the Player_Character overlaps a Death_Drop, THE Game SHALL collect that Death_Drop and add it
+   to the appropriate pool: ammo to its ammo count, keys to the key count, health to current health,
+   weapons to the Inventory per the existing item rules of Requirement 17, and — WHERE an EXP/leveling
+   system applies — EXP to the EXP total.
+8. WHEN a Run ends in death, THE Game SHALL treat collected run-scoped Death_Drops (consumables,
+   ammo, bullets, keys, Notes) as Run-Scoped_State and discard them per Requirement 44, unless a
+   given drop type is otherwise defined as Persistent_State.
+
+### Requirement 53: Chevron Tokens
+
+**User Story:** As a player, I want to collect colored chevron tokens I can trade and use to open
+doors or change the environment, so that exploration and combat yield a flexible token economy
+distinct from money.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL spawn Chevrons as upward-pointing, chevron-shaped tokens that drop from defeated
+   Enemies on a rarity-weighted basis, consistent with the Death_Drop rules of Requirement 52, and
+   MAY also spawn Chevrons from the environment.
+2. THE Game SHALL define exactly eight Chevron colors: gold, silver, black, blue, rainbow, brown,
+   pink, and the ever-rare shiny light purple (seven standard colors plus one ultra-rare special
+   color).
+3. THE Game SHALL scale Chevron spawn rarity by color using data-driven per-color weights (Tunables
+   per Requirement 48), with the shiny light purple Chevron as the ever-rarest color.
+4. THE Player SHALL be able to spend Chevrons to trade with vendors or NPCs, to open certain doors,
+   and to alter the environment (environmental interactions or puzzles); these are the Chevron's
+   defined functions, kept distinct from Sparks money.
+5. WHEN a Run ends by Clear or death, THE Game SHALL retain the Player's shiny light purple, rainbow,
+   and black Chevrons as Persistent_State.
+6. WHEN a Run ends by Clear or death, THE Game SHALL discard the Player's gold, silver, blue, brown,
+   and pink Chevrons as Run-Scoped_State, consistent with the loss of unbanked Sparks and other
+   run-scoped resources per Requirement 44.
+7. WHEN the Player_Character overlaps a Chevron, THE Game SHALL add that Chevron to the Player's
+   balance for its color and SHALL present the pickup VFX defined in Requirement 52.6.
+
+### Requirement 54: Dual Economy — Sparks and Chevrons
+
+**User Story:** As a player, I want money and tokens to be two separate systems, so that shopping and
+trading stay distinct and each resource has a clear purpose.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL treat Sparks as the primary spendable money, spent at Vigil's shops (Forge,
+   Apothecary, The_Last_Call, The_Warm_Machine, and the Pawnbroker), banked on a Clear and lost if
+   unbanked on death, per Requirement 36.
+2. THE Game SHALL treat Chevrons as a token economy separate from Sparks, spendable to trade, to open
+   certain doors, and to alter the environment, per Requirement 53, and SHALL NOT treat Chevrons as
+   shop money.
+3. THE Game SHALL retain the three ultra-rare Chevron colors (shiny light purple, rainbow, black) as
+   Persistent_State and SHALL discard the five run-scoped Chevron colors (gold, silver, blue, brown,
+   pink) as Run-Scoped_State, consistent with the death-handling of Requirement 44 and the save
+   handling of Requirement 45.
+4. THE Game SHALL account for Sparks balances and per-color Chevron balances as independent totals,
+   such that spending or losing one SHALL NOT change the other.
+
+---
+
+## System V — Route Progression & Biome Content
+
+### Requirement 55: Route-Length Progression
+
+**User Story:** As a player, I want to unlock progressively longer Biome Routes by clearing them, so
+that the world grows in scope as I prove myself.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL model each Run as traversing a Route: an ordered sequence of Biomes in sequence
+   that leads to exactly one end Dungeon, where the Route_Length is the number of Biomes in that
+   Route.
+2. THE Game SHALL place exactly one end Dungeon at the end of a Route, containing exactly one Boss
+   selected from the Boss_Ladder per Requirement 26, so a Route of N Biomes is N Biomes in sequence
+   leading to one end Dungeon rather than one Dungeon per Biome.
+3. WHEN the Player starts the Game for the first time, THE Game SHALL make only a Route_Length of 1
+   available, so the first available Route is a single Biome leading to the first Dungeon.
+4. WHEN the Player clears the currently highest unlocked Route_Length, THE Game SHALL unlock the next
+   Route_Length by one (a cleared Route_Length of N unlocks Route_Length N+1), up to the maximum
+   unlockable Route_Length Tunable.
+5. THE Game SHALL retain the highest unlocked Route_Length as Persistent_State that survives
+   Player_Character defeat and persists across Runs, saved alongside the other meta-progression state
+   of Requirement 44.3.
+6. WHILE the Player is at The_Board, THE Game SHALL allow the Player to choose any unlocked
+   Route_Length for the next Run, so that once a longer Route_Length is unlocked the Player MAY still
+   choose a shorter unlocked Route_Length.
+7. THE Game SHALL treat the Route_Length choice at The_Board as a selection distinct from, and
+   composed with, the Dungeon and Rank selection of Requirement 37, so that choosing a Route_Length
+   and choosing the next Dungeon are separate parts of the same Board decision for the next Run.
+8. THE Game SHALL express the maximum unlockable Route_Length as a configurable Tunable (see
+   Requirement 48) whose first-iteration value is 7, and SHALL architect the Route system to support
+   Route_Lengths beyond 7 up to the number of Biomes in the Biome_Library, so the value 7 is the
+   first-iteration target rather than a fixed architectural limit.
+9. WHEN the Player chooses a Route_Length of N for a Run, THE Generator SHALL build a Route that
+   traverses N Biomes in sequence, so the chosen Route_Length determines the Biome count and thereby
+   the Run length, consistent with the Run-length scaling of Requirement 29.
+
+### Requirement 56: Per-Biome Required Content
+
+**User Story:** As a player, I want each Biome to have its own NPCs, secrets, exclusive items, and a
+puzzle, so that every Biome is worth exploring and some progression is reachable only through
+specific Biomes.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL define each Biome with Biome_Content comprising multiple NPCs, multiple secrets,
+   one or more biome-only Items (Items, keys, or power-ups obtainable only within that Biome), and at
+   least one Biome_Puzzle.
+2. THE Game SHALL treat biome-only Items as obtainable only within their defining Biome, reinforcing
+   the biome-weighted item sourcing of Requirement 17 and the item taxonomy of Requirement 13.
+3. IF a biome-only Item is required to complete a Route, THEN THE Generator SHALL place that Item so
+   the Route remains completable under the Reachability rule of Requirement 30, so a required
+   biome-only Item never produces an uncompletable Route.
+4. THE Game SHALL retain the full Biome_Library even when only a subset of its Biomes has been
+   authored with complete Biome_Content, so that unauthored Biomes exist as defined structure while
+   authored Biomes carry their NPCs, secrets, biome-only Items, puzzle, and resources.
+5. THE Game SHALL gain Biome_Content for additional Biomes incrementally, so that a Biome can be
+   added to the authored set over the course of development without the Biome_Library being reduced.
+6. THE Game SHALL read each Biome's Biome_Content (NPC count, secret count, biome-only item set, and
+   Biome_Puzzle) from data, so that a Biome can be fully authored by adding its data and resources
+   without changing the central generation algorithm, consistent with the data-driven approach of
+   Requirement 19 and Requirement 13.
+7. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
+   fully build and test exactly one authored Biome plus one short first Dungeon as a playable
+   end-to-end Route_Length of 1, SHALL constrain that first Dungeon's Room count to at or below the
+   tutorial / short first-Dungeon maximum Room count Tunable (see Requirement 48), and SHALL keep the
+   remaining Biomes of the Biome_Library present as defined structure to be authored later.
+8. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
+   make that build a complete playable vertical slice of the core loop that exercises, end-to-end,
+   departing Vigil, traversing the single-Biome Route_Length of 1, descending the short first
+   Dungeon, defeating the tutorial
+   Boss Gloamwing under the gentle first-Clear timing of Requirement 51.8, collecting Death_Drops
+   and pickups per Requirement 52, Clearing the Dungeon with Attunement per Requirement 14, and
+   returning to Vigil per the Run-boundary model of Requirement 32.
+
+### Requirement 57: Biome Puzzle Placement and Solvability
+
+**User Story:** As a player, I want each Biome's puzzle to sit within that Biome and always be
+solvable with what I can already reach, so that puzzles add exploration without ever soft-locking a
+Route.
+
+#### Acceptance Criteria
+
+1. THE Generator SHALL place each Biome's Biome_Puzzle within that Biome's region of the Route.
+2. WHERE a Biome_Puzzle requires an ability or item to solve, THE Generator SHALL require only an
+   ability or item that is obtainable before that Biome_Puzzle within the same Run, so the
+   Biome_Puzzle is solvable when the Player_Character reaches it.
+3. THE Generator SHALL NOT place a Biome_Puzzle whose required ability or item is reachable only
+   after the Biome_Puzzle, consistent with the gated-generation and Reachability rules of
+   Requirement 30, so a Biome_Puzzle never soft-locks a Route.
+
+### Requirement 58: Biome Variants
+
+**User Story:** As a player, I want biomes to appear in discovered variant forms that reshape their
+difficulty, loot, puzzle, NPCs, and story, so that revisiting a Biome stays fresh and discovering a
+new variant feels like meta-progression.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL define Biome_Variants as a data-driven, open set of modifiers (for example
+   Corrupted/Infected, Negative, and Rainbow, as examples among a larger set), so that additional
+   Biome_Variants can be added as data without changing the central generation algorithm, consistent
+   with the data-driven Biome approach of Requirement 19, the item taxonomy of Requirement 13, and
+   the Biome_Content of Requirement 56.
+2. THE Game SHALL treat each Biome_Variant as a modifier layered on top of a base Biome, so that a
+   Biome instance's underlying Biome identity and place remain while the variant reshapes that
+   instance.
+3. THE Game SHALL make every Biome instance either plain, carrying no Biome_Variant, or carrying
+   exactly one Biome_Variant, and SHALL NOT apply more than one Biome_Variant to a single Biome
+   instance, so that Biome_Variants do not stack.
+4. WHERE a Biome instance carries a Biome_Variant, THE Game SHALL apply that variant's changes to
+   that instance's difficulty, possible pickups (Death_Drops, Items, and biome-only Items), the
+   Biome_Puzzle, the NPCs, and the story/flavor, overriding or augmenting the Biome_Content of
+   Requirement 56 for that instance while the base Biome's identity and place remain unchanged.
+5. WHEN the Generator builds a Biome instance for a Route, THE Generator SHALL decide deterministically
+   from the Seed whether that instance is plain or carries a Biome_Variant, and which Biome_Variant,
+   folding the variant choice into the deterministic generation inputs so that the same Seed with the
+   same inputs produces the same variant assignment, consistent with the single-seeded determinism of
+   Requirement 31 and the gated-generation inputs of Requirement 30.
+6. WHEN the Generator selects a Biome_Variant for a Biome instance, THE Generator SHALL weight the
+   choice by the per-Biome_Variant rarity/selection weights and the plain-vs-variant weighting, both
+   defined as Tunables in Requirement 48.
+7. THE Game SHALL retain the set of unlocked Biome_Variants as Persistent_State that survives
+   Player_Character defeat and persists across Runs, saved alongside the other meta-progression state
+   of Requirement 44.3 and consistent with the Route_Length unlock model of Requirement 55.
+8. THE Generator SHALL draw a Biome instance's Biome_Variant only from the set of unlocked
+   Biome_Variants, so that a Biome_Variant that has not been discovered does not appear in a Route.
+9. WHILE no Biome_Variant has been unlocked, THE Generator SHALL build every Biome instance as a
+   plain Biome, so that early Runs see plain Biomes only until Biome_Variants are discovered.
+10. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
+    use the plain, no-variant Biome and SHALL NOT require any Biome_Variant, consistent with the
+    first-iteration scope of Requirement 56.7 and Requirement 56.8.
+11. WHEN a Biome instance carries a Biome_Variant, THE Generator SHALL ensure that the variant's
+    changes to pickups, the Biome_Puzzle, and difficulty still satisfy the Reachability rule of
+    Requirement 30 and the Biome_Puzzle solvability rule of Requirement 57, so that a Biome_Variant
+    never produces an uncompletable Route.
