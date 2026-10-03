@@ -807,9 +807,15 @@ that progress through the ladder is literal and legible.
 continuous, free-scrolling space, so that each run is a distinct, coherent descent without hard
 screen-to-screen snaps.
 
+> **Room model (reconciled with System Z):** A Room is NOT fixed to the view. The VIEW is
+> VIEW_TILES_W × VIEW_TILES_H (20 × 14 / 320 × 224 px); a ROOM ranges from the view size up to
+> ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28 / 640 × 448 px) and the camera scrolls within larger
+> Rooms. Requirements 66 and 67 (System Z) are authoritative for Room sizing and camera scroll; this
+> requirement is now consistent with that model (room ≠ view).
+
 #### Acceptance Criteria
 
-1. THE Generator SHALL build each Room as a 20 × 14-tile grid (320 × 224 px) with defined door cells.
+1. THE Generator SHALL build each Room on the TILE_PX grid at a size in the range VIEW_TILES_W × VIEW_TILES_H (20 × 14, 320 × 224 px) up to ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28, 640 × 448 px) with defined door cells, where a Room MAY be larger than the view (room ≠ view): a baseline Room equals the view and does not scroll, while a larger Room scrolls within its bounds (see Requirement 66 and Requirement 67 of System Z, which are authoritative for Room sizing).
 2. THE Generator SHALL connect Rooms into a Door_Graph where Rooms are nodes and doors are edges,
    tagging a start Room and a far exit Room.
 3. WHILE the Player_Character moves through the Dungeon, THE Game SHALL follow the Player_Character
@@ -822,7 +828,7 @@ screen-to-screen snaps.
    without that door — so that key-before-lock reachability holds for every locked door, consistent
    with the Reachability rule of Requirement 30.
 5. THE Generator SHALL treat each Room as the unit of generation, collision, and Reachability even
-   though Rooms are not individually screen-locked.
+   though Rooms are not individually screen-locked and MAY be larger than the view.
 
 ### Requirement 28: Depth-Based Difficulty Scaling
 
@@ -1936,8 +1942,8 @@ dungeon has large, non-empty spaces instead of only single-screen boxes.
 > (20 × 14, VIEW_W × VIEW_H = 320 × 224) but a ROOM MAY be larger — up to ROOM_MAX_TILES_W ×
 > ROOM_MAX_TILES_H (40 × 28, ROOM_MAX_W × ROOM_MAX_H = 640 × 448 px) — and the camera scrolls within
 > it (see Requirement 66): a baseline room equals the view and does not scroll, while a big room
-> scrolls. Requirement 27 should be reconciled to this model (room ≠ view); this requirement does
-> not edit Requirement 27, it supersedes its room-equals-view assumption.
+> scrolls. Requirement 27 has been reconciled to this model (room ≠ view) in its own criteria 1 and 5 and
+> its Room-model note; this requirement remains authoritative for Room sizing and camera scroll.
 
 #### Acceptance Criteria
 
