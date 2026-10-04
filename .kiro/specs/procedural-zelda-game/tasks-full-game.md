@@ -564,8 +564,11 @@ Grounded in `design.md` → **Keep / Extend / Replace** and the scaffold scripts
     - Offer the three-option loadout at run start; apply the pick as the starting Equipped_Item
       (sword → bare-sword ATTACK_Item; pistol → Pistol firearm per task 32; nothing → no
       Equipped_Item), honoring the one-active-item rule (Req 2).
+    - **POC (Req 73.10, 73.11):** show all three options but render the **Pistol as a Locked_Option**
+      — dimmed/transparent (affordability-dimming pattern), not selectable, with a short "available
+      later" message on a select attempt. Only Sword / Nothing are selectable in the first iteration.
     - Touches: `DarkRoom.gd`, `Player.gd`, `Items.gd`.
-    - _Requirements: 73.3, 73.4_
+    - _Requirements: 73.3, 73.4, 73.10, 73.11_
 
   - [ ] 30.4 Post_Run_Choice on successful Clear
     - On a Clear (not death), present one reward from a data-driven set {new weapon, biome/level

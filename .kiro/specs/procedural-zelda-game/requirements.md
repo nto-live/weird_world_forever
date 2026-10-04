@@ -2140,9 +2140,17 @@ loadout and destination.
 9. WHERE a Run ends by death rather than Clear, THE Game SHALL NOT present the Post_Run_Choice of
    criterion 8, consistent with death being final for the Run per Requirement 44.
 10. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
-    include the Dark_Room as the run-start hub with the Starting_Loadout choice (Sword / Pistol /
-    Nothing) and a Level_Select offering the single authored GRASSLANDS Biome of Requirement 56.10,
-    and SHALL present the Post_Run_Choice on a successful first Clear.
+    include the Dark_Room as the run-start hub and SHALL display the Starting_Loadout as all three
+    options (Sword, Pistol, Nothing), with Sword and Nothing selectable and the Pistol shown as a
+    Locked_Option (dimmed/transparent and not selectable), and SHALL offer a Level_Select presenting
+    the single authored GRASSLANDS Biome of Requirement 56.10, and SHALL present the Post_Run_Choice
+    on a successful first Clear.
+11. WHERE a Starting_Loadout option is a Locked_Option (such as the first-iteration Pistol of
+    criterion 10), THE Game SHALL render that option dimmed/transparent using the same not-yet-
+    available presentation as other locked/unaffordable options, SHALL NOT apply that option as the
+    Starting_Loadout when the Player attempts to select it, and SHALL present a short ""available
+    later"" message indicating the option is unlocked later, rather than silently ignoring the
+    selection, consistent with the mismatched-equip feedback principle of Requirement 63.15.
 
 ---
 

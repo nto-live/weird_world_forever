@@ -1862,6 +1862,11 @@ func begin_run_at(biome_id: String) -> void     # start a Run at a chosen unlock
 - **Loadout (Req 73.3, 73.4).** "sword" sets the bare-sword ATTACK_Item (Req 13.3) as the starting
   Equipped_Item; "pistol" sets the Pistol firearm (System CC / Req 75); "nothing" starts with no
   Equipped_Item. All honor the one-active-item rule (Req 2).
+- **First-iteration locked Pistol (Req 73.10, 73.11).** In the POC the loadout stand shows all three
+  options, but the **Pistol is a Locked_Option**: rendered dimmed/transparent with a lock badge via the
+  same affordability-dimming pattern used for town/title options, not selectable, and a short "available
+  later" message on a select attempt (reuses the Req 63.15 mismatched-equip feedback principle). Only
+  Sword / Nothing are selectable; the Pistol's gameplay (firing, ammo) stays deferred with System CC.
 - **Level_Select (Req 73.5).** Lists only currently unlocked biomes/levels from Meta + UnlockRules
   (System V/W); first iteration offers only authored GRASSLANDS (Req 56.10 / 73.10).
 - **Post_Run_Choice (Req 73.8).** On Clear, one reward from a data-driven set {new weapon, level

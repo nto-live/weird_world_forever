@@ -13,10 +13,12 @@ Post_Run_Choice on a successful Clear.
 
 ## Loadout decision (current)
 
-The first slice ships **Sword / Nothing** only. The **Pistol and all other firearms (Req 75) and the
-Knight/Cyberpunk armor sets (Req 76) are deferred** — they remain in the full-game spec but are NOT
-required to finish the POC. All gun art (gun poses, muzzle flash, bullet, bullet ammo icon/panel) is
-out of this list.
+The first slice makes **Sword / Nothing** selectable. The **Pistol is shown but locked**: the loadout
+stand displays it dimmed/transparent with a lock badge and a short ""available later"" message on a
+select attempt (Req 73.10, 73.11) — so it teases the firearm without being playable. All **gameplay**
+gun art stays deferred (no MC gun poses, no muzzle flash, no bullet VFX, no bullet-ammo icon/panel);
+only a single **dimmed pistol icon** and the **""later gater"" message** are in POC scope. All other
+firearms (Req 75) and the Knight/Cyberpunk armor sets (Req 76) remain deferred.
 
 ## Conventions (LOCKED, per `06-graphics.md` / System Z)
 
@@ -56,8 +58,9 @@ The first screen the player sees: a small, dim interior.
 - TV_Screen — frame / cabinet tile(s).
 - TV_Screen — emissive ""on"" screen, 1–2 glow states (this is the Level_Select display; feeds bloom).
 - Loadout stand / rack — base.
-- Loadout rack — **sword** displayed.
-- Loadout rack — **""nothing"" / empty** marker.
+- Loadout rack — **sword** displayed (selectable).
+- Loadout rack — **pistol** displayed, **dimmed/locked state** + lock badge (shown, not selectable).
+- Loadout rack — **""nothing"" / empty** marker (selectable).
 - Exit door / portal threshold into the chosen level (closed + open).
 
 **Ambience**
@@ -171,8 +174,9 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 - spark (currency).
 - **amulet** (the run artifact / Gloamwing reward).
 - boss-reward item icon(s) per the boss framework.
+- **pistol icon — dimmed/locked variant only** (for the Dark_Room loadout stand; no gameplay gun art).
 
-*(Pistol icon + bullet-ammo icon deferred.)*
+*(Full pistol gameplay art + bullet-ammo icon still deferred.)*
 
 ---
 
@@ -185,7 +189,7 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 - Inventory-screen frame: worn-gear slots (helmet / body / shoes) + Armor_Type (Tactical / Armor),
   consumables / potions panel, ammo panel.
 - **Dark_Room Level_Select UI** (TV content: unlocked-level list; POC shows GRASSLANDS only).
-- **Dark_Room loadout prompt UI** — **Sword / Nothing**.
+- **Dark_Room loadout prompt UI** — Sword / Nothing selectable; **Pistol shown dimmed/locked** with a short "later gater" / "available later" message.
 - **Post_Run_Choice UI** (one of: new weapon / level unlock / perk).
 - **Choice_Room offer UI** (N items, pick one).
 - Title-screen title / logo (Start New Run / Continue Saved Run / Exit).
@@ -225,8 +229,9 @@ res://art/
 
 ## Notes
 
-- Loadout for this slice is **Sword / Nothing**; Pistol / firearms (Req 75) and Knight/Cyber armor
-  (Req 76) are deferred — in the spec, out of the POC build.
+- Loadout for this slice: **Sword / Nothing** selectable; the **Pistol is shown dimmed/locked** with a
+  "later" message (Req 73.10, 73.11) but is not playable. Other firearms (Req 75) and Knight/Cyber
+  armor (Req 76) remain deferred.
 - Grasslands is a NEW data-driven base Biome (Req 56.10), plain / no Biome_Variant in the POC (Req 58.10).
 - Until final art lands, the upgraded procedural placeholder generator (3-tone ramp + outline + dither
   + signature prop) stands in, so the slice is playable with placeholders first.
