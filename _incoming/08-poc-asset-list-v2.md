@@ -31,6 +31,8 @@ firearms (Req 75) and the Knight/Cyberpunk armor sets (Req 76) remain deferred.
 
 ---
 
+**Biome world scale:** each biome is a large maze-like region ≈ 128×112 tiles (8×8 LTTP screens, ~4096×3584 px @32). Tilesets must autotile cleanly across it.
+
 ## A. Main Character — one sheet, 32×48, 4-directional
 
 Author each clip in all 4 directions (up / down / left / right). Starter look: white shirt, brown

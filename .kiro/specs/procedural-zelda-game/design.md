@@ -3060,3 +3060,7 @@ can soft-lock. Property 2 asserts
 seeds, and that the re-roll loop never returns a failing layout. Serialization round-trips (Properties
 4 and 5) follow the classic `decode(encode(x)) == x` pattern, the recommended default test for any
 serializer or save format.
+
+### Biome world scale (2026-10-03)
+
+**Biome world scale (2026-10-03):** each biome is a large, **maze-like** free-scroll region of ~**128×112 tiles** (~8×8 LTTP screens; the Lost Woods region is only ~3×3) = 4096×3584 px at TILE_PX=32 — **bigger than LTTP's Lost Woods**, and laid out as a maze (braided corridors, dead-ends, looped routes). Individual Rooms (up to ROOM_MAX) subdivide it.

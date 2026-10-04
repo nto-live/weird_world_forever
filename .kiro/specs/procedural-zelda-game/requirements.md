@@ -1237,7 +1237,7 @@ flags, so that we can tune by playtest instead of editing code.
    bare literals, consistent with the Graphics & Presentation Layer requirements of System Z
    (Requirements 64–72): `TILE_PX` (32), `PLAYER_W` (32), `PLAYER_H` (48), `VIEW_W` (640),
    `VIEW_H` (448), `VIEW_TILES_W` (20), `VIEW_TILES_H` (14), `ROOM_MAX_TILES_W` (80),
-   `ROOM_MAX_TILES_H` (56), `ROOM_MAX_W` (2560), `ROOM_MAX_H` (1792), `SCALE_PRIMARY` (3),
+   `ROOM_MAX_TILES_H` (56), `ROOM_MAX_W` (2560), `ROOM_MAX_H` (1792), `BIOME_TILES_W` (128), `BIOME_TILES_H` (112), `SCALE_PRIMARY` (3),
    `SCALE_FALLBACK` (2), `DISPLAY_W` (1920), `DISPLAY_H` (1344), `FALLBACK_DISPLAY_W` (1280),
    `FALLBACK_DISPLAY_H` (896), `PLAYER_RENDER_W` (96), `PLAYER_RENDER_H` (144), `SHEET_MAX_PX`
    (2048), `UI_SMALL` (16), `UI_LARGE` (32), and `FONT_CELL` (16).
@@ -1854,6 +1854,8 @@ bare literal. These are also recorded as `exact`-flagged Tunables in Requirement
 - **ROOM_MAX_TILES_H** = 56 — maximum room height in tiles.
 - **ROOM_MAX_W** = 2560 — maximum room width in pixels (ROOM_MAX_TILES_W × TILE_PX).
 - **ROOM_MAX_H** = 1792 — maximum room height in pixels (ROOM_MAX_TILES_H × TILE_PX).
+- **BIOME_TILES_W** = 128 — each biome's world width in tiles (~8 LTTP screens wide; the Lost Woods region is ~3).
+- **BIOME_TILES_H** = 112 — each biome's world height in tiles (~8 LTTP screens tall).
 - **SCALE_PRIMARY** = 3 — primary integer scale factor.
 - **SCALE_FALLBACK** = 2 — fallback integer scale factor.
 - **DISPLAY_W** = 1920 — primary display target width (VIEW_W × SCALE_PRIMARY).

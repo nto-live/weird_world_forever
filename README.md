@@ -69,4 +69,4 @@ All art and audio are original placeholders. **No Nintendo assets** are used or 
 `LICENSE` for terms.
 
 ## Changelog
-- **2026-10-03** — Graphical direction moved to a **32px grid** (tiles 32×32, player 32×48, view 640×448, ×3 = 1920×1344); room/biome size raised to **80×56 tiles**; health pip is an **emerald leaf**. Design docs only — no code.
+- **2026-10-03** — Graphical direction moved to a **32px grid** (tiles 32×32, player 32×48, view 640×448, ×3 = 1920×1344); biome worlds are large **maze-like** regions ≈ **128×112 tiles** (8×8 LTTP screens), rooms up to 80×56 tiles; health pip is an **emerald leaf**. Design docs only — no code.
