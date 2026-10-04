@@ -1,0 +1,9314 @@
+{
+ "image": "grasslands.png",
+ "cell": 32,
+ "per_row": 16,
+ "count": 1551,
+ "frames": [
+  {
+   "file": "grasslands/grasslands_a_r00c00.png",
+   "x": 0,
+   "y": 0,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c01.png",
+   "x": 32,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c02.png",
+   "x": 64,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c03.png",
+   "x": 96,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c04.png",
+   "x": 128,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c05.png",
+   "x": 160,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c06.png",
+   "x": 192,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c07.png",
+   "x": 224,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c08.png",
+   "x": 256,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c09.png",
+   "x": 288,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c10.png",
+   "x": 320,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c11.png",
+   "x": 352,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c12.png",
+   "x": 384,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c14.png",
+   "x": 416,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c15.png",
+   "x": 448,
+   "y": 0,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c16.png",
+   "x": 480,
+   "y": 0,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c17.png",
+   "x": 0,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c18.png",
+   "x": 32,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c19.png",
+   "x": 64,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c20.png",
+   "x": 96,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c21.png",
+   "x": 128,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c22.png",
+   "x": 160,
+   "y": 32,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c23.png",
+   "x": 192,
+   "y": 32,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c24.png",
+   "x": 224,
+   "y": 32,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c25.png",
+   "x": 256,
+   "y": 32,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c26.png",
+   "x": 288,
+   "y": 32,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c27.png",
+   "x": 320,
+   "y": 32,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c28.png",
+   "x": 352,
+   "y": 32,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c29.png",
+   "x": 384,
+   "y": 32,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c30.png",
+   "x": 416,
+   "y": 32,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c31.png",
+   "x": 448,
+   "y": 32,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c32.png",
+   "x": 480,
+   "y": 32,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c33.png",
+   "x": 0,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c34.png",
+   "x": 32,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c35.png",
+   "x": 64,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c36.png",
+   "x": 96,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r00c37.png",
+   "x": 128,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c00.png",
+   "x": 160,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c01.png",
+   "x": 192,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c02.png",
+   "x": 224,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c03.png",
+   "x": 256,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c04.png",
+   "x": 288,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c05.png",
+   "x": 320,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c06.png",
+   "x": 352,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c07.png",
+   "x": 384,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c08.png",
+   "x": 416,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c09.png",
+   "x": 448,
+   "y": 64,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c10.png",
+   "x": 480,
+   "y": 64,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c11.png",
+   "x": 0,
+   "y": 96,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c12.png",
+   "x": 32,
+   "y": 96,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c14.png",
+   "x": 64,
+   "y": 96,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c15.png",
+   "x": 96,
+   "y": 96,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c16.png",
+   "x": 128,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c17.png",
+   "x": 160,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c18.png",
+   "x": 192,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c19.png",
+   "x": 224,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c20.png",
+   "x": 256,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c21.png",
+   "x": 288,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c22.png",
+   "x": 320,
+   "y": 96,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c23.png",
+   "x": 352,
+   "y": 96,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c24.png",
+   "x": 384,
+   "y": 96,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c25.png",
+   "x": 416,
+   "y": 96,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c26.png",
+   "x": 448,
+   "y": 96,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c27.png",
+   "x": 480,
+   "y": 96,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c28.png",
+   "x": 0,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c29.png",
+   "x": 32,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c30.png",
+   "x": 64,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c31.png",
+   "x": 96,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c32.png",
+   "x": 128,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c33.png",
+   "x": 160,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c34.png",
+   "x": 192,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c35.png",
+   "x": 224,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c36.png",
+   "x": 256,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c37.png",
+   "x": 288,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r01c38.png",
+   "x": 320,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c00.png",
+   "x": 352,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c01.png",
+   "x": 384,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c02.png",
+   "x": 416,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c03.png",
+   "x": 448,
+   "y": 128,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c04.png",
+   "x": 480,
+   "y": 128,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c05.png",
+   "x": 0,
+   "y": 160,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c06.png",
+   "x": 32,
+   "y": 160,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c07.png",
+   "x": 64,
+   "y": 160,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c08.png",
+   "x": 96,
+   "y": 160,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c09.png",
+   "x": 128,
+   "y": 160,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c10.png",
+   "x": 160,
+   "y": 160,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c12.png",
+   "x": 192,
+   "y": 160,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c13.png",
+   "x": 224,
+   "y": 160,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c14.png",
+   "x": 256,
+   "y": 160,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c16.png",
+   "x": 288,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c17.png",
+   "x": 320,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c18.png",
+   "x": 352,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c19.png",
+   "x": 384,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c20.png",
+   "x": 416,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c21.png",
+   "x": 448,
+   "y": 160,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c22.png",
+   "x": 480,
+   "y": 160,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c23.png",
+   "x": 0,
+   "y": 192,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c24.png",
+   "x": 32,
+   "y": 192,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c25.png",
+   "x": 64,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c26.png",
+   "x": 96,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c27.png",
+   "x": 128,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c28.png",
+   "x": 160,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c29.png",
+   "x": 192,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c30.png",
+   "x": 224,
+   "y": 192,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c31.png",
+   "x": 256,
+   "y": 192,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c32.png",
+   "x": 288,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c33.png",
+   "x": 320,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c34.png",
+   "x": 352,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c35.png",
+   "x": 384,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c36.png",
+   "x": 416,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c37.png",
+   "x": 448,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r02c38.png",
+   "x": 480,
+   "y": 192,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c00.png",
+   "x": 0,
+   "y": 224,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c01.png",
+   "x": 32,
+   "y": 224,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c02.png",
+   "x": 64,
+   "y": 224,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c03.png",
+   "x": 96,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c04.png",
+   "x": 128,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c05.png",
+   "x": 160,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c06.png",
+   "x": 192,
+   "y": 224,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c07.png",
+   "x": 224,
+   "y": 224,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c08.png",
+   "x": 256,
+   "y": 224,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c09.png",
+   "x": 288,
+   "y": 224,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c10.png",
+   "x": 320,
+   "y": 224,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c11.png",
+   "x": 352,
+   "y": 224,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c12.png",
+   "x": 384,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c13.png",
+   "x": 416,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c14.png",
+   "x": 448,
+   "y": 224,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c15.png",
+   "x": 480,
+   "y": 224,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c16.png",
+   "x": 0,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c17.png",
+   "x": 32,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c18.png",
+   "x": 64,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c19.png",
+   "x": 96,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c20.png",
+   "x": 128,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c21.png",
+   "x": 160,
+   "y": 256,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c22.png",
+   "x": 192,
+   "y": 256,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c23.png",
+   "x": 224,
+   "y": 256,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c24.png",
+   "x": 256,
+   "y": 256,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c25.png",
+   "x": 288,
+   "y": 256,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c26.png",
+   "x": 320,
+   "y": 256,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c27.png",
+   "x": 352,
+   "y": 256,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c28.png",
+   "x": 384,
+   "y": 256,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c29.png",
+   "x": 416,
+   "y": 256,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c30.png",
+   "x": 448,
+   "y": 256,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c31.png",
+   "x": 480,
+   "y": 256,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c32.png",
+   "x": 0,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c33.png",
+   "x": 32,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c34.png",
+   "x": 64,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c35.png",
+   "x": 96,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c36.png",
+   "x": 128,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c37.png",
+   "x": 160,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r03c38.png",
+   "x": 192,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c00.png",
+   "x": 224,
+   "y": 288,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c01.png",
+   "x": 256,
+   "y": 288,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c02.png",
+   "x": 288,
+   "y": 288,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c03.png",
+   "x": 320,
+   "y": 288,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c04.png",
+   "x": 352,
+   "y": 288,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c05.png",
+   "x": 384,
+   "y": 288,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c06.png",
+   "x": 416,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c07.png",
+   "x": 448,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c08.png",
+   "x": 480,
+   "y": 288,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c09.png",
+   "x": 0,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c10.png",
+   "x": 32,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c11.png",
+   "x": 64,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c12.png",
+   "x": 96,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c13.png",
+   "x": 128,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c14.png",
+   "x": 160,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c15.png",
+   "x": 192,
+   "y": 320,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c16.png",
+   "x": 224,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c17.png",
+   "x": 256,
+   "y": 320,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c18.png",
+   "x": 288,
+   "y": 320,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c19.png",
+   "x": 320,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c20.png",
+   "x": 352,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c21.png",
+   "x": 384,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c22.png",
+   "x": 416,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c23.png",
+   "x": 448,
+   "y": 320,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c24.png",
+   "x": 480,
+   "y": 320,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c25.png",
+   "x": 0,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c26.png",
+   "x": 32,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c27.png",
+   "x": 64,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c28.png",
+   "x": 96,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c29.png",
+   "x": 128,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c30.png",
+   "x": 160,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c31.png",
+   "x": 192,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c32.png",
+   "x": 224,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c33.png",
+   "x": 256,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c34.png",
+   "x": 288,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c35.png",
+   "x": 320,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c36.png",
+   "x": 352,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c37.png",
+   "x": 384,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r04c38.png",
+   "x": 416,
+   "y": 352,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c00.png",
+   "x": 448,
+   "y": 352,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c01.png",
+   "x": 480,
+   "y": 352,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c02.png",
+   "x": 0,
+   "y": 384,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c03.png",
+   "x": 32,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c04.png",
+   "x": 64,
+   "y": 384,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c05.png",
+   "x": 96,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c06.png",
+   "x": 128,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c07.png",
+   "x": 160,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c08.png",
+   "x": 192,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c09.png",
+   "x": 224,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c10.png",
+   "x": 256,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c11.png",
+   "x": 288,
+   "y": 384,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c12.png",
+   "x": 320,
+   "y": 384,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c13.png",
+   "x": 352,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c14.png",
+   "x": 384,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c16.png",
+   "x": 416,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c17.png",
+   "x": 448,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c18.png",
+   "x": 480,
+   "y": 384,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c19.png",
+   "x": 0,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c20.png",
+   "x": 32,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c21.png",
+   "x": 64,
+   "y": 416,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c22.png",
+   "x": 96,
+   "y": 416,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c23.png",
+   "x": 128,
+   "y": 416,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c24.png",
+   "x": 160,
+   "y": 416,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c25.png",
+   "x": 192,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c26.png",
+   "x": 224,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c27.png",
+   "x": 256,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c28.png",
+   "x": 288,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c29.png",
+   "x": 320,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c30.png",
+   "x": 352,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c31.png",
+   "x": 384,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c32.png",
+   "x": 416,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c33.png",
+   "x": 448,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c34.png",
+   "x": 480,
+   "y": 416,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c35.png",
+   "x": 0,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c36.png",
+   "x": 32,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r05c39.png",
+   "x": 64,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c00.png",
+   "x": 96,
+   "y": 448,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c01.png",
+   "x": 128,
+   "y": 448,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c02.png",
+   "x": 160,
+   "y": 448,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c03.png",
+   "x": 192,
+   "y": 448,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c04.png",
+   "x": 224,
+   "y": 448,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c05.png",
+   "x": 256,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c06.png",
+   "x": 288,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c07.png",
+   "x": 320,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c08.png",
+   "x": 352,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c09.png",
+   "x": 384,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c10.png",
+   "x": 416,
+   "y": 448,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c11.png",
+   "x": 448,
+   "y": 448,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c12.png",
+   "x": 480,
+   "y": 448,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c13.png",
+   "x": 0,
+   "y": 480,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c14.png",
+   "x": 32,
+   "y": 480,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c15.png",
+   "x": 64,
+   "y": 480,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c16.png",
+   "x": 96,
+   "y": 480,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c17.png",
+   "x": 128,
+   "y": 480,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c18.png",
+   "x": 160,
+   "y": 480,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c19.png",
+   "x": 192,
+   "y": 480,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c20.png",
+   "x": 224,
+   "y": 480,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c21.png",
+   "x": 256,
+   "y": 480,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c22.png",
+   "x": 288,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c23.png",
+   "x": 320,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c24.png",
+   "x": 352,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c25.png",
+   "x": 384,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c26.png",
+   "x": 416,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c27.png",
+   "x": 448,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c28.png",
+   "x": 480,
+   "y": 480,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c29.png",
+   "x": 0,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c30.png",
+   "x": 32,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c31.png",
+   "x": 64,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c32.png",
+   "x": 96,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c33.png",
+   "x": 128,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c34.png",
+   "x": 160,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c35.png",
+   "x": 192,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c36.png",
+   "x": 224,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c37.png",
+   "x": 256,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c38.png",
+   "x": 288,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r06c39.png",
+   "x": 320,
+   "y": 512,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c00.png",
+   "x": 352,
+   "y": 512,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c01.png",
+   "x": 384,
+   "y": 512,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c02.png",
+   "x": 416,
+   "y": 512,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c03.png",
+   "x": 448,
+   "y": 512,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c04.png",
+   "x": 480,
+   "y": 512,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c05.png",
+   "x": 0,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c06.png",
+   "x": 32,
+   "y": 544,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c07.png",
+   "x": 64,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c08.png",
+   "x": 96,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c09.png",
+   "x": 128,
+   "y": 544,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c10.png",
+   "x": 160,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c11.png",
+   "x": 192,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c12.png",
+   "x": 224,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c13.png",
+   "x": 256,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c14.png",
+   "x": 288,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c15.png",
+   "x": 320,
+   "y": 544,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c17.png",
+   "x": 352,
+   "y": 544,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c18.png",
+   "x": 384,
+   "y": 544,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c19.png",
+   "x": 416,
+   "y": 544,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c20.png",
+   "x": 448,
+   "y": 544,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c21.png",
+   "x": 480,
+   "y": 544,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c22.png",
+   "x": 0,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c23.png",
+   "x": 32,
+   "y": 576,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c24.png",
+   "x": 64,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c25.png",
+   "x": 96,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c26.png",
+   "x": 128,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c27.png",
+   "x": 160,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c28.png",
+   "x": 192,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c29.png",
+   "x": 224,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c30.png",
+   "x": 256,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c35.png",
+   "x": 288,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c36.png",
+   "x": 320,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c37.png",
+   "x": 352,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r07c38.png",
+   "x": 384,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c00.png",
+   "x": 416,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c01.png",
+   "x": 448,
+   "y": 576,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c02.png",
+   "x": 480,
+   "y": 576,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c03.png",
+   "x": 0,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c04.png",
+   "x": 32,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c05.png",
+   "x": 64,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c06.png",
+   "x": 96,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c07.png",
+   "x": 128,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c08.png",
+   "x": 160,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c09.png",
+   "x": 192,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c10.png",
+   "x": 224,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c11.png",
+   "x": 256,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c12.png",
+   "x": 288,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c13.png",
+   "x": 320,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c14.png",
+   "x": 352,
+   "y": 608,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c15.png",
+   "x": 384,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c16.png",
+   "x": 416,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c17.png",
+   "x": 448,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c18.png",
+   "x": 480,
+   "y": 608,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c19.png",
+   "x": 0,
+   "y": 640,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c20.png",
+   "x": 32,
+   "y": 640,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c21.png",
+   "x": 64,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c22.png",
+   "x": 96,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c23.png",
+   "x": 128,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c24.png",
+   "x": 160,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c25.png",
+   "x": 192,
+   "y": 640,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c26.png",
+   "x": 224,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c27.png",
+   "x": 256,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c28.png",
+   "x": 288,
+   "y": 640,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c29.png",
+   "x": 320,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c31.png",
+   "x": 352,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c32.png",
+   "x": 384,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c33.png",
+   "x": 416,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c35.png",
+   "x": 448,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c36.png",
+   "x": 480,
+   "y": 640,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c37.png",
+   "x": 0,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c38.png",
+   "x": 32,
+   "y": 672,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r08c39.png",
+   "x": 64,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c00.png",
+   "x": 96,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c01.png",
+   "x": 128,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c02.png",
+   "x": 160,
+   "y": 672,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c03.png",
+   "x": 192,
+   "y": 672,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c04.png",
+   "x": 224,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c05.png",
+   "x": 256,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c06.png",
+   "x": 288,
+   "y": 672,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c07.png",
+   "x": 320,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c08.png",
+   "x": 352,
+   "y": 672,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c10.png",
+   "x": 384,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c11.png",
+   "x": 416,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c12.png",
+   "x": 448,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c13.png",
+   "x": 480,
+   "y": 672,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c14.png",
+   "x": 0,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c15.png",
+   "x": 32,
+   "y": 704,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c16.png",
+   "x": 64,
+   "y": 704,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c17.png",
+   "x": 96,
+   "y": 704,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c18.png",
+   "x": 128,
+   "y": 704,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c19.png",
+   "x": 160,
+   "y": 704,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c22.png",
+   "x": 192,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c23.png",
+   "x": 224,
+   "y": 704,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c24.png",
+   "x": 256,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c25.png",
+   "x": 288,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c26.png",
+   "x": 320,
+   "y": 704,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c27.png",
+   "x": 352,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c28.png",
+   "x": 384,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c29.png",
+   "x": 416,
+   "y": 704,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c30.png",
+   "x": 448,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c32.png",
+   "x": 480,
+   "y": 704,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c34.png",
+   "x": 0,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c35.png",
+   "x": 32,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c36.png",
+   "x": 64,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r09c37.png",
+   "x": 96,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c00.png",
+   "x": 128,
+   "y": 736,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c01.png",
+   "x": 160,
+   "y": 736,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c02.png",
+   "x": 192,
+   "y": 736,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c03.png",
+   "x": 224,
+   "y": 736,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c04.png",
+   "x": 256,
+   "y": 736,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c05.png",
+   "x": 288,
+   "y": 736,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c06.png",
+   "x": 320,
+   "y": 736,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c07.png",
+   "x": 352,
+   "y": 736,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c08.png",
+   "x": 384,
+   "y": 736,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c09.png",
+   "x": 416,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c10.png",
+   "x": 448,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c11.png",
+   "x": 480,
+   "y": 736,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c12.png",
+   "x": 0,
+   "y": 768,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c13.png",
+   "x": 32,
+   "y": 768,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c14.png",
+   "x": 64,
+   "y": 768,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c15.png",
+   "x": 96,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c16.png",
+   "x": 128,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c17.png",
+   "x": 160,
+   "y": 768,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c18.png",
+   "x": 192,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c19.png",
+   "x": 224,
+   "y": 768,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c22.png",
+   "x": 256,
+   "y": 768,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c23.png",
+   "x": 288,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c24.png",
+   "x": 320,
+   "y": 768,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c25.png",
+   "x": 352,
+   "y": 768,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c26.png",
+   "x": 384,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c27.png",
+   "x": 416,
+   "y": 768,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c28.png",
+   "x": 448,
+   "y": 768,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c29.png",
+   "x": 480,
+   "y": 768,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c30.png",
+   "x": 0,
+   "y": 800,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c32.png",
+   "x": 32,
+   "y": 800,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c33.png",
+   "x": 64,
+   "y": 800,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c34.png",
+   "x": 96,
+   "y": 800,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c35.png",
+   "x": 128,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c36.png",
+   "x": 160,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r10c37.png",
+   "x": 192,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c00.png",
+   "x": 224,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c01.png",
+   "x": 256,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c02.png",
+   "x": 288,
+   "y": 800,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c03.png",
+   "x": 320,
+   "y": 800,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c04.png",
+   "x": 352,
+   "y": 800,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c05.png",
+   "x": 384,
+   "y": 800,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c06.png",
+   "x": 416,
+   "y": 800,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c07.png",
+   "x": 448,
+   "y": 800,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c08.png",
+   "x": 480,
+   "y": 800,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c09.png",
+   "x": 0,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c10.png",
+   "x": 32,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c11.png",
+   "x": 64,
+   "y": 832,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c12.png",
+   "x": 96,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c13.png",
+   "x": 128,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c14.png",
+   "x": 160,
+   "y": 832,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c15.png",
+   "x": 192,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c16.png",
+   "x": 224,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c17.png",
+   "x": 256,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c18.png",
+   "x": 288,
+   "y": 832,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c19.png",
+   "x": 320,
+   "y": 832,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c20.png",
+   "x": 352,
+   "y": 832,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c22.png",
+   "x": 384,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c23.png",
+   "x": 416,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c24.png",
+   "x": 448,
+   "y": 832,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c32.png",
+   "x": 480,
+   "y": 832,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c34.png",
+   "x": 0,
+   "y": 864,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c35.png",
+   "x": 32,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c36.png",
+   "x": 64,
+   "y": 864,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r11c37.png",
+   "x": 96,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c00.png",
+   "x": 128,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c01.png",
+   "x": 160,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c02.png",
+   "x": 192,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c03.png",
+   "x": 224,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c04.png",
+   "x": 256,
+   "y": 864,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c05.png",
+   "x": 288,
+   "y": 864,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c06.png",
+   "x": 320,
+   "y": 864,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c07.png",
+   "x": 352,
+   "y": 864,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c09.png",
+   "x": 384,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c10.png",
+   "x": 416,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c11.png",
+   "x": 448,
+   "y": 864,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c12.png",
+   "x": 480,
+   "y": 864,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c13.png",
+   "x": 0,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c14.png",
+   "x": 32,
+   "y": 896,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c15.png",
+   "x": 64,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c16.png",
+   "x": 96,
+   "y": 896,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c17.png",
+   "x": 128,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c18.png",
+   "x": 160,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c19.png",
+   "x": 192,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c20.png",
+   "x": 224,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c22.png",
+   "x": 256,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c23.png",
+   "x": 288,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c25.png",
+   "x": 320,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c26.png",
+   "x": 352,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c27.png",
+   "x": 384,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c30.png",
+   "x": 416,
+   "y": 896,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c32.png",
+   "x": 448,
+   "y": 896,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c34.png",
+   "x": 480,
+   "y": 896,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c35.png",
+   "x": 0,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c36.png",
+   "x": 32,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r12c37.png",
+   "x": 64,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c00.png",
+   "x": 96,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c01.png",
+   "x": 128,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c02.png",
+   "x": 160,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c03.png",
+   "x": 192,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c04.png",
+   "x": 224,
+   "y": 928,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c05.png",
+   "x": 256,
+   "y": 928,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c06.png",
+   "x": 288,
+   "y": 928,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c07.png",
+   "x": 320,
+   "y": 928,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c08.png",
+   "x": 352,
+   "y": 928,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c09.png",
+   "x": 384,
+   "y": 928,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c10.png",
+   "x": 416,
+   "y": 928,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c11.png",
+   "x": 448,
+   "y": 928,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c12.png",
+   "x": 480,
+   "y": 928,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c13.png",
+   "x": 0,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c14.png",
+   "x": 32,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c15.png",
+   "x": 64,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c16.png",
+   "x": 96,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c17.png",
+   "x": 128,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c18.png",
+   "x": 160,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c19.png",
+   "x": 192,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c20.png",
+   "x": 224,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c23.png",
+   "x": 256,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c24.png",
+   "x": 288,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c25.png",
+   "x": 320,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c26.png",
+   "x": 352,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c27.png",
+   "x": 384,
+   "y": 960,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c28.png",
+   "x": 416,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c29.png",
+   "x": 448,
+   "y": 960,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c30.png",
+   "x": 480,
+   "y": 960,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c32.png",
+   "x": 0,
+   "y": 992,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c34.png",
+   "x": 32,
+   "y": 992,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c35.png",
+   "x": 64,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r13c36.png",
+   "x": 96,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c00.png",
+   "x": 128,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c01.png",
+   "x": 160,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c02.png",
+   "x": 192,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c03.png",
+   "x": 224,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c04.png",
+   "x": 256,
+   "y": 992,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c05.png",
+   "x": 288,
+   "y": 992,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c06.png",
+   "x": 320,
+   "y": 992,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c07.png",
+   "x": 352,
+   "y": 992,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c08.png",
+   "x": 384,
+   "y": 992,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c09.png",
+   "x": 416,
+   "y": 992,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c10.png",
+   "x": 448,
+   "y": 992,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c11.png",
+   "x": 480,
+   "y": 992,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c12.png",
+   "x": 0,
+   "y": 1024,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c13.png",
+   "x": 32,
+   "y": 1024,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c14.png",
+   "x": 64,
+   "y": 1024,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c15.png",
+   "x": 96,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c16.png",
+   "x": 128,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c18.png",
+   "x": 160,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c19.png",
+   "x": 192,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c20.png",
+   "x": 224,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c21.png",
+   "x": 256,
+   "y": 1024,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c22.png",
+   "x": 288,
+   "y": 1024,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c23.png",
+   "x": 320,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c24.png",
+   "x": 352,
+   "y": 1024,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c27.png",
+   "x": 384,
+   "y": 1024,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c29.png",
+   "x": 416,
+   "y": 1024,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c30.png",
+   "x": 448,
+   "y": 1024,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c32.png",
+   "x": 480,
+   "y": 1024,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c34.png",
+   "x": 0,
+   "y": 1056,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c35.png",
+   "x": 32,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r14c36.png",
+   "x": 64,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c00.png",
+   "x": 96,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c01.png",
+   "x": 128,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c02.png",
+   "x": 160,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c03.png",
+   "x": 192,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c04.png",
+   "x": 224,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c05.png",
+   "x": 256,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c06.png",
+   "x": 288,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c07.png",
+   "x": 320,
+   "y": 1056,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c08.png",
+   "x": 352,
+   "y": 1056,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c09.png",
+   "x": 384,
+   "y": 1056,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c11.png",
+   "x": 416,
+   "y": 1056,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c12.png",
+   "x": 448,
+   "y": 1056,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c13.png",
+   "x": 480,
+   "y": 1056,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c14.png",
+   "x": 0,
+   "y": 1088,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c15.png",
+   "x": 32,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c16.png",
+   "x": 64,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c17.png",
+   "x": 96,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c18.png",
+   "x": 128,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c23.png",
+   "x": 160,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c24.png",
+   "x": 192,
+   "y": 1088,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c25.png",
+   "x": 224,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c26.png",
+   "x": 256,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c27.png",
+   "x": 288,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r15c28.png",
+   "x": 320,
+   "y": 1088,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c00.png",
+   "x": 352,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c01.png",
+   "x": 384,
+   "y": 1088,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c02.png",
+   "x": 416,
+   "y": 1088,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c03.png",
+   "x": 448,
+   "y": 1088,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c04.png",
+   "x": 480,
+   "y": 1088,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c05.png",
+   "x": 0,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c06.png",
+   "x": 32,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c07.png",
+   "x": 64,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c11.png",
+   "x": 96,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c12.png",
+   "x": 128,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c13.png",
+   "x": 160,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c14.png",
+   "x": 192,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c17.png",
+   "x": 224,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c18.png",
+   "x": 256,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c23.png",
+   "x": 288,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c24.png",
+   "x": 320,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c28.png",
+   "x": 352,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c29.png",
+   "x": 384,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r16c33.png",
+   "x": 416,
+   "y": 1120,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c00.png",
+   "x": 448,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c02.png",
+   "x": 480,
+   "y": 1120,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c03.png",
+   "x": 0,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c04.png",
+   "x": 32,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c05.png",
+   "x": 64,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c06.png",
+   "x": 96,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c07.png",
+   "x": 128,
+   "y": 1152,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c09.png",
+   "x": 160,
+   "y": 1152,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c10.png",
+   "x": 192,
+   "y": 1152,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c11.png",
+   "x": 224,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c12.png",
+   "x": 256,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c13.png",
+   "x": 288,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c14.png",
+   "x": 320,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c15.png",
+   "x": 352,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c16.png",
+   "x": 384,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c19.png",
+   "x": 416,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c20.png",
+   "x": 448,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c21.png",
+   "x": 480,
+   "y": 1152,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c22.png",
+   "x": 0,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c23.png",
+   "x": 32,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c24.png",
+   "x": 64,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c25.png",
+   "x": 96,
+   "y": 1184,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c27.png",
+   "x": 128,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c28.png",
+   "x": 160,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c29.png",
+   "x": 192,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c30.png",
+   "x": 224,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c31.png",
+   "x": 256,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c38.png",
+   "x": 288,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r17c39.png",
+   "x": 320,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c00.png",
+   "x": 352,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c02.png",
+   "x": 384,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c03.png",
+   "x": 416,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c04.png",
+   "x": 448,
+   "y": 1184,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c05.png",
+   "x": 480,
+   "y": 1184,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c06.png",
+   "x": 0,
+   "y": 1216,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c07.png",
+   "x": 32,
+   "y": 1216,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c08.png",
+   "x": 64,
+   "y": 1216,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c09.png",
+   "x": 96,
+   "y": 1216,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c10.png",
+   "x": 128,
+   "y": 1216,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c11.png",
+   "x": 160,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c12.png",
+   "x": 192,
+   "y": 1216,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c13.png",
+   "x": 224,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c14.png",
+   "x": 256,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c16.png",
+   "x": 288,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c17.png",
+   "x": 320,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c18.png",
+   "x": 352,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c19.png",
+   "x": 384,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c20.png",
+   "x": 416,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c21.png",
+   "x": 448,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c22.png",
+   "x": 480,
+   "y": 1216,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c23.png",
+   "x": 0,
+   "y": 1248,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c24.png",
+   "x": 32,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c25.png",
+   "x": 64,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c27.png",
+   "x": 96,
+   "y": 1248,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c28.png",
+   "x": 128,
+   "y": 1248,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c29.png",
+   "x": 160,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c30.png",
+   "x": 192,
+   "y": 1248,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c31.png",
+   "x": 224,
+   "y": 1248,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c32.png",
+   "x": 256,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c33.png",
+   "x": 288,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c36.png",
+   "x": 320,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c37.png",
+   "x": 352,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c38.png",
+   "x": 384,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r18c39.png",
+   "x": 416,
+   "y": 1248,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c00.png",
+   "x": 448,
+   "y": 1248,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c01.png",
+   "x": 480,
+   "y": 1248,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c03.png",
+   "x": 0,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c04.png",
+   "x": 32,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c05.png",
+   "x": 64,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c06.png",
+   "x": 96,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c07.png",
+   "x": 128,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c08.png",
+   "x": 160,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c09.png",
+   "x": 192,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c10.png",
+   "x": 224,
+   "y": 1280,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c11.png",
+   "x": 256,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c12.png",
+   "x": 288,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c13.png",
+   "x": 320,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c14.png",
+   "x": 352,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c15.png",
+   "x": 384,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c16.png",
+   "x": 416,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c17.png",
+   "x": 448,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c18.png",
+   "x": 480,
+   "y": 1280,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c19.png",
+   "x": 0,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c20.png",
+   "x": 32,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c21.png",
+   "x": 64,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c22.png",
+   "x": 96,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c23.png",
+   "x": 128,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c24.png",
+   "x": 160,
+   "y": 1312,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c27.png",
+   "x": 192,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c28.png",
+   "x": 224,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c29.png",
+   "x": 256,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c30.png",
+   "x": 288,
+   "y": 1312,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c31.png",
+   "x": 320,
+   "y": 1312,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c34.png",
+   "x": 352,
+   "y": 1312,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c37.png",
+   "x": 384,
+   "y": 1312,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c38.png",
+   "x": 416,
+   "y": 1312,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r19c39.png",
+   "x": 448,
+   "y": 1312,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c00.png",
+   "x": 480,
+   "y": 1312,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c01.png",
+   "x": 0,
+   "y": 1344,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c02.png",
+   "x": 32,
+   "y": 1344,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c03.png",
+   "x": 64,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c04.png",
+   "x": 96,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c06.png",
+   "x": 128,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c07.png",
+   "x": 160,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c09.png",
+   "x": 192,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c10.png",
+   "x": 224,
+   "y": 1344,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c11.png",
+   "x": 256,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c12.png",
+   "x": 288,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c13.png",
+   "x": 320,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c14.png",
+   "x": 352,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c15.png",
+   "x": 384,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c16.png",
+   "x": 416,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c17.png",
+   "x": 448,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c18.png",
+   "x": 480,
+   "y": 1344,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c19.png",
+   "x": 0,
+   "y": 1376,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c20.png",
+   "x": 32,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c21.png",
+   "x": 64,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c22.png",
+   "x": 96,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c23.png",
+   "x": 128,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c24.png",
+   "x": 160,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c25.png",
+   "x": 192,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c26.png",
+   "x": 224,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c27.png",
+   "x": 256,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c28.png",
+   "x": 288,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r20c29.png",
+   "x": 320,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c00.png",
+   "x": 352,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c01.png",
+   "x": 384,
+   "y": 1376,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c02.png",
+   "x": 416,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c03.png",
+   "x": 448,
+   "y": 1376,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c04.png",
+   "x": 480,
+   "y": 1376,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c05.png",
+   "x": 0,
+   "y": 1408,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c06.png",
+   "x": 32,
+   "y": 1408,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c07.png",
+   "x": 64,
+   "y": 1408,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c09.png",
+   "x": 96,
+   "y": 1408,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c10.png",
+   "x": 128,
+   "y": 1408,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c11.png",
+   "x": 160,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c12.png",
+   "x": 192,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c13.png",
+   "x": 224,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c14.png",
+   "x": 256,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c15.png",
+   "x": 288,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c18.png",
+   "x": 320,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c19.png",
+   "x": 352,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c20.png",
+   "x": 384,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c21.png",
+   "x": 416,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c22.png",
+   "x": 448,
+   "y": 1408,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c23.png",
+   "x": 480,
+   "y": 1408,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c24.png",
+   "x": 0,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c25.png",
+   "x": 32,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r21c26.png",
+   "x": 64,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c00.png",
+   "x": 96,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c02.png",
+   "x": 128,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c03.png",
+   "x": 160,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c04.png",
+   "x": 192,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c05.png",
+   "x": 224,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c06.png",
+   "x": 256,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c07.png",
+   "x": 288,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c08.png",
+   "x": 320,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c09.png",
+   "x": 352,
+   "y": 1440,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c10.png",
+   "x": 384,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c11.png",
+   "x": 416,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c12.png",
+   "x": 448,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c13.png",
+   "x": 480,
+   "y": 1440,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c15.png",
+   "x": 0,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c16.png",
+   "x": 32,
+   "y": 1472,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c17.png",
+   "x": 64,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c18.png",
+   "x": 96,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c19.png",
+   "x": 128,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c20.png",
+   "x": 160,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c21.png",
+   "x": 192,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c22.png",
+   "x": 224,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c23.png",
+   "x": 256,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c24.png",
+   "x": 288,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c25.png",
+   "x": 320,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r22c26.png",
+   "x": 352,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c00.png",
+   "x": 384,
+   "y": 1472,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c01.png",
+   "x": 416,
+   "y": 1472,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c02.png",
+   "x": 448,
+   "y": 1472,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c03.png",
+   "x": 480,
+   "y": 1472,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c04.png",
+   "x": 0,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c05.png",
+   "x": 32,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c06.png",
+   "x": 64,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c07.png",
+   "x": 96,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c08.png",
+   "x": 128,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c09.png",
+   "x": 160,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c10.png",
+   "x": 192,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c11.png",
+   "x": 224,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c12.png",
+   "x": 256,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c13.png",
+   "x": 288,
+   "y": 1504,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c15.png",
+   "x": 320,
+   "y": 1504,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c16.png",
+   "x": 352,
+   "y": 1504,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c18.png",
+   "x": 384,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c19.png",
+   "x": 416,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c20.png",
+   "x": 448,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c21.png",
+   "x": 480,
+   "y": 1504,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c22.png",
+   "x": 0,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c23.png",
+   "x": 32,
+   "y": 1536,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c24.png",
+   "x": 64,
+   "y": 1536,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c25.png",
+   "x": 96,
+   "y": 1536,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c26.png",
+   "x": 128,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c28.png",
+   "x": 160,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r23c29.png",
+   "x": 192,
+   "y": 1536,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c00.png",
+   "x": 224,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c01.png",
+   "x": 256,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c02.png",
+   "x": 288,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c03.png",
+   "x": 320,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c04.png",
+   "x": 352,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c05.png",
+   "x": 384,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c08.png",
+   "x": 416,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c09.png",
+   "x": 448,
+   "y": 1536,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c10.png",
+   "x": 480,
+   "y": 1536,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c12.png",
+   "x": 0,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c13.png",
+   "x": 32,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c15.png",
+   "x": 64,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c16.png",
+   "x": 96,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c18.png",
+   "x": 128,
+   "y": 1568,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c19.png",
+   "x": 160,
+   "y": 1568,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c22.png",
+   "x": 192,
+   "y": 1568,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c25.png",
+   "x": 224,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r24c29.png",
+   "x": 256,
+   "y": 1568,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c00.png",
+   "x": 288,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c01.png",
+   "x": 320,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c02.png",
+   "x": 352,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c03.png",
+   "x": 384,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c04.png",
+   "x": 416,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c05.png",
+   "x": 448,
+   "y": 1568,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c08.png",
+   "x": 480,
+   "y": 1568,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c09.png",
+   "x": 0,
+   "y": 1600,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c10.png",
+   "x": 32,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c11.png",
+   "x": 64,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c12.png",
+   "x": 96,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c13.png",
+   "x": 128,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c14.png",
+   "x": 160,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c15.png",
+   "x": 192,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c16.png",
+   "x": 224,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c17.png",
+   "x": 256,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c18.png",
+   "x": 288,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c19.png",
+   "x": 320,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c20.png",
+   "x": 352,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c21.png",
+   "x": 384,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c22.png",
+   "x": 416,
+   "y": 1600,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c25.png",
+   "x": 448,
+   "y": 1600,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c26.png",
+   "x": 480,
+   "y": 1600,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c28.png",
+   "x": 0,
+   "y": 1632,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r25c29.png",
+   "x": 32,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c00.png",
+   "x": 64,
+   "y": 1632,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c01.png",
+   "x": 96,
+   "y": 1632,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c02.png",
+   "x": 128,
+   "y": 1632,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c03.png",
+   "x": 160,
+   "y": 1632,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c04.png",
+   "x": 192,
+   "y": 1632,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c05.png",
+   "x": 224,
+   "y": 1632,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c06.png",
+   "x": 256,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c07.png",
+   "x": 288,
+   "y": 1632,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c08.png",
+   "x": 320,
+   "y": 1632,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c09.png",
+   "x": 352,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c11.png",
+   "x": 384,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c12.png",
+   "x": 416,
+   "y": 1632,
+   "role": "pit"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c13.png",
+   "x": 448,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c14.png",
+   "x": 480,
+   "y": 1632,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c15.png",
+   "x": 0,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c16.png",
+   "x": 32,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c17.png",
+   "x": 64,
+   "y": 1664,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c18.png",
+   "x": 96,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c19.png",
+   "x": 128,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c20.png",
+   "x": 160,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c21.png",
+   "x": 192,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c22.png",
+   "x": 224,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c25.png",
+   "x": 256,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c26.png",
+   "x": 288,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c27.png",
+   "x": 320,
+   "y": 1664,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c28.png",
+   "x": 352,
+   "y": 1664,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r26c29.png",
+   "x": 384,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c00.png",
+   "x": 416,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c01.png",
+   "x": 448,
+   "y": 1664,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c02.png",
+   "x": 480,
+   "y": 1664,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c03.png",
+   "x": 0,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c04.png",
+   "x": 32,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c05.png",
+   "x": 64,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c06.png",
+   "x": 96,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c07.png",
+   "x": 128,
+   "y": 1696,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c08.png",
+   "x": 160,
+   "y": 1696,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c09.png",
+   "x": 192,
+   "y": 1696,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c10.png",
+   "x": 224,
+   "y": 1696,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c11.png",
+   "x": 256,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c12.png",
+   "x": 288,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c13.png",
+   "x": 320,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c14.png",
+   "x": 352,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c15.png",
+   "x": 384,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c16.png",
+   "x": 416,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c17.png",
+   "x": 448,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c18.png",
+   "x": 480,
+   "y": 1696,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c19.png",
+   "x": 0,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c20.png",
+   "x": 32,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c21.png",
+   "x": 64,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c22.png",
+   "x": 96,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c25.png",
+   "x": 128,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c26.png",
+   "x": 160,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c27.png",
+   "x": 192,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c28.png",
+   "x": 224,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r27c29.png",
+   "x": 256,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c00.png",
+   "x": 288,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c01.png",
+   "x": 320,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c02.png",
+   "x": 352,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c03.png",
+   "x": 384,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c04.png",
+   "x": 416,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c05.png",
+   "x": 448,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c06.png",
+   "x": 480,
+   "y": 1728,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c07.png",
+   "x": 0,
+   "y": 1760,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c08.png",
+   "x": 32,
+   "y": 1760,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c09.png",
+   "x": 64,
+   "y": 1760,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c10.png",
+   "x": 96,
+   "y": 1760,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c11.png",
+   "x": 128,
+   "y": 1760,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c12.png",
+   "x": 160,
+   "y": 1760,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c13.png",
+   "x": 192,
+   "y": 1760,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c14.png",
+   "x": 224,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c15.png",
+   "x": 256,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c16.png",
+   "x": 288,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c17.png",
+   "x": 320,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c20.png",
+   "x": 352,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c21.png",
+   "x": 384,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c22.png",
+   "x": 416,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c25.png",
+   "x": 448,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r28c26.png",
+   "x": 480,
+   "y": 1760,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c00.png",
+   "x": 0,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c01.png",
+   "x": 32,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c02.png",
+   "x": 64,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c03.png",
+   "x": 96,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c04.png",
+   "x": 128,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c05.png",
+   "x": 160,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c06.png",
+   "x": 192,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c07.png",
+   "x": 224,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c08.png",
+   "x": 256,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c09.png",
+   "x": 288,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c10.png",
+   "x": 320,
+   "y": 1792,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c11.png",
+   "x": 352,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c12.png",
+   "x": 384,
+   "y": 1792,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c14.png",
+   "x": 416,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c15.png",
+   "x": 448,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c16.png",
+   "x": 480,
+   "y": 1792,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c17.png",
+   "x": 0,
+   "y": 1824,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c18.png",
+   "x": 32,
+   "y": 1824,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c20.png",
+   "x": 64,
+   "y": 1824,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r29c22.png",
+   "x": 96,
+   "y": 1824,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c00.png",
+   "x": 128,
+   "y": 1824,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c01.png",
+   "x": 160,
+   "y": 1824,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c02.png",
+   "x": 192,
+   "y": 1824,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c03.png",
+   "x": 224,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c04.png",
+   "x": 256,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c05.png",
+   "x": 288,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c06.png",
+   "x": 320,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c07.png",
+   "x": 352,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c08.png",
+   "x": 384,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c09.png",
+   "x": 416,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c10.png",
+   "x": 448,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c11.png",
+   "x": 480,
+   "y": 1824,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c12.png",
+   "x": 0,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c14.png",
+   "x": 32,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c15.png",
+   "x": 64,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c16.png",
+   "x": 96,
+   "y": 1856,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c17.png",
+   "x": 128,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r30c18.png",
+   "x": 160,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c00.png",
+   "x": 192,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c01.png",
+   "x": 224,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c02.png",
+   "x": 256,
+   "y": 1856,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c03.png",
+   "x": 288,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c04.png",
+   "x": 320,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c05.png",
+   "x": 352,
+   "y": 1856,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c06.png",
+   "x": 384,
+   "y": 1856,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c07.png",
+   "x": 416,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c08.png",
+   "x": 448,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c09.png",
+   "x": 480,
+   "y": 1856,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c10.png",
+   "x": 0,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c11.png",
+   "x": 32,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c12.png",
+   "x": 64,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c13.png",
+   "x": 96,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c14.png",
+   "x": 128,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c15.png",
+   "x": 160,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c16.png",
+   "x": 192,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c19.png",
+   "x": 224,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c20.png",
+   "x": 256,
+   "y": 1888,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c22.png",
+   "x": 288,
+   "y": 1888,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c23.png",
+   "x": 320,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c25.png",
+   "x": 352,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r31c26.png",
+   "x": 384,
+   "y": 1888,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c00.png",
+   "x": 416,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c01.png",
+   "x": 448,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c02.png",
+   "x": 480,
+   "y": 1888,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c03.png",
+   "x": 0,
+   "y": 1920,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c04.png",
+   "x": 32,
+   "y": 1920,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c05.png",
+   "x": 64,
+   "y": 1920,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c06.png",
+   "x": 96,
+   "y": 1920,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c07.png",
+   "x": 128,
+   "y": 1920,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c08.png",
+   "x": 160,
+   "y": 1920,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c09.png",
+   "x": 192,
+   "y": 1920,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c10.png",
+   "x": 224,
+   "y": 1920,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c11.png",
+   "x": 256,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c12.png",
+   "x": 288,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c13.png",
+   "x": 320,
+   "y": 1920,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c14.png",
+   "x": 352,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c15.png",
+   "x": 384,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c16.png",
+   "x": 416,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c17.png",
+   "x": 448,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c18.png",
+   "x": 480,
+   "y": 1920,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c19.png",
+   "x": 0,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c20.png",
+   "x": 32,
+   "y": 1952,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c21.png",
+   "x": 64,
+   "y": 1952,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c22.png",
+   "x": 96,
+   "y": 1952,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c23.png",
+   "x": 128,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c24.png",
+   "x": 160,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r32c27.png",
+   "x": 192,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c00.png",
+   "x": 224,
+   "y": 1952,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c01.png",
+   "x": 256,
+   "y": 1952,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c04.png",
+   "x": 288,
+   "y": 1952,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c05.png",
+   "x": 320,
+   "y": 1952,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c06.png",
+   "x": 352,
+   "y": 1952,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c07.png",
+   "x": 384,
+   "y": 1952,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c08.png",
+   "x": 416,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c09.png",
+   "x": 448,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c10.png",
+   "x": 480,
+   "y": 1952,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c11.png",
+   "x": 0,
+   "y": 1984,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c12.png",
+   "x": 32,
+   "y": 1984,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c13.png",
+   "x": 64,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c14.png",
+   "x": 96,
+   "y": 1984,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c15.png",
+   "x": 128,
+   "y": 1984,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c16.png",
+   "x": 160,
+   "y": 1984,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c17.png",
+   "x": 192,
+   "y": 1984,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c18.png",
+   "x": 224,
+   "y": 1984,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c24.png",
+   "x": 256,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c25.png",
+   "x": 288,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c26.png",
+   "x": 320,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r33c27.png",
+   "x": 352,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c00.png",
+   "x": 384,
+   "y": 1984,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c01.png",
+   "x": 416,
+   "y": 1984,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c04.png",
+   "x": 448,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c05.png",
+   "x": 480,
+   "y": 1984,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c06.png",
+   "x": 0,
+   "y": 2016,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r34c07.png",
+   "x": 32,
+   "y": 2016,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_a_r35c00.png",
+   "x": 64,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_a_r35c01.png",
+   "x": 96,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c00.png",
+   "x": 128,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c01.png",
+   "x": 160,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c02.png",
+   "x": 192,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c03.png",
+   "x": 224,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c04.png",
+   "x": 256,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c05.png",
+   "x": 288,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c06.png",
+   "x": 320,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c07.png",
+   "x": 352,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c09.png",
+   "x": 384,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c10.png",
+   "x": 416,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r00c11.png",
+   "x": 448,
+   "y": 2016,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c00.png",
+   "x": 480,
+   "y": 2016,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c01.png",
+   "x": 0,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c02.png",
+   "x": 32,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c03.png",
+   "x": 64,
+   "y": 2048,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c04.png",
+   "x": 96,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c05.png",
+   "x": 128,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c06.png",
+   "x": 160,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c07.png",
+   "x": 192,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c08.png",
+   "x": 224,
+   "y": 2048,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c09.png",
+   "x": 256,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c10.png",
+   "x": 288,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r01c11.png",
+   "x": 320,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c00.png",
+   "x": 352,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c01.png",
+   "x": 384,
+   "y": 2048,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c02.png",
+   "x": 416,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c03.png",
+   "x": 448,
+   "y": 2048,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c04.png",
+   "x": 480,
+   "y": 2048,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c05.png",
+   "x": 0,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c06.png",
+   "x": 32,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c07.png",
+   "x": 64,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c08.png",
+   "x": 96,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c09.png",
+   "x": 128,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c10.png",
+   "x": 160,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r02c11.png",
+   "x": 192,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c00.png",
+   "x": 224,
+   "y": 2080,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c01.png",
+   "x": 256,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c02.png",
+   "x": 288,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c03.png",
+   "x": 320,
+   "y": 2080,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c04.png",
+   "x": 352,
+   "y": 2080,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c05.png",
+   "x": 384,
+   "y": 2080,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c06.png",
+   "x": 416,
+   "y": 2080,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c07.png",
+   "x": 448,
+   "y": 2080,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c08.png",
+   "x": 480,
+   "y": 2080,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c09.png",
+   "x": 0,
+   "y": 2112,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c10.png",
+   "x": 32,
+   "y": 2112,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r03c11.png",
+   "x": 64,
+   "y": 2112,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c00.png",
+   "x": 96,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c01.png",
+   "x": 128,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c02.png",
+   "x": 160,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c03.png",
+   "x": 192,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c04.png",
+   "x": 224,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c05.png",
+   "x": 256,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c06.png",
+   "x": 288,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c07.png",
+   "x": 320,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c08.png",
+   "x": 352,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c09.png",
+   "x": 384,
+   "y": 2112,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c10.png",
+   "x": 416,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r04c11.png",
+   "x": 448,
+   "y": 2112,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c00.png",
+   "x": 480,
+   "y": 2112,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c01.png",
+   "x": 0,
+   "y": 2144,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c02.png",
+   "x": 32,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c03.png",
+   "x": 64,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c04.png",
+   "x": 96,
+   "y": 2144,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c05.png",
+   "x": 128,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c06.png",
+   "x": 160,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c08.png",
+   "x": 192,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c09.png",
+   "x": 224,
+   "y": 2144,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c10.png",
+   "x": 256,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r05c11.png",
+   "x": 288,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c00.png",
+   "x": 320,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c01.png",
+   "x": 352,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c02.png",
+   "x": 384,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c03.png",
+   "x": 416,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c04.png",
+   "x": 448,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c05.png",
+   "x": 480,
+   "y": 2144,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c06.png",
+   "x": 0,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c07.png",
+   "x": 32,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c08.png",
+   "x": 64,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c09.png",
+   "x": 96,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c10.png",
+   "x": 128,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r06c11.png",
+   "x": 160,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c00.png",
+   "x": 192,
+   "y": 2176,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c01.png",
+   "x": 224,
+   "y": 2176,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c02.png",
+   "x": 256,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c03.png",
+   "x": 288,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c04.png",
+   "x": 320,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c05.png",
+   "x": 352,
+   "y": 2176,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c06.png",
+   "x": 384,
+   "y": 2176,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c07.png",
+   "x": 416,
+   "y": 2176,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c09.png",
+   "x": 448,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c10.png",
+   "x": 480,
+   "y": 2176,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r07c11.png",
+   "x": 0,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c00.png",
+   "x": 32,
+   "y": 2208,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c01.png",
+   "x": 64,
+   "y": 2208,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c02.png",
+   "x": 96,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c03.png",
+   "x": 128,
+   "y": 2208,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c04.png",
+   "x": 160,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c05.png",
+   "x": 192,
+   "y": 2208,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c06.png",
+   "x": 224,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c07.png",
+   "x": 256,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c09.png",
+   "x": 288,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c10.png",
+   "x": 320,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r08c11.png",
+   "x": 352,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c00.png",
+   "x": 384,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c01.png",
+   "x": 416,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c02.png",
+   "x": 448,
+   "y": 2208,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c03.png",
+   "x": 480,
+   "y": 2208,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c04.png",
+   "x": 0,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c05.png",
+   "x": 32,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c06.png",
+   "x": 64,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c07.png",
+   "x": 96,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r09c11.png",
+   "x": 128,
+   "y": 2240,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c00.png",
+   "x": 160,
+   "y": 2240,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c01.png",
+   "x": 192,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c02.png",
+   "x": 224,
+   "y": 2240,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c03.png",
+   "x": 256,
+   "y": 2240,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c04.png",
+   "x": 288,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c05.png",
+   "x": 320,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c06.png",
+   "x": 352,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c07.png",
+   "x": 384,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c09.png",
+   "x": 416,
+   "y": 2240,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c10.png",
+   "x": 448,
+   "y": 2240,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r10c11.png",
+   "x": 480,
+   "y": 2240,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c00.png",
+   "x": 0,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c01.png",
+   "x": 32,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c02.png",
+   "x": 64,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c03.png",
+   "x": 96,
+   "y": 2272,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c04.png",
+   "x": 128,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c05.png",
+   "x": 160,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c06.png",
+   "x": 192,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c07.png",
+   "x": 224,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c08.png",
+   "x": 256,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c09.png",
+   "x": 288,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c10.png",
+   "x": 320,
+   "y": 2272,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r11c11.png",
+   "x": 352,
+   "y": 2272,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c00.png",
+   "x": 384,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c01.png",
+   "x": 416,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c02.png",
+   "x": 448,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c03.png",
+   "x": 480,
+   "y": 2272,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c05.png",
+   "x": 0,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c06.png",
+   "x": 32,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c07.png",
+   "x": 64,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c08.png",
+   "x": 96,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c09.png",
+   "x": 128,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c10.png",
+   "x": 160,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r12c11.png",
+   "x": 192,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c00.png",
+   "x": 224,
+   "y": 2304,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c01.png",
+   "x": 256,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c02.png",
+   "x": 288,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c03.png",
+   "x": 320,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c04.png",
+   "x": 352,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c05.png",
+   "x": 384,
+   "y": 2304,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c06.png",
+   "x": 416,
+   "y": 2304,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c07.png",
+   "x": 448,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c08.png",
+   "x": 480,
+   "y": 2304,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c09.png",
+   "x": 0,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c10.png",
+   "x": 32,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r13c11.png",
+   "x": 64,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c00.png",
+   "x": 96,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c01.png",
+   "x": 128,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c02.png",
+   "x": 160,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c03.png",
+   "x": 192,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c04.png",
+   "x": 224,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c05.png",
+   "x": 256,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c06.png",
+   "x": 288,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c07.png",
+   "x": 320,
+   "y": 2336,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c08.png",
+   "x": 352,
+   "y": 2336,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c09.png",
+   "x": 384,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c10.png",
+   "x": 416,
+   "y": 2336,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_b_r14c11.png",
+   "x": 448,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c00.png",
+   "x": 480,
+   "y": 2336,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c01.png",
+   "x": 0,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c02.png",
+   "x": 32,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c03.png",
+   "x": 64,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c04.png",
+   "x": 96,
+   "y": 2368,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c05.png",
+   "x": 128,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c06.png",
+   "x": 160,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c07.png",
+   "x": 192,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c08.png",
+   "x": 224,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c09.png",
+   "x": 256,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r15c11.png",
+   "x": 288,
+   "y": 2368,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c00.png",
+   "x": 320,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c01.png",
+   "x": 352,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c02.png",
+   "x": 384,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c03.png",
+   "x": 416,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c04.png",
+   "x": 448,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c05.png",
+   "x": 480,
+   "y": 2368,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c06.png",
+   "x": 0,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c07.png",
+   "x": 32,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c08.png",
+   "x": 64,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c09.png",
+   "x": 96,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r16c11.png",
+   "x": 128,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c00.png",
+   "x": 160,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c01.png",
+   "x": 192,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c02.png",
+   "x": 224,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c03.png",
+   "x": 256,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c04.png",
+   "x": 288,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r17c11.png",
+   "x": 320,
+   "y": 2400,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_b_r18c00.png",
+   "x": 352,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r18c01.png",
+   "x": 384,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r18c02.png",
+   "x": 416,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r18c03.png",
+   "x": 448,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r18c04.png",
+   "x": 480,
+   "y": 2400,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r19c00.png",
+   "x": 0,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r19c01.png",
+   "x": 32,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r19c02.png",
+   "x": 64,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r20c00.png",
+   "x": 96,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r20c01.png",
+   "x": 128,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_b_r20c02.png",
+   "x": 160,
+   "y": 2432,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c01.png",
+   "x": 192,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c02.png",
+   "x": 224,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c03.png",
+   "x": 256,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c04.png",
+   "x": 288,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c06.png",
+   "x": 320,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c07.png",
+   "x": 352,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c08.png",
+   "x": 384,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c09.png",
+   "x": 416,
+   "y": 2432,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c10.png",
+   "x": 448,
+   "y": 2432,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c11.png",
+   "x": 480,
+   "y": 2432,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c12.png",
+   "x": 0,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c13.png",
+   "x": 32,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c14.png",
+   "x": 64,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r00c15.png",
+   "x": 96,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c00.png",
+   "x": 128,
+   "y": 2464,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c01.png",
+   "x": 160,
+   "y": 2464,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c02.png",
+   "x": 192,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c03.png",
+   "x": 224,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c04.png",
+   "x": 256,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c05.png",
+   "x": 288,
+   "y": 2464,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c06.png",
+   "x": 320,
+   "y": 2464,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c07.png",
+   "x": 352,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c08.png",
+   "x": 384,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c09.png",
+   "x": 416,
+   "y": 2464,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c10.png",
+   "x": 448,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c11.png",
+   "x": 480,
+   "y": 2464,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c12.png",
+   "x": 0,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c13.png",
+   "x": 32,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c14.png",
+   "x": 64,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r01c15.png",
+   "x": 96,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c00.png",
+   "x": 128,
+   "y": 2496,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c01.png",
+   "x": 160,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c02.png",
+   "x": 192,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c03.png",
+   "x": 224,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c04.png",
+   "x": 256,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c05.png",
+   "x": 288,
+   "y": 2496,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c06.png",
+   "x": 320,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c07.png",
+   "x": 352,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c08.png",
+   "x": 384,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c09.png",
+   "x": 416,
+   "y": 2496,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c11.png",
+   "x": 448,
+   "y": 2496,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c12.png",
+   "x": 480,
+   "y": 2496,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c13.png",
+   "x": 0,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c14.png",
+   "x": 32,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r02c15.png",
+   "x": 64,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c00.png",
+   "x": 96,
+   "y": 2528,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c01.png",
+   "x": 128,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c02.png",
+   "x": 160,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c03.png",
+   "x": 192,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c04.png",
+   "x": 224,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c05.png",
+   "x": 256,
+   "y": 2528,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c06.png",
+   "x": 288,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c07.png",
+   "x": 320,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c08.png",
+   "x": 352,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c09.png",
+   "x": 384,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c10.png",
+   "x": 416,
+   "y": 2528,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c11.png",
+   "x": 448,
+   "y": 2528,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c12.png",
+   "x": 480,
+   "y": 2528,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c13.png",
+   "x": 0,
+   "y": 2560,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c14.png",
+   "x": 32,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r03c15.png",
+   "x": 64,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c00.png",
+   "x": 96,
+   "y": 2560,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c01.png",
+   "x": 128,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c02.png",
+   "x": 160,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c03.png",
+   "x": 192,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c04.png",
+   "x": 224,
+   "y": 2560,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c05.png",
+   "x": 256,
+   "y": 2560,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c06.png",
+   "x": 288,
+   "y": 2560,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c07.png",
+   "x": 320,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c08.png",
+   "x": 352,
+   "y": 2560,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c09.png",
+   "x": 384,
+   "y": 2560,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c10.png",
+   "x": 416,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c11.png",
+   "x": 448,
+   "y": 2560,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c12.png",
+   "x": 480,
+   "y": 2560,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c13.png",
+   "x": 0,
+   "y": 2592,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c14.png",
+   "x": 32,
+   "y": 2592,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r04c15.png",
+   "x": 64,
+   "y": 2592,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c00.png",
+   "x": 96,
+   "y": 2592,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c01.png",
+   "x": 128,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c02.png",
+   "x": 160,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c03.png",
+   "x": 192,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c04.png",
+   "x": 224,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c05.png",
+   "x": 256,
+   "y": 2592,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c06.png",
+   "x": 288,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c07.png",
+   "x": 320,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c08.png",
+   "x": 352,
+   "y": 2592,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c09.png",
+   "x": 384,
+   "y": 2592,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c10.png",
+   "x": 416,
+   "y": 2592,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c11.png",
+   "x": 448,
+   "y": 2592,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c12.png",
+   "x": 480,
+   "y": 2592,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c13.png",
+   "x": 0,
+   "y": 2624,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c14.png",
+   "x": 32,
+   "y": 2624,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r05c15.png",
+   "x": 64,
+   "y": 2624,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c00.png",
+   "x": 96,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c01.png",
+   "x": 128,
+   "y": 2624,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c02.png",
+   "x": 160,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c03.png",
+   "x": 192,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c04.png",
+   "x": 224,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c05.png",
+   "x": 256,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c06.png",
+   "x": 288,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c07.png",
+   "x": 320,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c08.png",
+   "x": 352,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c09.png",
+   "x": 384,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c10.png",
+   "x": 416,
+   "y": 2624,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c11.png",
+   "x": 448,
+   "y": 2624,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c12.png",
+   "x": 480,
+   "y": 2624,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c13.png",
+   "x": 0,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c14.png",
+   "x": 32,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r06c15.png",
+   "x": 64,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c00.png",
+   "x": 96,
+   "y": 2656,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c01.png",
+   "x": 128,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c02.png",
+   "x": 160,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c03.png",
+   "x": 192,
+   "y": 2656,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c04.png",
+   "x": 224,
+   "y": 2656,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c05.png",
+   "x": 256,
+   "y": 2656,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c06.png",
+   "x": 288,
+   "y": 2656,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c07.png",
+   "x": 320,
+   "y": 2656,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c08.png",
+   "x": 352,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c09.png",
+   "x": 384,
+   "y": 2656,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c10.png",
+   "x": 416,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c11.png",
+   "x": 448,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c12.png",
+   "x": 480,
+   "y": 2656,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c13.png",
+   "x": 0,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c14.png",
+   "x": 32,
+   "y": 2688,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r07c15.png",
+   "x": 64,
+   "y": 2688,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c00.png",
+   "x": 96,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c01.png",
+   "x": 128,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c02.png",
+   "x": 160,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c03.png",
+   "x": 192,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c04.png",
+   "x": 224,
+   "y": 2688,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c05.png",
+   "x": 256,
+   "y": 2688,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c06.png",
+   "x": 288,
+   "y": 2688,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c07.png",
+   "x": 320,
+   "y": 2688,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c08.png",
+   "x": 352,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c09.png",
+   "x": 384,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c10.png",
+   "x": 416,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c11.png",
+   "x": 448,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c12.png",
+   "x": 480,
+   "y": 2688,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c13.png",
+   "x": 0,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c14.png",
+   "x": 32,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r08c15.png",
+   "x": 64,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c00.png",
+   "x": 96,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c01.png",
+   "x": 128,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c02.png",
+   "x": 160,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c03.png",
+   "x": 192,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c04.png",
+   "x": 224,
+   "y": 2720,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c05.png",
+   "x": 256,
+   "y": 2720,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c06.png",
+   "x": 288,
+   "y": 2720,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c07.png",
+   "x": 320,
+   "y": 2720,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c08.png",
+   "x": 352,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c09.png",
+   "x": 384,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c10.png",
+   "x": 416,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c11.png",
+   "x": 448,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c12.png",
+   "x": 480,
+   "y": 2720,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c13.png",
+   "x": 0,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c14.png",
+   "x": 32,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r09c15.png",
+   "x": 64,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c00.png",
+   "x": 96,
+   "y": 2752,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c01.png",
+   "x": 128,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c02.png",
+   "x": 160,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c03.png",
+   "x": 192,
+   "y": 2752,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c04.png",
+   "x": 224,
+   "y": 2752,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c05.png",
+   "x": 256,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c06.png",
+   "x": 288,
+   "y": 2752,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c07.png",
+   "x": 320,
+   "y": 2752,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c08.png",
+   "x": 352,
+   "y": 2752,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c09.png",
+   "x": 384,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c10.png",
+   "x": 416,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c11.png",
+   "x": 448,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c12.png",
+   "x": 480,
+   "y": 2752,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c13.png",
+   "x": 0,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c14.png",
+   "x": 32,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r10c15.png",
+   "x": 64,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c00.png",
+   "x": 96,
+   "y": 2784,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c01.png",
+   "x": 128,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c02.png",
+   "x": 160,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c03.png",
+   "x": 192,
+   "y": 2784,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c04.png",
+   "x": 224,
+   "y": 2784,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c05.png",
+   "x": 256,
+   "y": 2784,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c06.png",
+   "x": 288,
+   "y": 2784,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c07.png",
+   "x": 320,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c08.png",
+   "x": 352,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c09.png",
+   "x": 384,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c10.png",
+   "x": 416,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c11.png",
+   "x": 448,
+   "y": 2784,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c12.png",
+   "x": 480,
+   "y": 2784,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c13.png",
+   "x": 0,
+   "y": 2816,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c14.png",
+   "x": 32,
+   "y": 2816,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r11c15.png",
+   "x": 64,
+   "y": 2816,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c00.png",
+   "x": 96,
+   "y": 2816,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c01.png",
+   "x": 128,
+   "y": 2816,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c02.png",
+   "x": 160,
+   "y": 2816,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c03.png",
+   "x": 192,
+   "y": 2816,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c04.png",
+   "x": 224,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c05.png",
+   "x": 256,
+   "y": 2816,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c06.png",
+   "x": 288,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c07.png",
+   "x": 320,
+   "y": 2816,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c08.png",
+   "x": 352,
+   "y": 2816,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c09.png",
+   "x": 384,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c10.png",
+   "x": 416,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c11.png",
+   "x": 448,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c12.png",
+   "x": 480,
+   "y": 2816,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c13.png",
+   "x": 0,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c14.png",
+   "x": 32,
+   "y": 2848,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r12c15.png",
+   "x": 64,
+   "y": 2848,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c00.png",
+   "x": 96,
+   "y": 2848,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c01.png",
+   "x": 128,
+   "y": 2848,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c02.png",
+   "x": 160,
+   "y": 2848,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c03.png",
+   "x": 192,
+   "y": 2848,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c04.png",
+   "x": 224,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c05.png",
+   "x": 256,
+   "y": 2848,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c06.png",
+   "x": 288,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c07.png",
+   "x": 320,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c08.png",
+   "x": 352,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c09.png",
+   "x": 384,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c10.png",
+   "x": 416,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c11.png",
+   "x": 448,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c12.png",
+   "x": 480,
+   "y": 2848,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c13.png",
+   "x": 0,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c14.png",
+   "x": 32,
+   "y": 2880,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_c_r13c15.png",
+   "x": 64,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c00.png",
+   "x": 96,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c01.png",
+   "x": 128,
+   "y": 2880,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c02.png",
+   "x": 160,
+   "y": 2880,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c03.png",
+   "x": 192,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c04.png",
+   "x": 224,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c05.png",
+   "x": 256,
+   "y": 2880,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c06.png",
+   "x": 288,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c07.png",
+   "x": 320,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c08.png",
+   "x": 352,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c09.png",
+   "x": 384,
+   "y": 2880,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c10.png",
+   "x": 416,
+   "y": 2880,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c11.png",
+   "x": 448,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c12.png",
+   "x": 480,
+   "y": 2880,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c13.png",
+   "x": 0,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c14.png",
+   "x": 32,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r14c15.png",
+   "x": 64,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c00.png",
+   "x": 96,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c01.png",
+   "x": 128,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c02.png",
+   "x": 160,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c03.png",
+   "x": 192,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c04.png",
+   "x": 224,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c05.png",
+   "x": 256,
+   "y": 2912,
+   "role": "pit"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c06.png",
+   "x": 288,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c07.png",
+   "x": 320,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c08.png",
+   "x": 352,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c09.png",
+   "x": 384,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c10.png",
+   "x": 416,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c11.png",
+   "x": 448,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c12.png",
+   "x": 480,
+   "y": 2912,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c13.png",
+   "x": 0,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c14.png",
+   "x": 32,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_c_r15c15.png",
+   "x": 64,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c00.png",
+   "x": 96,
+   "y": 2944,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c01.png",
+   "x": 128,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c02.png",
+   "x": 160,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c03.png",
+   "x": 192,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c04.png",
+   "x": 224,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c05.png",
+   "x": 256,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c06.png",
+   "x": 288,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r00c07.png",
+   "x": 320,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c00.png",
+   "x": 352,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c01.png",
+   "x": 384,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c02.png",
+   "x": 416,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c03.png",
+   "x": 448,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c04.png",
+   "x": 480,
+   "y": 2944,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c05.png",
+   "x": 0,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c06.png",
+   "x": 32,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r01c07.png",
+   "x": 64,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c00.png",
+   "x": 96,
+   "y": 2976,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c01.png",
+   "x": 128,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c02.png",
+   "x": 160,
+   "y": 2976,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c03.png",
+   "x": 192,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c04.png",
+   "x": 224,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c05.png",
+   "x": 256,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c06.png",
+   "x": 288,
+   "y": 2976,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_d_r02c07.png",
+   "x": 320,
+   "y": 2976,
+   "role": "wall"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c00.png",
+   "x": 352,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c01.png",
+   "x": 384,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c02.png",
+   "x": 416,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c03.png",
+   "x": 448,
+   "y": 2976,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c04.png",
+   "x": 480,
+   "y": 2976,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c05.png",
+   "x": 0,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c06.png",
+   "x": 32,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_d_r03c07.png",
+   "x": 64,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c00.png",
+   "x": 96,
+   "y": 3008,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c01.png",
+   "x": 128,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c02.png",
+   "x": 160,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c03.png",
+   "x": 192,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c04.png",
+   "x": 224,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c05.png",
+   "x": 256,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c06.png",
+   "x": 288,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r00c07.png",
+   "x": 320,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c00.png",
+   "x": 352,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c01.png",
+   "x": 384,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c02.png",
+   "x": 416,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c03.png",
+   "x": 448,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c04.png",
+   "x": 480,
+   "y": 3008,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c05.png",
+   "x": 0,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c06.png",
+   "x": 32,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r01c07.png",
+   "x": 64,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c00.png",
+   "x": 96,
+   "y": 3040,
+   "role": "floor"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c01.png",
+   "x": 128,
+   "y": 3040,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c02.png",
+   "x": 160,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c03.png",
+   "x": 192,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c04.png",
+   "x": 224,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c05.png",
+   "x": 256,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c06.png",
+   "x": 288,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r02c07.png",
+   "x": 320,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c00.png",
+   "x": 352,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c01.png",
+   "x": 384,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c02.png",
+   "x": 416,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c03.png",
+   "x": 448,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c04.png",
+   "x": 480,
+   "y": 3040,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c05.png",
+   "x": 0,
+   "y": 3072,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c06.png",
+   "x": 32,
+   "y": 3072,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_e_r03c07.png",
+   "x": 64,
+   "y": 3072,
+   "role": "deco"
+  },
+  {
+   "file": "grasslands/grasslands_f_r00c00.png",
+   "x": 96,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r00c01.png",
+   "x": 128,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r00c03.png",
+   "x": 160,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r01c00.png",
+   "x": 192,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r01c01.png",
+   "x": 224,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r01c03.png",
+   "x": 256,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r02c00.png",
+   "x": 288,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r02c01.png",
+   "x": 320,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r02c03.png",
+   "x": 352,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r03c00.png",
+   "x": 384,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r03c01.png",
+   "x": 416,
+   "y": 3072,
+   "role": "floor_var"
+  },
+  {
+   "file": "grasslands/grasslands_f_r03c03.png",
+   "x": 448,
+   "y": 3072,
+   "role": "floor_var"
+  }
+ ]
+}

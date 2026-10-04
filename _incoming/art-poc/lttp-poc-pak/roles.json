@@ -1,0 +1,17 @@
+{
+ "floor": "walkable ground, tileable, 3-5 variants wanted",
+ "floor_var": "floor variant / accent (path, cracked, stained)",
+ "wall": "solid wall body (3/4 overhead)",
+ "wall_top": "wall top face / cap",
+ "wall_base": "wall base / skirt",
+ "pit": "void / hole / dark drop",
+ "water": "water / liquid surface",
+ "hazard": "damaging tile (lava, spikes, coolant)",
+ "door": "door / threshold / stairs",
+ "deco": "ground decoration (bush, rock, flower) - non-blocking",
+ "prop": "placed object / interactable (chest, pot, sign)",
+ "light": "emissive / light-source tile",
+ "sprite": "animated creature/character frame (not a tile)",
+ "glyph": "font glyph / UI icon",
+ "unknown": "unclassified - needs human pass"
+}
