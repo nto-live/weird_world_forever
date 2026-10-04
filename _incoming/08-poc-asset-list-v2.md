@@ -23,7 +23,7 @@ firearms (Req 75) and the Knight/Cyberpunk armor sets (Req 76) remain deferred.
 ## Conventions (LOCKED, per `06-graphics.md` / System Z)
 
 - **Canvas:** 640×448 (20×14 tiles). **Tile:** 32×32. **Player:** 32×48.
-- **Enemies:** 16 / 24 px (this roster). **Boss:** 64–128 px. **UI icons:** 16 / 32. **Font:** 16×16.
+- **Enemies:** 32 / 48 px (this roster). **Boss:** 128–256 px. **UI icons:** 16 / 32. **Font:** 16×16.
 - Modern HD pixel art, nearest-neighbour, integer scaling, no runtime rotation/scale.
 - Emissive pixels (TV glow, lanterns, fireflies, bomb burst) feed the lighting / selective-bloom pass.
 - **Author the 12-piece autotile terrain set per tileset FIRST** (4 outer corners, 4 edges, 4 inner

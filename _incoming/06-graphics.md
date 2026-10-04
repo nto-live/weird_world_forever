@@ -1,3 +1,5 @@
+> **⚠ GRAPHICAL DIRECTION CHANGED 2026-10-03 (16px → 32px).** Tiles **32×32**, player **32×48**, view **640×448** (20×14), integer scale **×3 = 1920×1344** (fallback ×2 = 1280×896), enemies **32/48/64/96**, bosses **128/192/256**, UI **16/32**, font **16×16**. Rooms/biomes are large — up to **80×56 tiles** (2560×1792 px). Health pip = **emerald leaf** (not a heart). System Z + this doc updated; `00-…` stays native 16px.
+
 # Reference: Graphics & Art Direction
 
 **Purpose of this document.** This is the art-direction reference for the LTTP-style procedural
