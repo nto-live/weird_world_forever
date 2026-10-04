@@ -1824,8 +1824,126 @@ graph TD
     MetaR -. "feeds existing unlock models" .-> MetaV
 ```
 
-## Data Models
+### System AA — Dark Room Start Hub
 
+**Responsibilities.** Own the **run-start hub**: each new Run now starts in the **Dark_Room** rather
+than Vigil (System AA supersedes the start-hub/level-select role of System K / Req 32 and the
+"begin from Vigil" wording of System T / Req 50). The Dark_Room is a small, dim interior room with a
+**TV_Screen** the player walks up to and activates (Context_Action, System D / Req 11) to open the
+**Level_Select**, plus a **Starting_Loadout** choice of **Sword / Pistol / Nothing**. On a successful
+Clear it also presents the **Post_Run_Choice** (new weapon / biome-or-level unlock / perk). Realizes
+**Requirement 73**.
+
+**Scene.** DarkRoom.tscn (NEW) is a real in-world room (a Room-like Node2D with a TileMap, not a
+CanvasLayer), so the player physically moves to the TV and the loadout pickups. The TV_Screen,
+loadout stand, and exit door are interactable props on the pixel grid (System S / System Z). The
+Level_Select and loadout prompts render as screen-space CanvasLayer menus over the 320×224 canvas,
+reusing the HUD/menu treatment and the affordability-dimming pattern (locked levels dimmed).
+
+**Boot/lifecycle wiring.** Game.start_run() now routes into DarkRoom.tscn instead of
+Town.tscn; Game.complete_run() returns the player to the Dark_Room (success → Post_Run_Choice).
+Game.damage_player() reaching 0 returns to the Dark_Room with **no** Post_Run_Choice (death is final,
+Req 73.9 / Req 44). Vigil (System K) remains in the game as a town/economy space but is no longer the
+run-start/level-select hub; the Board's Route_Length selection (System V / Req 55) is reached via the
+Dark_Room's Level_Select, which only offers unlocked biomes/levels.
+
+`gdscript
+# DarkRoom.gd (NEW) — in-world room
+func enter(outcome: String) -> void            # "start" | "clear" | "death"
+func open_tv_level_select() -> void            # unlocked biomes/levels only (Meta + UnlockRules, Req 55/60)
+func choose_loadout(id: String) -> void        # "sword" | "pistol" | "nothing" -> sets starting Equipped_Item
+func confirm_start(biome_id: String) -> void   # -> Game.begin_run_at(biome_id) (Req 73.6)
+func present_post_run_choice() -> void          # shown only on Clear (Req 73.8); hidden on death (Req 73.9)
+func apply_post_run_reward(reward_id: String) -> void  # weapon | level-unlock | perk -> Meta Persistent_State
+# Game.gd (EXTEND)
+func begin_run_at(biome_id: String) -> void     # start a Run at a chosen unlocked biome/level with chosen loadout
+`
+
+- **Loadout (Req 73.3, 73.4).** "sword" sets the bare-sword ATTACK_Item (Req 13.3) as the starting
+  Equipped_Item; "pistol" sets the Pistol firearm (System CC / Req 75); "nothing" starts with no
+  Equipped_Item. All honor the one-active-item rule (Req 2).
+- **Level_Select (Req 73.5).** Lists only currently unlocked biomes/levels from Meta + UnlockRules
+  (System V/W); first iteration offers only authored GRASSLANDS (Req 56.10 / 73.10).
+- **Post_Run_Choice (Req 73.8).** On Clear, one reward from a data-driven set {new weapon, level
+  unlock, perk}; the pick is applied to Persistent_State in Meta (Req 44 meta-progression).
+
+### System BB — In-Game Choice Rooms
+
+**Responsibilities.** A data-driven **Choice_Room** the generator can place in a Dungeon that offers a
+**Choice_Offer** of N items; the player takes exactly one and the rest vanish. Realizes
+**Requirement 74**. Binds to generation (System H / Req 28, 59), loot sourcing (System E / Req 17),
+seeding (System J / Req 31), and reachability (System I / Req 30).
+
+`gdscript
+# Room.gd (EXTEND) / DungeonGenerator.gd (EXTEND)
+#   room "kind" gains a "choice" type, placed by _generate_room_interior weighted by depth/biome
+func _place_choice_offer(room, rng) -> Array    # NEW: N item ids, depth/biome-weighted, exclude Attuned_Set
+# ChoiceRoom.gd (NEW)
+var offer: Array[String]                        # N offered item ids (deterministic from seed)
+var taken: bool                                 # one-time; set true on pick
+func pick(item_id: String) -> void              # grant to Run (Req 17.4); clear remaining; taken = true
+`
+
+- **One-of-N (Req 74.2, 74.3, 74.4).** N is a Tunable (CHOICE_OFFER_COUNT); on pick, grant the one
+  item and remove the rest; the offer is spent for the Run.
+- **Determinism (Req 74.5).** The offered set is a Game.rng draw in the fixed order (step 2.5), so a
+  seed reproduces identical offers.
+- **Reachability safety (Req 74.6).** The gate planner never places a reachability-required opener as a
+  one-of-N Choice_Offer item, so taking any single item cannot make a Route uncompletable; a Choice_Room
+  that would violate this is re-rolled by the existing Reachability.completable() loop (System I).
+
+### System CC — Firearms
+
+**Responsibilities.** Add modern firearms as **ATTACK_Items** in the single active slot: **Pistol,
+Machine_Gun, Assault_Rifle, Sniper_Rifle** (consume **Bullets**, the Req 52 ammo type) and
+**Grenade_Launcher** (consumes grenade/bomb ammo, detonates per the bomb model Req 16). Realizes
+**Requirement 75**. Binds to the item taxonomy (System E / Req 13, 14), the Projectile system
+(System C), ammo (System U / Req 52), attunement (Req 18), and tier/curse (System X / Req 61, 62).
+
+`gdscript
+# Items.gd (EXTEND) — data-driven catalogue entries, kind = ATTACK_Item
+#   firearm fields: ammo ("bullets" | "grenade"), fire_rate, bullet_damage, bullet_speed,
+#   spread, range, ammo_per_shot  (all Tunables per item, Req 48 / Req 75.5)
+# Player.gd (EXTEND)
+func fire_firearm(item_id: String) -> void      # consume ammo; emit Projectile; respect ammo gate (Req 14.3)
+# Projectile.gd (EXTEND)
+#   reuse for bullets and the grenade projectile (grenade -> on-impact blast via the bomb path, Req 16)
+`
+
+- **Equip (Req 75.2).** A Firearm occupies the Y-button Equipped_Item like any ATTACK_Item (Req 2).
+- **Ammo gating (Req 75.3).** Bullets insufficient → no fire, ammo unchanged (Req 14.3).
+- **Grenade_Launcher (Req 75.4).** Fires a projectile that detonates with blast + knockback via the
+  bomb/explosive path (Req 16); grenade ammo is Bombs or a dedicated Grenade ammo (Tunable).
+- **Per-weapon feel (Req 75.5).** Machine_Gun = high fire rate; Sniper_Rifle = long range / high
+  per-shot damage; Assault_Rifle = between; Pistol = reliable baseline. All data-driven Tunables.
+- **Attune/curse (Req 75.7, 75.8).** Firearms attune on Clear (Req 18) unless item data says otherwise;
+  negative absolute Tier → Cursed_Item (Req 62).
+
+### System DD — Themed Armor Sets
+
+**Responsibilities.** Provide **Knight-style** and **Cyberpunk-style** Worn_Gear that reuses the
+existing Req 63 **Armor_Type** axis: **Knight → Armor** (defense emphasis), **Cyberpunk → Tactical**
+(mobility/utility emphasis). No new slot or axis is added. Realizes **Requirement 76**; binds to the
+inventory/worn-gear model (System Y / Req 63), damage reduction (System C / Req 10), and tier/curse
+(System X).
+
+`gdscript
+# Items.gd (EXTEND) — gear entries gain a "style" tag ("knight" | "cyber") + armor_type ("armor" | "tactical")
+#   style is cosmetic/thematic; armor_type drives the Req 63.3 Tactical/Armor emphasis
+# Inventory.gd (EXTEND) — equip into Helmet/Body/Shoes per Req 63; mixing styles across slots is allowed
+`
+
+- **Style → Armor_Type mapping (Req 76.2).** Knight gear is authored under rmor_type = "armor";
+  Cyberpunk gear under rmor_type = "tactical". Emphasis values are data-driven per item.
+- **Slots (Req 76.5).** Knight and Cyber pieces fit the same Helmet/Body/Shoes slots (Req 63.2); the
+  slot-type match/reject of Req 63.14/63.15 is unchanged; mixing styles across slots is allowed.
+- **Defense composition (Req 76.3).** Armor-type (Knight) defense composes with mail/tunic reduction
+  through System C's single damage-reduction authority (Req 10 / Req 63.8).
+- **Tier/curse + run-scoped (Req 76.6, 76.7).** Themed gear is tiered to area Base_Level (Req 61),
+  negative tier → Cursed_Item (Req 62 / 63.7), and is Run-Scoped_State that does not attune (Req 63.9 /
+  Req 44), unchanged by theme.
+
+## Data Models
 ### Item catalogue schema (`Items.gd`)
 
 ```gdscript

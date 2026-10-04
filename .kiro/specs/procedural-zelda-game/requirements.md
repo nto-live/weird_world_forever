@@ -917,6 +917,12 @@ and deterministic.
 **User Story:** As a player, I want every run to begin and end in Vigil, so that the town is my
 constant home between dungeons.
 
+> **Start-hub supersession (System AA, Requirement 73):** The run-start / level-select role of Vigil
+> is superseded by the Dark_Room start hub — each new Run now starts in the Dark_Room (loadout +
+> Level_Select) rather than at Vigil's The_Board. The Run-boundary and return-on-end behavior below
+> otherwise holds, with the start hub now the Dark_Room; a Run still ends by Clear or death and
+> retains Persistent_State.
+
 #### Acceptance Criteria
 
 1. WHEN a Run ends by Clear or by death, THE Game SHALL return the Player_Character to Vigil with
@@ -1266,6 +1272,10 @@ and legal risk is avoided.
 
 **User Story:** As a player, I want a title screen when the game launches, so that I can start a new
 run, continue a saved run, or exit from a clear menu.
+
+> **Start-hub supersession (System AA, Requirement 73):** Where criteria 2 and 5 below say "begin a
+> new Run from Vigil," the new Run now begins in the Dark_Room start hub (loadout + Level_Select) per
+> Requirement 73. Persistent_State retention is unchanged; only the start hub differs.
 
 #### Acceptance Criteria
 
@@ -2078,3 +2088,156 @@ that UI stays readable and pixel-honest regardless of camera scroll.
 3. REQ-UI-001-3: THE Game SHALL keep UI/HUD presentation consistent with the HUD and
    inventory-screen content requirements (Requirement 46, Requirement 47, and Requirement 63),
    specifying how the UI renders on the pixel grid rather than re-specifying HUD or menu contents.
+
+
+---
+
+## System AA — Dark Room Start Hub
+
+> **Supersession note:** This system makes the **Dark_Room** the run-start hub and SUPERSEDES the
+> run-start / level-select role of **Vigil** in Requirement 32 and the "begin a new Run from Vigil"
+> wording of Requirement 50.2 and Requirement 50.5. Each new Run now starts in the Dark_Room (loadout
+> + level select) rather than at Vigil's The_Board. The Run-boundary, return-on-end, and
+> Persistent_State retention behavior of Requirements 32, 43, 44, and 50 is otherwise unchanged: a
+> Run still ends by Clear or death and returns the Player_Character to the start hub, now the
+> Dark_Room. Requirements 32 and 50 are not rewritten here; this system supersedes their start-hub
+> and level-select role.
+
+### Requirement 73: Dark Room Start Hub with Loadout and Level Select
+
+**User Story:** As a player, I want to begin each run in a dark room with a TV screen where I pick my
+starting weapon and the biome/level I drop into, so that every run starts with a deliberate choice of
+loadout and destination.
+
+#### Acceptance Criteria
+
+1. WHEN a new Run begins, THE Game SHALL place the Player_Character in the Dark_Room as the run-start
+   hub instead of Vigil, superseding the Vigil run-start role of Requirement 32.
+2. THE Dark_Room SHALL contain a TV_Screen that the Player_Character interacts with (via the
+   Context_Action of Requirement 11) to open the Level_Select for choosing the starting Biome/level
+   of the Run.
+3. THE Game SHALL offer at the Dark_Room a Starting_Loadout choice of exactly one of three options:
+   the Sword (the bare sword ATTACK_Item of Requirement 13.3), the Pistol (a firearm ATTACK_Item per
+   Requirement 75), or Nothing (no starting weapon), and SHALL apply the chosen option as the
+   Player_Character's starting Equipped_Item for the Run (or no Equipped_Item when Nothing is chosen),
+   consistent with the one-active-item rule of Requirement 2.
+4. WHEN the Player chooses Nothing, THE Game SHALL start the Run with no Equipped_Item and SHALL leave
+   the Player_Character able to acquire weapons during the Run per Requirement 14 and Requirement 17.
+5. THE Level_Select SHALL offer only Biomes/levels that are currently unlocked per the Route-length
+   and unlock progression of Requirement 55 and Requirement 60, and SHALL begin the Run at the chosen
+   starting Biome/level when confirmed.
+6. WHEN the Player confirms the Starting_Loadout and the Level_Select choice at the TV_Screen, THE
+   Game SHALL begin the Run at the chosen Biome/level with the chosen loadout, consistent with the
+   Run-begin behavior of Requirement 43.
+7. THE Game SHALL make the Starting_Loadout and Level_Select choices available only at run start in
+   the Dark_Room (one choice set per Run start), distinct from the in-dungeon Choice_Rooms of
+   Requirement 74.
+8. WHEN a Run ends by Clear (a successful Run) and the Player_Character returns to the start hub, THE
+   Game SHALL present a Post_Run_Choice offering exactly one reward from a data-driven set that
+   includes a new weapon, a Biome/level unlock, or a perk (held as data-driven options per
+   Requirement 48 and Requirement 60), and SHALL apply the chosen reward to Persistent_State so it
+   carries forward, consistent with the meta-progression retention of Requirement 44.
+9. WHERE a Run ends by death rather than Clear, THE Game SHALL NOT present the Post_Run_Choice of
+   criterion 8, consistent with death being final for the Run per Requirement 44.
+10. WHERE the build is the first iteration (the tutorial / proof-of-concept build), THE Game SHALL
+    include the Dark_Room as the run-start hub with the Starting_Loadout choice (Sword / Pistol /
+    Nothing) and a Level_Select offering the single authored GRASSLANDS Biome of Requirement 56.10,
+    and SHALL present the Post_Run_Choice on a successful first Clear.
+
+---
+
+## System BB — In-Game Choice Rooms
+
+### Requirement 74: Choice Rooms
+
+**User Story:** As a player, I want to occasionally enter a room that offers several items where I can
+take only one, so that I make meaningful risk/reward loadout decisions during a run.
+
+#### Acceptance Criteria
+
+1. THE Generator SHALL be able to place a Choice_Room within a Dungeon as a data-driven Room type,
+   weighted by Depth and biome per the generation model of Requirement 28 and Requirement 59.
+2. WHEN the Player_Character enters a Choice_Room, THE Game SHALL present a Choice_Offer of N Items on
+   offer (N a Tunable per Requirement 48), drawn from a data-driven pool weighted by Depth and biome
+   and excluding Items already in the Attuned_Set, consistent with the loot sourcing of
+   Requirement 17.
+3. WHEN the Player selects one Item from the Choice_Offer, THE Game SHALL grant that Item to the
+   current Run per Requirement 17.4 AND SHALL remove the remaining offered Items so that exactly one
+   Item is taken from each Choice_Offer.
+4. THE Game SHALL make each Choice_Room's Choice_Offer a one-time choice: once an Item is taken, THE
+   Game SHALL NOT allow re-selecting from that Choice_Offer for the remainder of the Run.
+5. THE Generator SHALL treat a Choice_Room and its Choice_Offer as deterministic from the Seed,
+   producing the same offered Items for the same Seed and inputs, consistent with the single-seeded
+   determinism of Requirement 31.
+6. THE Generator SHALL ensure a Choice_Room never holds an Item required to satisfy Reachability
+   (Requirement 30) behind the one-of-N choice, so that taking any single offered Item never makes a
+   Route uncompletable.
+
+---
+
+## System CC — Firearms
+
+### Requirement 75: Firearms as Bullet-Consuming Attack Items
+
+**User Story:** As a player, I want modern firearms — pistol, machine gun, assault rifle, sniper
+rifle, and grenade launcher — so that ranged gunplay sits alongside the sword and other tools.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL define the Pistol, Machine_Gun, Assault_Rifle, Sniper_Rifle, and Grenade_Launcher
+   as ATTACK_Items in the data-driven item catalogue of Requirement 13, each keyed by item id with
+   its name, kind, verb, ammo type, tier, attune flag, and description.
+2. THE Game SHALL equip a Firearm as the single active Equipped_Item bound to the Item (Y) button of
+   Requirement 2, consistent with the one-active-item rule, so that a Firearm occupies the active
+   slot like any other ATTACK_Item.
+3. WHEN the Player fires the Pistol, Machine_Gun, Assault_Rifle, or Sniper_Rifle, THE Game SHALL
+   consume Bullets (the bullet AMMO type of Requirement 52) and SHALL NOT fire WHILE Bullets are
+   insufficient, leaving the ammo unchanged, consistent with the ammo-cost gating of Requirement 14.3.
+4. WHEN the Player fires the Grenade_Launcher, THE Game SHALL consume Grenade ammo and SHALL launch a
+   projectile that detonates with blast damage and Knockback per the bomb/explosive model of
+   Requirement 16, where Grenade ammo is a data-driven AMMO type (Bombs or a dedicated Grenade AMMO
+   type, selected as a Tunable per Requirement 48).
+5. THE Game SHALL define each Firearm's fire rate, bullet damage, bullet speed, spread/accuracy,
+   range, and per-shot ammo cost as data-driven Tunables per item (see Requirement 48), such that the
+   Machine_Gun emphasizes high fire rate, the Sniper_Rifle emphasizes long range and high per-shot
+   damage, the Assault_Rifle sits between them, and the Pistol is a reliable baseline.
+6. THE Game SHALL fire Firearm projectiles through the existing Projectile system consistent with
+   Sword_Beam and ranged-enemy projectiles, honoring telegraph-first fairness only for Enemies
+   (Requirement 20) and not restricting Player_Character fire.
+7. THE Game SHALL treat Firearms as ATTACK_Items that Attune on Clear per Requirement 18 unless an
+   individual Firearm's data marks it otherwise, consistent with the attunement rules of
+   Requirement 14 and Requirement 18.
+8. WHERE a Firearm's absolute Tier is negative per Requirement 61, THE Game SHALL treat that Firearm
+   as a Cursed_Item per Requirement 62, applying its data-driven penalty.
+
+---
+
+## System DD — Themed Armor Sets
+
+### Requirement 76: Knight and Cyberpunk Armor Styles
+
+**User Story:** As a player, I want armor in a medieval knight style and a cyberpunk/future style, so
+that my defensive loadout has distinct looks that map to how I want to play.
+
+#### Acceptance Criteria
+
+1. THE Game SHALL provide Worn_Gear Items (Helmet, Body/Clothes, Shoes per Requirement 63.2) in two
+   themed styles: a Knight style (medieval plate/mail look) and a Cyberpunk style (future/cyber look),
+   held as data-driven gear Items in the catalogue of Requirement 13.
+2. THE Game SHALL map the Knight style to the Armor Armor_Type (defense emphasis) and the Cyberpunk
+   style to the Tactical Armor_Type (mobility/utility emphasis) of Requirement 63.3, so that the two
+   themed styles reuse the existing Tactical/Armor axis rather than adding a new one.
+3. WHILE Knight-style Worn_Gear is equipped under the Armor Armor_Type, THE Game SHALL apply its
+   defense (damage reduction) emphasis per Requirement 63.3 and Requirement 63.5, with the specific
+   values data-driven per item.
+4. WHILE Cyberpunk-style Worn_Gear is equipped under the Tactical Armor_Type, THE Game SHALL apply its
+   mobility/utility modifier emphasis per Requirement 63.3 and Requirement 63.5, with the specific
+   values data-driven per item.
+5. THE Game SHALL fit each themed gear Item into its matching Helmet, Body/Clothes, or Shoes Gear_Slot
+   per Requirement 63.2 and the slot-type matching of Requirement 63.14 and Requirement 63.15, so that
+   mixing styles across slots is allowed and no new slot is introduced.
+6. THE Game SHALL Tier each themed gear Item anchored to the area Base_Level per Requirement 61 and
+   SHALL treat a negative-Tier themed gear Item as a Cursed_Item per Requirement 62 and
+   Requirement 63.7, consistent with all other Worn_Gear.
+7. THE Game SHALL treat themed Worn_Gear as Run-Scoped_State that does not Attune and is discarded
+   when the Run ends per Requirement 63.9 and Requirement 44, unchanged by its theme.

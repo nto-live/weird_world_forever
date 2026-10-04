@@ -1,9 +1,9 @@
-# Implementation Plan: Procedural Zelda Game — Full Game (Gameplay Systems A—Y)
+# Implementation Plan: Procedural Zelda Game — Full Game (Gameplay Systems A—DD)
 
 ## Overview
 
-This plan implements the **full gameplay layer** of *Weird World Forever* — Requirements 1—63 across
-**Systems A—Y** — in Godot 4 (GDScript), extending the scaffold under `_incoming/godot/`. It is the
+This plan implements the **full gameplay layer** of *Weird World Forever* — Requirements 1—76 across
+**Systems A—DD** — in Godot 4 (GDScript), extending the scaffold under `_incoming/godot/`. It is the
 companion to the presentation-layer plan in **`tasks.md` (System Z, Requirements 64—72)**.
 
 **Scope boundary with `tasks.md`:** The **graphics / presentation layer (System Z, Reqs 64—72)** —
@@ -545,9 +545,100 @@ Grounded in `design.md` → **Keep / Extend / Replace** and the scaffold scripts
   - Ensure all gameplay tests pass; confirm presentation (System Z, `tasks.md`) integrates cleanly;
     ask the user if questions arise.
 
-## Notes
+- [ ] 30. Dark Room start hub (System AA)
+  - [ ] 30.1 Build the Dark_Room as the run-start hub
+    - Create NEW `DarkRoom.gd` + `DarkRoom.tscn`: a dim in-world room (TileMap-based, not a
+      CanvasLayer) with a TV_Screen prop, a loadout stand, and an exit door. Route `Game.start_run()`
+      into the Dark_Room instead of Vigil; return here on run end. Supersedes Vigil's start-hub role.
+    - Touches: NEW `DarkRoom.gd` + scene, `Game.gd`, `Town.gd` (no longer the start hub).
+    - _Requirements: 73.1, 73.7_
 
-- This plan covers **gameplay Systems A—Y (Requirements 1—63)**. The **graphics/presentation layer
+  - [ ] 30.2 TV_Screen level select (unlocked levels only)
+    - Interacting with the TV_Screen (Context_Action, Req 11) opens the Level_Select, listing only
+      unlocked biomes/levels from `Meta` + `UnlockRules` (Systems V/W); confirming begins the Run at
+      the chosen level. First iteration offers only authored GRASSLANDS (Req 56.10).
+    - Touches: `DarkRoom.gd`, `Meta.gd`, `Route.gd`, `UnlockRules.gd`, `Game.gd`.
+    - _Requirements: 73.2, 73.5, 73.6, 73.10_
+
+  - [ ] 30.3 Starting_Loadout choice (Sword / Pistol / Nothing)
+    - Offer the three-option loadout at run start; apply the pick as the starting Equipped_Item
+      (sword → bare-sword ATTACK_Item; pistol → Pistol firearm per task 32; nothing → no
+      Equipped_Item), honoring the one-active-item rule (Req 2).
+    - Touches: `DarkRoom.gd`, `Player.gd`, `Items.gd`.
+    - _Requirements: 73.3, 73.4_
+
+  - [ ] 30.4 Post_Run_Choice on successful Clear
+    - On a Clear (not death), present one reward from a data-driven set {new weapon, biome/level
+      unlock, perk} and apply it to Persistent_State via `Meta.gd`; present nothing on death.
+    - Touches: `DarkRoom.gd`, `Meta.gd`, `Game.gd`.
+    - _Requirements: 73.8, 73.9_
+
+  - [ ]* 30.5 Property: start-hub flow and post-run gating
+    - **Property: every Run starts in the Dark_Room with a chosen loadout and an unlocked level; the
+      Post_Run_Choice appears only after a Clear and never after death; chosen rewards persist.**
+    - **Validates: Reqs 73, 44**
+
+- [ ] 31. Choice Rooms (System BB)
+  - Extend `Room.gd` / `DungeonGenerator.gd` with a data-driven `choice` room type and create NEW
+    `ChoiceRoom.gd`: on entry, present a Choice_Offer of N items (N = `CHOICE_OFFER_COUNT` Tunable),
+    depth/biome-weighted, excluding the Attuned_Set; taking one grants it to the Run and removes the
+    rest (one-time, seed-deterministic). The gate planner never offers a reachability-required opener
+    as a one-of-N item, and a violating Choice_Room is re-rolled by `Reachability.completable()`.
+  - Touches: `Room.gd`, `DungeonGenerator.gd`, NEW `ChoiceRoom.gd`, `Reachability.gd`, `Feel.gd`.
+  - _Requirements: 74.1, 74.2, 74.3, 74.4, 74.5, 74.6_
+
+  - [ ]* 31.1 Property: one-of-N is spent, deterministic, and reachability-safe
+    - **Property: exactly one item is taken per Choice_Offer and the rest vanish; the same seed
+      reproduces the same offer; no single pick can make a Route uncompletable.**
+    - **Validates: Reqs 74, 30, 31**
+
+- [ ] 32. Firearms (System CC)
+  - [ ] 32.1 Author firearms as bullet-consuming ATTACK_Items
+    - Extend `Items.gd` with Pistol, Machine_Gun, Assault_Rifle, Sniper_Rifle (ATTACK_Items consuming
+      Bullets, Req 52) and Grenade_Launcher (consumes grenade/bomb ammo). Per-weapon data: ammo type,
+      fire_rate, bullet_damage, bullet_speed, spread, range, ammo_per_shot — all Tunables (Req 48).
+    - Touches: `Items.gd`, `Feel.gd`.
+    - _Requirements: 75.1, 75.5_
+
+  - [ ] 32.2 Wire firing through the Projectile system
+    - Extend `Player.gd` / `Projectile.gd`: equip a firearm in the Y-button slot; firing consumes
+      ammo and emits a projectile; insufficient ammo → no fire, ammo unchanged (Req 14.3). The
+      Grenade_Launcher projectile detonates with blast + knockback via the bomb path (Req 16).
+    - Touches: `Player.gd`, `Projectile.gd`.
+    - _Requirements: 75.2, 75.3, 75.4, 75.6_
+
+  - [ ] 32.3 Attunement + tier/curse for firearms
+    - Firearms attune on Clear (Req 18) unless item data says otherwise; negative absolute Tier →
+      Cursed_Item (Req 62) via `TierScale.gd` / `Curse.gd`.
+    - Touches: `Items.gd`, `Attunement.gd`, `TierScale.gd`, `Curse.gd`.
+    - _Requirements: 75.7, 75.8_
+
+  - [ ]* 32.4 Property: firearm fire/ammo/attune invariants
+    - **Property: a firearm never fires with insufficient ammo (ammo unchanged); firing consumes the
+      per-shot cost; firearms attune on Clear per their data; negative-tier firearms are cursed.**
+    - **Validates: Reqs 75, 14, 18, 62**
+
+- [ ] 33. Themed armor sets (System DD)
+  - Extend `Items.gd` with Knight-style and Cyberpunk-style Worn_Gear (Helmet/Body/Shoes), tagging
+    each with a style and an Armor_Type: Knight → Armor (defense emphasis), Cyberpunk → Tactical
+    (mobility/utility emphasis), reusing the Req 63 axis and slots (mixing styles across slots is
+    allowed; no new slot). Defense composes through System C's single reduction authority; themed gear
+    is tiered to Base_Level (Req 61), negative tier → cursed (Req 62), and run-scoped / non-attuning.
+  - Touches: `Items.gd`, `Inventory.gd`, `Player.gd` (damage reduction).
+  - _Requirements: 76.1, 76.2, 76.3, 76.4, 76.5, 76.6, 76.7_
+
+  - [ ]* 33.1 Property: themed gear maps to the existing axis and stays run-scoped
+    - **Property: Knight gear applies the Armor (defense) emphasis and Cyber gear the Tactical
+      (mobility) emphasis via the Req 63 axis; slot-type match/reject holds; themed gear never attunes
+      and is discarded at run end.**
+    - **Validates: Reqs 76, 63, 10, 44**
+
+- [ ] 34. Final checkpoint — new-mechanics layer (Systems AA—DD)
+  - Ensure Dark Room / Choice Room / firearm / themed-armor tests pass; confirm the Dark Room start
+    hub integrates with the title screen (System T) and run lifecycle; ask the user if questions arise.
+
+## Notes
+- This plan covers **gameplay Systems A—DD (Requirements 1—63 plus 73—76: Dark Room, Choice Rooms, firearms, themed armor)**. The **graphics/presentation layer
   (System Z, Reqs 64—72)** is specified and tasked in **`tasks.md`** and is intentionally not
   re-tasked here; gameplay tasks consume it.
 - Tasks marked with `*` are optional (tests/verification/properties) and can be skipped for a faster
@@ -574,9 +665,12 @@ Grounded in `design.md` → **Keep / Extend / Replace** and the scaffold scripts
     { "id": 9, "tasks": ["20.1", "20.2", "20.3"] },
     { "id": 10, "tasks": ["20.4", "21", "22.1", "22.2", "22.3", "22.4", "22.5"] },
     { "id": 11, "tasks": ["22.6", "23", "24.1", "24.2", "25", "26"] },
-    { "id": 12, "tasks": ["26.1", "27"] },
-    { "id": 13, "tasks": ["28.1", "28.2", "28.3", "28.4", "28.5", "28.6", "28.7"] },
-    { "id": 14, "tasks": ["29"] }
+    { "id": 12, "tasks": ["26.1", "27", "31", "32.1", "33"] },
+    { "id": 13, "tasks": ["30.1", "31.1", "32.2", "32.3", "33.1"] },
+    { "id": 14, "tasks": ["30.2", "30.3", "30.4", "32.4"] },
+    { "id": 15, "tasks": ["30.5", "34"] },
+    { "id": 16, "tasks": ["28.1", "28.2", "28.3", "28.4", "28.5", "28.6", "28.7"] },
+    { "id": 17, "tasks": ["29"] }
   ]
 }
 ```

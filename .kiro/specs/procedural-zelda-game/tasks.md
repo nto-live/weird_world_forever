@@ -347,6 +347,11 @@ not rewritten.
   being referenced as if they existed in the original request.
 - Nothing in this presentation layer is a wholesale REPLACE; existing scaffold scripts are extended.
 - Each task references its System Z `REQ-` acceptance-criteria IDs for traceability.
+- New gameplay content from Requirements 73—76 (Dark Room start hub, Choice Rooms, firearms, Knight/
+  Cyberpunk armor) authors through the existing data-driven art tasks here — the Dark_Room is a new
+  tileset + TV_Screen/loadout-stand props (task 8), firearms and the amulet/ammo are UI/item icons
+  (task 7.4 / task 11), and themed armor pieces are gear sprites (task 7.3) — all resolved via
+  `AssetResolver` with no new presentation task structure required.
 
 ## Task Dependency Graph
 
