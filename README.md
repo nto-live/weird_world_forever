@@ -25,6 +25,10 @@ _incoming/                           Reference docs + the Godot 4 scaffold
   04-boss-roster-100.md              The 100-boss ladder
   05-town-bar-restaurant.md          Vigil: hub, bar, restaurant, NPCs
   06-graphics.md                     Art direction + pipeline
+  08-poc-asset-list-v2.md            The POC/tutorial asset build list (darkroom + grasslands + dungeon)
+  09-asset-labeling-convention.md    PRECEDENT: how tiles are named/labeled/consumed (roles, manifests, TileSet)
+  10-procedural-generation-design.md DESIGN: the procedural building machine + its image interface
+  _archive/                          Superseded drafts
   godot/                             Godot 4 project scaffold (GDScript)
 ```
 
@@ -69,4 +73,5 @@ All art and audio are original placeholders. **No Nintendo assets** are used or 
 `LICENSE` for terms.
 
 ## Changelog
+- **2026-10-04** — Added **`09-asset-labeling-convention.md`** (asset contract: roles, per-biome `manifest.json`, TileSet + terrain + role custom-data layer; *labels are authored, never inferred*) and **`10-procedural-generation-design.md`** (the procedural building machine: seed substreams → world → semantic rooms → terrain-based tile painting → content/entities → presentation, plus the `AssetResolver` interface). Also pulled freely-licensed LTTP-*inspired* example tiles (CC0/CC-BY, no Nintendo art) into `work/asset-packs/` for POC placeholders. **Design docs only — no code.**
 - **2026-10-03** — Graphical direction moved to a **32px grid** (tiles 32×32, player 32×48, view 640×448, ×3 = 1920×1344); biome worlds are large **maze-like** regions ≈ **128×112 tiles** (8×8 LTTP screens), rooms up to 80×56 tiles; health pip is an **emerald leaf**. Design docs only — no code.
