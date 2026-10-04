@@ -239,3 +239,10 @@ res://art/
   + signature prop) stands in, so the slice is playable with placeholders first.
 - This is first-iteration graphical scope only; later biomes / variants / firearms / armor are authored
   incrementally.
+
+## J. Biome enterables (holes / caves / tents) — 32x32
+
+- **Hole** (ground opening / pit-mouth) — exterior tile(s).
+- **Cave mouth** — exterior rock entrance tile(s) + dark interior threshold.
+- **Tent** — exterior tent prop (closed / open flap).
+- **Interiors** — one interior tileset per enterable type (cave floor/wall, tent floor/props) reusing the dungeon/structure set; entrance/exit threshold tiles.

@@ -3064,3 +3064,7 @@ serializer or save format.
 ### Biome world scale (2026-10-03)
 
 **Biome world scale (2026-10-03):** each biome is a large, **maze-like** free-scroll region of ~**128×112 tiles** (~8×8 LTTP screens; the Lost Woods region is only ~3×3) = 4096×3584 px at TILE_PX=32 — **bigger than LTTP's Lost Woods**, and laid out as a maze (braided corridors, dead-ends, looped routes). Individual Rooms (up to ROOM_MAX) subdivide it.
+
+### Biome enterables — holes, caves, tents (2026-10-03)
+
+**Biome enterables (2026-10-03):** biomes contain **enterable structures** the player can go **into** — **holes** (ground openings you drop into), **caves** (rock-mouth entrances leading to interior cave rooms), and **tents** (structures you walk inside). Each is an enterable Semantic_Object: an exterior entrance tile/prop, plus an **interior area** built from its own interior tileset; entering swaps the active area (LTTP-style cave/interior transition), with a return/exit tile back to the biome.
