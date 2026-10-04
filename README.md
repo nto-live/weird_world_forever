@@ -53,7 +53,7 @@ Requires **Godot 4.3+** (GL Compatibility renderer).
 
 The `.kiro/specs/procedural-zelda-game/` documents are the source of truth. Requirements use EARS;
 the design maps every requirement onto the Godot scaffold with a Keep/Extend/Replace plan, correctness
-properties (determinism + reachability are the headliners), and a graphics system (320x224 HD pixel
+properties (determinism + reachability are the headliners), and a graphics system (640x448 HD pixel
 art, free-scroll camera). Update the spec before changing behavior.
 
 ## Development conventions

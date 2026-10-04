@@ -225,7 +225,7 @@ included.
 
 ### Dungeon, generation, seeding
 
-- **Room**: The unit of generation and collision within a Dungeon: a 20 × 14-tile grid (320 × 224 px)
+- **Room**: The unit of generation and collision within a Dungeon: a 20 × 14-tile grid (640 × 448 px)
   with door cells, connected to adjacent Rooms by a door graph and stitched with neighbors into one
   continuously scrolled space rather than a locked screen.
 - **Door_Graph**: The logical graph of a Dungeon (Rooms = nodes, doors = edges), including locked
@@ -370,7 +370,7 @@ traversal feels like LTTP rather than grid-stepping.
 
 1. THE Game SHALL move the Player_Character continuously in pixels in any of 8 directions, not
    snapped to a tile grid while walking.
-2. THE Game SHALL resolve Player_Character collision against a 16 × 16 px tile grid using a
+2. THE Game SHALL resolve Player_Character collision against a 32 × 32 px tile grid using a
    collision bounds smaller than the Player_Character's sprite so corners can be slipped past.
 3. WHEN the Player_Character pushes against a wall adjacent to a one-tile doorway, THE Game SHALL
    actively slide and nudge the Player_Character toward and into alignment with the one-tile doorway
@@ -808,14 +808,14 @@ continuous, free-scrolling space, so that each run is a distinct, coherent desce
 screen-to-screen snaps.
 
 > **Room model (reconciled with System Z):** A Room is NOT fixed to the view. The VIEW is
-> VIEW_TILES_W × VIEW_TILES_H (20 × 14 / 320 × 224 px); a ROOM ranges from the view size up to
-> ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28 / 640 × 448 px) and the camera scrolls within larger
+> VIEW_TILES_W × VIEW_TILES_H (20 × 14 / 640 × 448 px); a ROOM ranges from the view size up to
+> ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (80 × 56 / 2560 × 1792 px) and the camera scrolls within larger
 > Rooms. Requirements 66 and 67 (System Z) are authoritative for Room sizing and camera scroll; this
 > requirement is now consistent with that model (room ≠ view).
 
 #### Acceptance Criteria
 
-1. THE Generator SHALL build each Room on the TILE_PX grid at a size in the range VIEW_TILES_W × VIEW_TILES_H (20 × 14, 320 × 224 px) up to ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28, 640 × 448 px) with defined door cells, where a Room MAY be larger than the view (room ≠ view): a baseline Room equals the view and does not scroll, while a larger Room scrolls within its bounds (see Requirement 66 and Requirement 67 of System Z, which are authoritative for Room sizing).
+1. THE Generator SHALL build each Room on the TILE_PX grid at a size in the range VIEW_TILES_W × VIEW_TILES_H (20 × 14, 640 × 448 px) up to ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (80 × 56, 2560 × 1792 px) with defined door cells, where a Room MAY be larger than the view (room ≠ view): a baseline Room equals the view and does not scroll, while a larger Room scrolls within its bounds (see Requirement 66 and Requirement 67 of System Z, which are authoritative for Room sizing).
 2. THE Generator SHALL connect Rooms into a Door_Graph where Rooms are nodes and doors are edges,
    tagging a start Room and a far exit Room.
 3. WHILE the Player_Character moves through the Dungeon, THE Game SHALL follow the Player_Character
@@ -1187,7 +1187,7 @@ flags, so that we can tune by playtest instead of editing code.
 #### Acceptance Criteria
 
 1. THE Game SHALL store the following feel values as named Tunables rather than hardcoded constants:
-   tile size (16 px), base canvas (320 × 224 px, 20 × 14 tiles), walk speed (~1.5–2.0 px/frame), dash speed
+   tile size (32 px), base canvas (640 × 448 px, 20 × 14 tiles), walk speed (~1.5–2.0 px/frame), dash speed
    (~2× walk, reused as the dash/run speed), spin-charge duration (~2.0 s), spin damage multiplier
    (×2), sword-tier multipliers (×1 / ×2 / ×3 / ×4), mail reduction factors (0% / 50% / 75%),
    Damage_Unit (8 = one Health_Container), i-frame duration (~0.5–1.0 s), dodge-dash distance (or
@@ -1235,12 +1235,12 @@ flags, so that we can tune by playtest instead of editing code.
 4. THE Game SHALL store the following presentation-layer size/scale values as named config
    constants, each flagged `exact` (these are LOCKED exact values, not `[approx]`), rather than as
    bare literals, consistent with the Graphics & Presentation Layer requirements of System Z
-   (Requirements 64–72): `TILE_PX` (16), `PLAYER_W` (16), `PLAYER_H` (24), `VIEW_W` (320),
-   `VIEW_H` (224), `VIEW_TILES_W` (20), `VIEW_TILES_H` (14), `ROOM_MAX_TILES_W` (40),
-   `ROOM_MAX_TILES_H` (28), `ROOM_MAX_W` (640), `ROOM_MAX_H` (448), `SCALE_PRIMARY` (6),
-   `SCALE_FALLBACK` (5), `DISPLAY_W` (1920), `DISPLAY_H` (1344), `FALLBACK_DISPLAY_W` (1600),
-   `FALLBACK_DISPLAY_H` (1120), `PLAYER_RENDER_W` (96), `PLAYER_RENDER_H` (144), `SHEET_MAX_PX`
-   (2048), `UI_SMALL` (8), `UI_LARGE` (16), and `FONT_CELL` (8).
+   (Requirements 64–72): `TILE_PX` (32), `PLAYER_W` (32), `PLAYER_H` (48), `VIEW_W` (640),
+   `VIEW_H` (448), `VIEW_TILES_W` (20), `VIEW_TILES_H` (14), `ROOM_MAX_TILES_W` (80),
+   `ROOM_MAX_TILES_H` (56), `ROOM_MAX_W` (2560), `ROOM_MAX_H` (1792), `SCALE_PRIMARY` (3),
+   `SCALE_FALLBACK` (2), `DISPLAY_W` (1920), `DISPLAY_H` (1344), `FALLBACK_DISPLAY_W` (1280),
+   `FALLBACK_DISPLAY_H` (896), `PLAYER_RENDER_W` (96), `PLAYER_RENDER_H` (144), `SHEET_MAX_PX`
+   (2048), `UI_SMALL` (16), `UI_LARGE` (32), and `FONT_CELL` (16).
 5. THE Game SHALL reference every presentation-layer size or scale factor by its named config
    constant from criterion 4 and SHALL NOT embed any such size or scale factor as a bare numeric
    literal in the systems that read it.
@@ -1843,29 +1843,29 @@ The following named config constants are LOCKED exact values (not `[approx]`). A
 requirements reference these constants by name; no System Z requirement embeds any of these as a
 bare literal. These are also recorded as `exact`-flagged Tunables in Requirement 48 (criteria 4–5).
 
-- **TILE_PX** = 16 — tile size in pixels.
-- **PLAYER_W** = 16 — player sprite cell width in pixels.
-- **PLAYER_H** = 24 — player sprite cell height in pixels.
-- **VIEW_W** = 320 — view width in pixels.
-- **VIEW_H** = 224 — view height in pixels.
+- **TILE_PX** = 32 — tile size in pixels.
+- **PLAYER_W** = 32 — player sprite cell width in pixels.
+- **PLAYER_H** = 48 — player sprite cell height in pixels.
+- **VIEW_W** = 640 — view width in pixels.
+- **VIEW_H** = 448 — view height in pixels.
 - **VIEW_TILES_W** = 20 — view width in tiles (VIEW_W / TILE_PX).
 - **VIEW_TILES_H** = 14 — view height in tiles (VIEW_H / TILE_PX).
-- **ROOM_MAX_TILES_W** = 40 — maximum room width in tiles.
-- **ROOM_MAX_TILES_H** = 28 — maximum room height in tiles.
-- **ROOM_MAX_W** = 640 — maximum room width in pixels (ROOM_MAX_TILES_W × TILE_PX).
-- **ROOM_MAX_H** = 448 — maximum room height in pixels (ROOM_MAX_TILES_H × TILE_PX).
-- **SCALE_PRIMARY** = 6 — primary integer scale factor.
-- **SCALE_FALLBACK** = 5 — fallback integer scale factor.
+- **ROOM_MAX_TILES_W** = 80 — maximum room width in tiles.
+- **ROOM_MAX_TILES_H** = 56 — maximum room height in tiles.
+- **ROOM_MAX_W** = 2560 — maximum room width in pixels (ROOM_MAX_TILES_W × TILE_PX).
+- **ROOM_MAX_H** = 1792 — maximum room height in pixels (ROOM_MAX_TILES_H × TILE_PX).
+- **SCALE_PRIMARY** = 3 — primary integer scale factor.
+- **SCALE_FALLBACK** = 2 — fallback integer scale factor.
 - **DISPLAY_W** = 1920 — primary display target width (VIEW_W × SCALE_PRIMARY).
 - **DISPLAY_H** = 1344 — primary display target height (VIEW_H × SCALE_PRIMARY).
-- **FALLBACK_DISPLAY_W** = 1600 — fallback display target width (VIEW_W × SCALE_FALLBACK).
-- **FALLBACK_DISPLAY_H** = 1120 — fallback display target height (VIEW_H × SCALE_FALLBACK).
+- **FALLBACK_DISPLAY_W** = 1280 — fallback display target width (VIEW_W × SCALE_FALLBACK).
+- **FALLBACK_DISPLAY_H** = 896 — fallback display target height (VIEW_H × SCALE_FALLBACK).
 - **PLAYER_RENDER_W** = 96 — player rendered width at SCALE_PRIMARY (PLAYER_W × SCALE_PRIMARY).
 - **PLAYER_RENDER_H** = 144 — player rendered height at SCALE_PRIMARY (PLAYER_H × SCALE_PRIMARY).
 - **SHEET_MAX_PX** = 2048 — maximum sprite-sheet dimension in pixels.
-- **UI_SMALL** = 8 — small UI icon size in pixels (UI_SMALL × UI_SMALL).
-- **UI_LARGE** = 16 — large UI icon size in pixels (UI_LARGE × UI_LARGE).
-- **FONT_CELL** = 8 — pixel-font cell size in pixels (FONT_CELL × FONT_CELL grid).
+- **UI_SMALL** = 16 — small UI icon size in pixels (UI_SMALL × UI_SMALL).
+- **UI_LARGE** = 32 — large UI icon size in pixels (UI_LARGE × UI_LARGE).
+- **FONT_CELL** = 16 — pixel-font cell size in pixels (FONT_CELL × FONT_CELL grid).
 
 ### Requirement 64: Pixel-Grid Honesty (REQ-GFX-001)
 
@@ -1898,16 +1898,16 @@ image fills my screen crisply with no blur.
 
 #### Acceptance Criteria
 
-1. REQ-RES-001-1: THE Game SHALL render the view at exactly VIEW_W × VIEW_H pixels (320 × 224),
-   equal to VIEW_TILES_W × VIEW_TILES_H tiles (20 × 14) at TILE_PX (16).
+1. REQ-RES-001-1: THE Game SHALL render the view at exactly VIEW_W × VIEW_H pixels (640 × 448),
+   equal to VIEW_TILES_W × VIEW_TILES_H tiles (20 × 14) at TILE_PX (32).
 2. REQ-RES-001-2: THE Game SHALL configure Godot stretch mode = `canvas_items`, aspect = `keep`,
    scale mode = `integer`, and `default_texture_filter` = Nearest (0).
-3. REQ-RES-001-3: THE Game SHALL target SCALE_PRIMARY (×6), rendering to DISPLAY_W × DISPLAY_H
+3. REQ-RES-001-3: THE Game SHALL target SCALE_PRIMARY (×3), rendering to DISPLAY_W × DISPLAY_H
    (1920 × 1344).
-4. REQ-RES-001-4: IF the hardware cannot sustain SCALE_PRIMARY (×6), THEN THE Game SHALL fall back
-   to SCALE_FALLBACK (×5), rendering to FALLBACK_DISPLAY_W × FALLBACK_DISPLAY_H (1600 × 1120).
+4. REQ-RES-001-4: IF the hardware cannot sustain SCALE_PRIMARY (×3), THEN THE Game SHALL fall back
+   to SCALE_FALLBACK (×2), rendering to FALLBACK_DISPLAY_W × FALLBACK_DISPLAY_H (1280 × 896).
 5. REQ-RES-001-5: THE Game SHALL NOT drop below integer scaling under any resolution condition.
-6. REQ-RES-001-6: WHILE rendering at SCALE_PRIMARY (×6), THE Game SHALL render the Player_Character
+6. REQ-RES-001-6: WHILE rendering at SCALE_PRIMARY (×3), THE Game SHALL render the Player_Character
    at exactly PLAYER_RENDER_W × PLAYER_RENDER_H (96 × 144), equal to PLAYER_W × SCALE_PRIMARY by
    PLAYER_H × SCALE_PRIMARY, and SHALL fill DISPLAY_W × DISPLAY_H (1920 × 1344) with no fractional
    blur.
@@ -1915,7 +1915,7 @@ image fills my screen crisply with no blur.
    present letterbox or pillarbox bars only as needed to preserve integer scaling, and SHALL NOT
    stretch the view to remove the bars.
 8. REQ-RES-001-8 (acceptance): THE Game SHALL present a view that is exactly VIEW_W × VIEW_H
-   (320 × 224, = 20 × 14 tiles) and that at SCALE_PRIMARY (×6) lands clean — Player_Character at
+   (640 × 448, = 20 × 14 tiles) and that at SCALE_PRIMARY (×3) lands clean — Player_Character at
    PLAYER_RENDER_W × PLAYER_RENDER_H (96 × 144) and the view filling DISPLAY_W × DISPLAY_H
    (1920 × 1344) — with no fractional blur.
 
@@ -1947,21 +1947,21 @@ showing a half-pixel, so that scrolling looks as crisp as the sprites.
 dungeon has large, non-empty spaces instead of only single-screen boxes.
 
 > **Supersession note:** This requirement SUPERSEDES the fixed-room-size assumption of
-> Requirement 27 that a Room is exactly VIEW_TILES_W × VIEW_TILES_H (20 × 14 tiles / 320 × 224 px)
+> Requirement 27 that a Room is exactly VIEW_TILES_W × VIEW_TILES_H (20 × 14 tiles / 640 × 448 px)
 > and therefore equal to the view. Under System Z the VIEW is VIEW_TILES_W × VIEW_TILES_H
-> (20 × 14, VIEW_W × VIEW_H = 320 × 224) but a ROOM MAY be larger — up to ROOM_MAX_TILES_W ×
-> ROOM_MAX_TILES_H (40 × 28, ROOM_MAX_W × ROOM_MAX_H = 640 × 448 px) — and the camera scrolls within
+> (20 × 14, VIEW_W × VIEW_H = 640 × 448) but a ROOM MAY be larger — up to ROOM_MAX_TILES_W ×
+> ROOM_MAX_TILES_H (80 × 56, ROOM_MAX_W × ROOM_MAX_H = 2560 × 1792 px) — and the camera scrolls within
 > it (see Requirement 66): a baseline room equals the view and does not scroll, while a big room
 > scrolls. Requirement 27 has been reconciled to this model (room ≠ view) in its own criteria 1 and 5 and
 > its Room-model note; this requirement remains authoritative for Room sizing and camera scroll.
 
 #### Acceptance Criteria
 
-1. REQ-ROOM-001-1: THE Generator SHALL generate rooms aligned to the TILE_PX (16 px) grid.
+1. REQ-ROOM-001-1: THE Generator SHALL generate rooms aligned to the TILE_PX (32 px) grid.
 2. REQ-ROOM-001-2: THE Generator SHALL size each room within the range from the view
-   (VIEW_TILES_W × VIEW_TILES_H = 20 × 14) up to ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28),
-   equal in pixels to the range VIEW_W × VIEW_H (320 × 224) up to ROOM_MAX_W × ROOM_MAX_H
-   (640 × 448).
+   (VIEW_TILES_W × VIEW_TILES_H = 20 × 14) up to ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (80 × 56),
+   equal in pixels to the range VIEW_W × VIEW_H (640 × 448) up to ROOM_MAX_W × ROOM_MAX_H
+   (2560 × 1792).
 3. REQ-ROOM-001-3: THE Generator SHALL connect rooms with a Door_Graph (see Requirement 27) and
    SHALL ensure a run is completable, so that the Reachability check of Requirement 30 passes before
    play begins.
@@ -1971,7 +1971,7 @@ dungeon has large, non-empty spaces instead of only single-screen boxes.
 5. REQ-ROOM-001-5: WHERE a room equals the view (VIEW_TILES_W × VIEW_TILES_H = 20 × 14), THE Game
    SHALL present that room with no camera scroll, consistent with Requirement 66.
 6. REQ-ROOM-001-6 (acceptance): THE Generator SHALL produce rooms whose dimensions fall within the
-   range VIEW_TILES_W × VIEW_TILES_H (20 × 14) through ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (40 × 28)
+   range VIEW_TILES_W × VIEW_TILES_H (20 × 14) through ROOM_MAX_TILES_W × ROOM_MAX_TILES_H (80 × 56)
    on the TILE_PX grid, with a baseline room equal to the view and big rooms scrolling, and SHALL
    supersede the room-equals-view assumption of Requirement 27.
 
@@ -2007,7 +2007,7 @@ hazards, decorations, and lights, so that each biome looks distinct and assemble
 
 #### Acceptance Criteria
 
-1. REQ-TILE-001-1: THE Game SHALL provide one TILE_PX × TILE_PX (16 × 16) tileset per biome for the
+1. REQ-TILE-001-1: THE Game SHALL provide one TILE_PX × TILE_PX (32 × 16) tileset per biome for the
    seven core biomes of Requirement 21.
 2. REQ-TILE-001-2: THE Game SHALL implement each biome tileset as a Godot `TileSet` with terrains
    configured for autotiling.
@@ -2017,7 +2017,7 @@ hazards, decorations, and lights, so that each biome looks distinct and assemble
    approach of Requirement 19 and Requirement 56.
 5. REQ-TILE-001-5: WHERE the Biome_Library catalogues biomes beyond the core seven (for example
    Grasslands, Graveyard, Noir City, and Temple per Requirement 56.9 and Requirement 56.10), THE
-   Game SHALL provide each such biome its own TILE_PX × TILE_PX (16 × 16) tileset as that biome is
+   Game SHALL provide each such biome its own TILE_PX × TILE_PX (32 × 16) tileset as that biome is
    authored.
 
 ### Requirement 70: Reference Study — Originality and Non-Shipping (REQ-ART-REF-001)
@@ -2028,7 +2028,7 @@ that our art stays original and no ripped source material enters the game.
 #### Acceptance Criteria
 
 1. REQ-ART-REF-001-1: THE Game SHALL treat the 71 LTTP movement PNGs, `size_ref.png`, and
-   `lttp_link_ref_x6.png` (from the Solarus LTTP project), located under
+   `lttp_link_ref_x3.png` (from the Solarus LTTP project), located under
    `work/asset-packs/reference/lttp/movement/`, as STUDY-ONLY reference material.
 2. REQ-ART-REF-001-2: THE Game SHALL treat the reference material as laid out on a 24 × 32 cell grid
    while the game grid is PLAYER_W × PLAYER_H (16 × 24), so that any use is a nearest-neighbour
@@ -2063,7 +2063,7 @@ brand metadata, so that every shipped asset is clean, original, and correctly si
 5. REQ-ART-PIPE-001-5: WHERE an AI generator is used, THE Game SHALL use it for look, palette, and
    concept only, and SHALL lock the palette, pixelate to the exact grid, remove anti-aliasing, and
    hand-clean the result.
-6. REQ-ART-PIPE-001-6: THE Game SHALL NOT ship AI-generator output raw at TILE_PX (16 px)
+6. REQ-ART-PIPE-001-6: THE Game SHALL NOT ship AI-generator output raw at TILE_PX (32 px)
    resolution.
 7. REQ-ART-PIPE-001-7: THE Game SHALL export PNG sprite sheets, optionally accompanied by JSON
    metadata.
@@ -2084,7 +2084,7 @@ that UI stays readable and pixel-honest regardless of camera scroll.
 1. REQ-UI-001-1: THE Game SHALL render UI icons at UI_SMALL × UI_SMALL (8 × 8) or UI_LARGE ×
    UI_LARGE (16 × 16) and UI text on the FONT_CELL × FONT_CELL (8 × 8) pixel-font grid.
 2. REQ-UI-001-2: THE Game SHALL render the HUD and menus in screen space over the VIEW_W × VIEW_H
-   (320 × 224) view at integer scale, so that UI rendering is unaffected by camera scroll.
+   (640 × 448) view at integer scale, so that UI rendering is unaffected by camera scroll.
 3. REQ-UI-001-3: THE Game SHALL keep UI/HUD presentation consistent with the HUD and
    inventory-screen content requirements (Requirement 46, Requirement 47, and Requirement 63),
    specifying how the UI renders on the pixel grid rather than re-specifying HUD or menu contents.

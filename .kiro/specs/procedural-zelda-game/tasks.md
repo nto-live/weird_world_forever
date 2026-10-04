@@ -11,7 +11,7 @@ game task plan.** Gameplay systems (combat, generation beyond room sizing, econo
 are out of scope here except where a presentation task must wire into them.
 
 The work extends the Godot 4 (GDScript) scaffold under `_incoming/godot/` and follows the design's
-**System S — Graphics & Art Direction** section: the 320×224 pixel canvas, integer scaling, the
+**System S — Graphics & Art Direction** section: the 640×448 pixel canvas, integer scaling, the
 `Camera2D` free-scroll rig, the `AssetResolver` data-driven swap-in, and the Keep/Extend/Replace
 table. The design uses GDScript throughout (not pseudocode), so all tasks are written for **GDScript
 / Godot 4**.
@@ -21,13 +21,13 @@ table. The design uses GDScript throughout (not pseudocode), so all tasks are wr
 Every size or scale factor below MUST come from a named config constant. **No task may hardcode any
 of these as a bare literal.** The LOCKED constants are:
 
-`TILE_PX` (16), `PLAYER_W` (16), `PLAYER_H` (24), `VIEW_W` (320), `VIEW_H` (224),
-`VIEW_TILES_W` (20), `VIEW_TILES_H` (14), `ROOM_MAX_TILES_W` (40), `ROOM_MAX_TILES_H` (28),
-`ROOM_MAX_W` (640), `ROOM_MAX_H` (448), `SCALE_PRIMARY` (6), `SCALE_FALLBACK` (5), `DISPLAY_W` (1920),
-`DISPLAY_H` (1344), `FALLBACK_DISPLAY_W` (1600), `FALLBACK_DISPLAY_H` (1120), `PLAYER_RENDER_W` (96),
-`PLAYER_RENDER_H` (144), `SHEET_MAX_PX` (2048), `UI_SMALL` (8), `UI_LARGE` (16), `FONT_CELL` (8).
-Enemy/boss sprite tiers are also named constants: `ENEMY_TIERS` (16, 24, 32, 48) and
-`BOSS_TIERS` (64, 96, 128).
+`TILE_PX` (32), `PLAYER_W` (32), `PLAYER_H` (48), `VIEW_W` (640), `VIEW_H` (448),
+`VIEW_TILES_W` (20), `VIEW_TILES_H` (14), `ROOM_MAX_TILES_W` (80), `ROOM_MAX_TILES_H` (56),
+`ROOM_MAX_W` (2560), `ROOM_MAX_H` (1792), `SCALE_PRIMARY` (3), `SCALE_FALLBACK` (2), `DISPLAY_W` (1920),
+`DISPLAY_H` (1344), `FALLBACK_DISPLAY_W` (1280), `FALLBACK_DISPLAY_H` (896), `PLAYER_RENDER_W` (96),
+`PLAYER_RENDER_H` (144), `SHEET_MAX_PX` (2048), `UI_SMALL` (16), `UI_LARGE` (32), `FONT_CELL` (16).
+Enemy/boss sprite tiers are also named constants: `ENEMY_TIERS` (32, 48, 64, 96) and
+`BOSS_TIERS` (128, 192, 256).
 
 ## Scaffold alignment: extend vs. replace vs. new (presentation layer)
 
@@ -39,9 +39,9 @@ not rewritten.
 - `Feel.gd` — holds the LOCKED System Z config constants. **Discrepancy note:** `Feel.gd` currently
   carries the pre-System-Z room model (`TILE = 16`, `ROOM_W = 16`, `ROOM_H = 14` → 256×224, the
   room-equals-view assumption of Requirement 27). System Z supersedes this: the VIEW is
-  `VIEW_TILES_W × VIEW_TILES_H` (20 × 14 = 320 × 224) and a ROOM may be larger (up to 40 × 28). The
+  `VIEW_TILES_W × VIEW_TILES_H` (20 × 14 = 640 × 448) and a ROOM may be larger (up to 80 × 56). The
   config task reconciles `Feel.gd` to the System Z constants.
-- `Room.gd` + `DungeonGenerator.gd` — big rooms on the grid (20×14 up to 40×28), density-by-area.
+- `Room.gd` + `DungeonGenerator.gd` — big rooms on the grid (20×14 up to 80×56), density-by-area.
 - `Player.gd` / `Enemy.gd` / `Boss.gd` — wire sprite clips to the existing state machines.
 - The `Camera2D` rig from the design (already specified as a Player-child free-scroll rig) — extend
   it with dead-zone follow + pixel-snap + room-bounds clamp.
@@ -90,23 +90,23 @@ not rewritten.
 
 - [ ] 2. Configure project resolution and integer scaling
   - [ ] 2.1 Set Godot project display settings from config constants
-    - In `project.godot`: base viewport = `VIEW_W × VIEW_H` (320×224); `stretch/mode = canvas_items`;
+    - In `project.godot`: base viewport = `VIEW_W × VIEW_H` (640×448); `stretch/mode = canvas_items`;
       `stretch/aspect = keep`; `stretch/scale_mode = integer`; `rendering/.../default_texture_filter`
       = Nearest (0).
     - Present letterbox/pillarbox bars only as needed; never stretch the view to remove bars.
     - Touches: `_incoming/godot/project.godot`.
     - _Requirements: REQ-RES-001-1, REQ-RES-001-2, REQ-RES-001-7_
 
-  - [ ] 2.2 Implement integer scale selection with ×6 primary / ×5 fallback
-    - Target `SCALE_PRIMARY` (×6) → `DISPLAY_W × DISPLAY_H` (1920×1344); if hardware cannot sustain
-      ×6, fall back to `SCALE_FALLBACK` (×5) → `FALLBACK_DISPLAY_W × FALLBACK_DISPLAY_H` (1600×1120).
+  - [ ] 2.2 Implement integer scale selection with ×3 primary / ×2 fallback
+    - Target `SCALE_PRIMARY` (×3) → `DISPLAY_W × DISPLAY_H` (1920×1344); if hardware cannot sustain
+      ×3, fall back to `SCALE_FALLBACK` (×2) → `FALLBACK_DISPLAY_W × FALLBACK_DISPLAY_H` (1280×896).
     - Never drop below integer scaling under any resolution condition.
     - Compute all window/scale sizes from config constants (no literals).
     - Touches: `_incoming/godot/scripts/Main.gd` (window/scale setup), `Feel.gd`/`GfxConfig.gd`.
     - _Requirements: REQ-RES-001-3, REQ-RES-001-4, REQ-RES-001-5, REQ-RES-001-6_
 
   - [ ]* 2.3 Write resolution/scaling acceptance test
-    - Assert the view is exactly `VIEW_W × VIEW_H` (320×224 = 20×14 tiles) and that at ×6 the player
+    - Assert the view is exactly `VIEW_W × VIEW_H` (640×448 = 20×14 tiles) and that at ×3 the player
       renders at `PLAYER_RENDER_W × PLAYER_RENDER_H` (96×144) and the view fills `DISPLAY_W × DISPLAY_H`
       (1920×1344) with no fractional blur.
     - _Requirements: REQ-RES-001-8, REQ-RES-001-6_
@@ -133,7 +133,7 @@ not rewritten.
   - [ ] 4.1 Size rooms within the System Z range
     - Extend `Room.gd` and `DungeonGenerator.gd` so each room is grid-aligned to `TILE_PX` and sized
       within the range from the view (`VIEW_TILES_W × VIEW_TILES_H` = 20×14) up to
-      `ROOM_MAX_TILES_W × ROOM_MAX_TILES_H` (40×28), equal in pixels to 320×224 up to 640×448.
+      `ROOM_MAX_TILES_W × ROOM_MAX_TILES_H` (80×56), equal in pixels to 640×448 up to 1280×896.
     - A baseline room equals the view (no scroll); big rooms scroll (consistent with the camera rig,
       task 3). Explicitly supersede Requirement 27's room-equals-view assumption in `Room.gd`.
     - All ranges from config constants (no literals).
@@ -179,7 +179,7 @@ not rewritten.
 - [ ] 7. Author sprite sizes and the player clip set, wired to state machines
   - [ ] 7.1 Build the player `SpriteFrames` at the LOCKED cell size and clip set
     - Create an `AnimatedSprite2D` + `SpriteFrames` for the player at exactly `PLAYER_W × PLAYER_H`
-      (16×24) with the LOCKED clips and frame counts, authored in 4 directions each: idle (2),
+      (32×48) with the LOCKED clips and frame counts, authored in 4 directions each: idle (2),
       walk (6), attack (3), charge (2), spin (4), hurt (1), dash (4), lift/carry (2 + 2), swim (4),
       death (4), push/pull (2). Outfit: white shirt, brown shorts, bare feet.
     - Cell size read from `PLAYER_W`/`PLAYER_H` (no literals).
@@ -203,13 +203,13 @@ not rewritten.
     - _Requirements: REQ-SPR-001-2, REQ-SPR-001-3_
 
   - [ ] 7.4 Define UI icon + font cell sizes for sprite authoring
-    - Set UI icon sizes to `UI_SMALL × UI_SMALL` (8×8) or `UI_LARGE × UI_LARGE` (16×16) and the pixel
-      font to a `FONT_CELL × FONT_CELL` (8×8) grid (consumed by the HUD in task 11).
+    - Set UI icon sizes to `UI_SMALL × UI_SMALL` (16×16) or `UI_LARGE × UI_LARGE` (32×32) and the pixel
+      font to a `FONT_CELL × FONT_CELL` (16×16) grid (consumed by the HUD in task 11).
     - Touches: NEW UI icon/font resources, `Feel.gd`/`GfxConfig.gd` references.
     - _Requirements: REQ-SPR-001-4, REQ-SPR-001-5_
 
   - [ ]* 7.5 Write sprite-size acceptance test
-    - **Property: the player cell is exactly PLAYER_W × PLAYER_H (16×24), and every staged asset's
+    - **Property: the player cell is exactly PLAYER_W × PLAYER_H (32×48), and every staged asset's
       dimensions equal its declared tier (ENEMY_TIERS / BOSS_TIERS / UI size).**
     - Assert each clip has its LOCKED frame count in all 4 directions.
     - **Validates: REQ-SPR-001-8, REQ-SPR-001-1, REQ-SPR-001-6**
@@ -221,8 +221,8 @@ not rewritten.
     - Touches: NEW `AssetResolver.gd`.
     - _Requirements: REQ-TILE-001-4_
 
-  - [ ] 8.2 Author one 16×16 TileSet per biome with terrains and pieces
-    - Build a `TILE_PX × TILE_PX` (16×16) Godot `TileSet` per biome (the seven core biomes of
+  - [ ] 8.2 Author one 32×32 TileSet per biome with terrains and pieces
+    - Build a `TILE_PX × TILE_PX` (32×32) Godot `TileSet` per biome (the seven core biomes of
       Req 21) with terrains configured for autotiling, plus doors, animated hazards, decorations,
       and lights; define each tileset as data (Req 19 / Req 56 data-driven approach). Provide a
       tileset for any catalogued biome beyond the core seven as it is authored.
@@ -231,7 +231,7 @@ not rewritten.
     - _Requirements: REQ-TILE-001-1, REQ-TILE-001-2, REQ-TILE-001-3, REQ-TILE-001-5_
 
   - [ ]* 8.3 Write tileset structure test
-    - Assert each biome tileset is 16×16, has autotile terrains, and includes door/hazard/decoration/
+    - Assert each biome tileset is 32×32, has autotile terrains, and includes door/hazard/decoration/
       light pieces; assert data-driven resolution falls back to a placeholder on missing art.
     - _Requirements: REQ-TILE-001-1, REQ-TILE-001-2, REQ-TILE-001-3_
 
@@ -264,9 +264,9 @@ not rewritten.
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 11. Implement UI/HUD presentation on the pixel grid
-  - Build a screen-space `CanvasLayer` HUD drawn over the `VIEW_W × VIEW_H` (320×224) view at integer
+  - Build a screen-space `CanvasLayer` HUD drawn over the `VIEW_W × VIEW_H` (640×448) view at integer
     scale, unaffected by camera scroll; render icons at `UI_SMALL`/`UI_LARGE` and text on the
-    `FONT_CELL × FONT_CELL` (8×8) pixel-font grid.
+    `FONT_CELL × FONT_CELL` (16×16) pixel-font grid.
   - Specify only how UI renders on the pixel grid (keep HUD/inventory content consistent with
     Req 46/47/63); draw UI art via `AssetResolver` with placeholder fallback.
   - All sizes from config constants (`VIEW_W`/`VIEW_H`/`UI_SMALL`/`UI_LARGE`/`FONT_CELL`), no literals.
@@ -277,20 +277,20 @@ not rewritten.
   - [ ]* 11.1 Write UI pixel-grid test
     - **Property: HUD/menus render in screen space at integer scale and do not move with camera
       scroll.**
-    - Assert icons are 8×8 or 16×16 and text uses the 8×8 font grid.
+    - Assert icons are 16×16 and text uses the 16×16 font grid.
     - **Validates: REQ-UI-001-2, REQ-UI-001-1**
 
 - [ ] 12. Build the art pipeline and reference-asset governance
   - [ ] 12.1 Implement the asset-prep pipeline
     - Build pipeline tooling (under `work/`, outside `res://`): accept native sizes (character cells
       32×32, tile atlases 40×40), then slice → integer-resample to the game grid (characters to
-      `PLAYER_W × PLAYER_H` = 16×24, tiles to `TILE_PX × TILE_PX` = 16×16) → hand-edit for
+      `PLAYER_W × PLAYER_H` = 32×48, tiles to `TILE_PX × TILE_PX` = 32×32) → hand-edit for
       originality → scrub metadata. Export PNG sheets (optional JSON), importing characters as
       `AnimatedSprite2D` + `SpriteFrames` and tiles as `TileSet` terrains; keep each sheet's max
       dimension ≤ `SHEET_MAX_PX` (2048).
-    - Reference material (71 LTTP movement PNGs, `size_ref.png`, `lttp_link_ref_x6.png`) is STUDY-ONLY
+    - Reference material (71 LTTP movement PNGs, `size_ref.png`, `lttp_link_ref_x3.png`) is STUDY-ONLY
       under `work/asset-packs/reference/lttp/movement/`: nearest-neighbour integer DOWNSAMPLE from the
-      24×32 reference grid to `PLAYER_W × PLAYER_H` (16×24) + hand-clean; used for motion/proportion/
+      24×32 reference grid to `PLAYER_W × PLAYER_H` (32×48) + hand-clean; used for motion/proportion/
       frame-count study only; never resold, never used to train AI.
     - Touches: NEW art-pipeline tooling under `work/`.
     - _Requirements: REQ-ART-PIPE-001-1, REQ-ART-PIPE-001-2, REQ-ART-PIPE-001-5, REQ-ART-PIPE-001-6,
@@ -317,15 +317,15 @@ not rewritten.
     - Nearest filtering, integer scaling, no runtime rotation/scaling anywhere.
     - **Validates: REQ-GFX-001-5**
   - [ ]* 13.2 Player cell and view sizes exact
-    - Player cell exactly `PLAYER_W × PLAYER_H` (16×24); view exactly `VIEW_W × VIEW_H` (320×224 =
+    - Player cell exactly `PLAYER_W × PLAYER_H` (32×48); view exactly `VIEW_W × VIEW_H` (640×448 =
       20×14 tiles).
     - **Validates: REQ-SPR-001-8, REQ-RES-001-1**
   - [ ]* 13.3 Big-room scroll is pixel-snapped
     - A room larger than the view scrolls smoothly with a pixel-snapped camera and never shows a
       half-pixel.
     - **Validates: REQ-CAM-001-7, REQ-ROOM-001-6**
-  - [ ]* 13.4 ×6 lands clean
-    - At `SCALE_PRIMARY` (×6): player renders at `PLAYER_RENDER_W × PLAYER_RENDER_H` (96×144), view
+  - [ ]* 13.4 ×3 lands clean
+    - At `SCALE_PRIMARY` (×3): player renders at `PLAYER_RENDER_W × PLAYER_RENDER_H` (96×144), view
       fills `DISPLAY_W × DISPLAY_H` (1920×1344), no fractional blur.
     - **Validates: REQ-RES-001-8, REQ-RES-001-6**
   - [ ]* 13.5 Asset governance holds

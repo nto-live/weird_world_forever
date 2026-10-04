@@ -15,7 +15,7 @@ then have it generate `design.md` and `tasks.md`.
 > Produce a **`requirements.md`** in Kiro's spec-driven format.
 >
 > **In scope (one playable run):**
-> - Procedurally generated dungeon: rooms on a **16 px tile grid**, screen-sized rooms
+> - Procedurally generated dungeon: rooms on a **32 px tile grid**, screen-sized rooms
 >   (16 × 14 tiles) connected by a generated door graph.
 > - **8-directional movement** over the tile grid, with edge-snapping so 1-tile doorways feel clean.
 > - **One-button context interaction** (LTTP's A button): lift/throw/pull/push, talk, open chests,

@@ -4,23 +4,23 @@
 Vigil -> Grasslands (Route_Length 1) -> short dungeon (~5-8 rooms) -> Gloamwing tutorial boss ->
 amulet -> return to Vigil. This is the complete graphical asset set needed to make that loop playable.
 
-All sizes follow `06-graphics.md` (LOCKED): 16x16 tiles, 320x224 canvas, modern HD pixel art,
+All sizes follow `06-graphics.md` (LOCKED): 32x32 tiles, 640x448 canvas, modern HD pixel art,
 nearest-neighbour, integer scaling. Everything is referenced as data (via `AssetResolver`) so final
 art swaps in for procedural placeholders without code changes.
 
 ## Conventions
-- **Pixel canvas:** 320x224 (20x14 tiles). **Tile:** 16x16.
-- **Player:** 16x24. **Enemies:** 16/24/32/48 by class. **Boss:** 64/96/128+. **UI:** 8/16. **Font:** 8x8 or 16x16.
+- **Pixel canvas:** 640x448 (20x14 tiles). **Tile:** 32x32.
+- **Player:** 32x48. **Enemies:** 32/48/64/96 by class. **Boss:** 128/192/256+. **UI:** 16/32. **Font:** 16x16.
 - **Mood:** sad fantasy + techno-future; grasslands skews warm/organic for the gentle tutorial.
 - Emissive pixels (fireflies, magic, lantern) feed selective bloom.
 
-## 1. Player (16x24, 4-directional) - one sheet
+## 1. Player (32x48, 4-directional) - one sheet
 Clips: idle, walk, attack, charge, spin, hurt, dash, lift-carry, death. (swim / push-pull optional
 for the POC if the tutorial has no water or push-blocks.)
 Starter look: white shirt, brown shorts, barefoot ("sad-but-trying"). Sword/mail/shield tiers can be
 palette/overlay swaps later.
 
-## 2. Grasslands tileset (16x16)
+## 2. Grasslands tileset (32x32)
 - Floor: 3-5 grass variants (plain, tufted, flowered, worn/path).
 - Wall: 2-3 variants + a top face (for the 3/4 overhead look).
 - Autotile corners/edges (Godot TileSet terrain set) for grass<->wall transitions.
@@ -30,7 +30,7 @@ palette/overlay swaps later.
 - One signature prop (a lone standing stone or small shrine).
 - Overlay: drifting FIREFLIES particle art (the grassland/woods ambient overlay).
 
-## 3. Dungeon tileset (16x16) - the short first dungeon
+## 3. Dungeon tileset (32x32) - the short first dungeon
 - Floor: 2-3 variants; Wall: 2-3 + top face; autotile edges.
 - Door tiles: open + LOCKED variant; key pickup sprite.
 - Cracked-wall tile (bomb-openable gate).
@@ -57,22 +57,22 @@ Sword arc, spin ring, hit spark, grassland ichor (sap), projectile trail (ranged
 bomb burst, dust, and the PICKUP VFX: purple-sparkle cloud + green leaves (shown on spawn and
 collect, Req 52.6).
 
-## 7. Items / pickups (8/16px icons)
+## 7. Items / pickups (16/32px icons)
 Starter sword, boss-reward item(s) (bombs, fire rod), bomb ammo, arrow ammo, key, health pickup,
 chevron token(s), spark, and the amulet (the run artifact).
 
-## 8. UI (8/16px + one pixel font)
+## 8. UI (16/32px + one pixel font)
 - Hearts using the EVOLVING health-container icon - leaf form for early game (Req 41).
 - Equipped-item box; boss HP bar.
 - Inventory-screen frame: worn-gear slots (helmet / body-clothes / shoes) + Armor_Type (Tactical/Armor),
   consumables/potions panel (with modifier+heal values), ammo panel (arrows/bombs/bullets).
 - Title-screen title/logo (Start New Run / Continue Saved Run / Exit).
-- One pixel font (8x8 or 16x16).
+- One pixel font (16x16).
 
 ## 9. Folder targets (res://art/, per 06-graphics.md)
 ```
 res://art/
-  characters/            # player (16x24), human NPCs
+  characters/            # player (32x48), human NPCs
   enemies/grasslands/    # field_critter, meadow_hound, thistle_boar
   bosses/                # gloamwing (+ optional name-card portrait)
   tilesets/grasslands/   # floor/wall/door/deco/light/transition/signature-prop

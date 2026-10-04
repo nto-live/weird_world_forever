@@ -55,10 +55,10 @@ Every feel number is a named **Tunable** carrying the reference's `exact` / `[ap
 confidence flag, held in `Feel.gd`-style data (Requirement 48), never a scattered constant.
 
 Graphics is a first-class system (**System S — Graphics & Art Direction**), not an afterthought. The
-look is **modern HD pixel art — "16-bit, but more advanced"**: a real 16×16 pixel grid, integer
+look is **modern HD pixel art — "16-bit, but more advanced"**: a real 32×32 pixel grid, integer
 positions, nearest-neighbour sampling, strong silhouettes and limited ramps (16-bit honesty), lit and
 composited with modern 2D techniques (dynamic lighting, particles, shader water/fire, selective bloom,
-parallax, animated tiles, optional CRT filter). The base pixel canvas is **320×224 (20×14 tiles)**
+parallax, animated tiles, optional CRT filter). The base pixel canvas is **640×448 (20×14 tiles)**
 with integer scaling only, and the camera **free-scrolls** across the dungeon. All art is referenced
 as **data** so hand-authored sheets swap in for procedural placeholders without touching gameplay
 code. The art-direction reference is `_incoming/06-graphics.md`.
@@ -185,10 +185,10 @@ graph LR
     Title -. "resume fails / corrupt run.json\nerror, then auto start new run\n(keep Persistent_State)" .-> Town
 ```
 
-The base pixel canvas is **320×224 (20×14 tiles @ 16 px)** with integer scaling only (nearest,
-`canvas_items` stretch, keep aspect, `integer` scale mode; target 1440p ×6 = 1920×1344, ×5 fallback).
+The base pixel canvas is **640×448 (20×14 tiles @ 32 px)** with integer scaling only (nearest,
+`canvas_items` stretch, keep aspect, `integer` scale mode; target 1440p ×3 = 1920×1344, ×2 fallback).
 A **`Camera2D` rig childed to the Player free-scrolls** across the dungeon with position smoothing and
-limits; contiguous rooms are stitched into one continuous space, so the 320×224 canvas is the viewport
+limits; contiguous rooms are stitched into one continuous space, so the 640×448 canvas is the viewport
 rather than a per-room screen lock (Requirement 46; see System S). This **supersedes the hard
 room-to-room snap transition described by Requirement 27.3** — rooms remain the
 generation/collision/reachability unit but are not individually screen-locked; the requirement should
@@ -269,7 +269,7 @@ This table maps every scaffold script and names the new ones.
 | `Pickup.gd` | **KEEP + EXTEND** | Walk-into pickup; reuse for pedestal + boss drop + claim-to-clear; **route Death_Drops to their pool (ammo/bullets/keys/health/Notes/weapon/EXP/chevron/sparks) and play pickup VFX (Req 52.6, 52.7)**. |
 | `Projectile.gd` | **KEEP + EXTEND** | Straight/lob/laser/spread present; add shield-block and blast-radius interactions. |
 | `Main.gd` | **EXTEND** | Replace auto-`_new_run` clear loop with return-to-Vigil; add HUD/Map; claim-to-clear already modeled; **extend `_on_enemy_died`/`_reward_item` to roll `DropTable` and spawn Death_Drops for every enemy (Req 52)**. |
-| **`TitleScreen.gd`** + `TitleScreen.tscn` | **NEW** | Launch scene (System T): title/logo + three-entry menu (Start New Run / Continue Saved Run / Exit); enables/dims Continue from `SaveSystem.has_resumable()`; a `CanvasLayer`/`Control` rendered at the 320×224 integer-scaled canvas with art per System S. |
+| **`TitleScreen.gd`** + `TitleScreen.tscn` | **NEW** | Launch scene (System T): title/logo + three-entry menu (Start New Run / Continue Saved Run / Exit); enables/dims Continue from `SaveSystem.has_resumable()`; a `CanvasLayer`/`Control` rendered at the 640×448 integer-scaled canvas with art per System S. |
 | **`Town.gd`** (incl. The Board) | **NEW** | Vigil hub scene, buildings, return-to-town flow, per-visit purchase reset; **The Board EXTEND: route-length selection — show lengths 1..`MAX_ROUTE_LENGTH`, dim locked ones (affordability-dimming), set the next Run's `Route_Length` composed with the Req 37 dungeon/rank choice (System K, System V, Req 55.6, 55.7)**. |
 | **`Buff.gd`** | **NEW** | Timed/run-scoped buff (`stat`, `amount`, `duration_rooms` or `run_long`); never attuned. |
 | **`TownStock.gd`** | **NEW** | Data tables for drinks + meals, mirroring `Items.gd`'s style; price scaling. |
@@ -286,7 +286,7 @@ This table maps every scaffold script and names the new ones.
 | **`ObjectAssembler.gd`** | **NEW** | **Decides** a Semantic_Object for a location, then **assembles** it from the `TileLibrary` scoped to that type — placing a `Prefab_Chunk` for complex structures or per-slot interchangeable tiles for terrain/paths/filler via seeded `Assembly_Rules` that vary size/shape/layout. All decision + selection + assembly draws come from the single `Game.rng` in the fixed draw order (step 2.5, Property 1). Called by `Room.gd`/`DungeonGenerator.gd`; declares assembled footprints to the gate planner so placement runs through the same reachability check + re-roll and never blocks a required path (System H, System I, Req 30, 57, 59). |
 | **`UnlockRules.gd`** | **NEW** | Generates `Unlock_Rule`s **deterministically from the Seed** — composing unlock CONDITIONS for biomes/puzzles/NPCs/enemies from a data-driven, open condition-type catalogue (defeat boss, solve puzzle, find item in biome, collect N chevrons/sparks, clear route length L, discover secret, recruit NPC). Validates each rule for **satisfiability + acyclicity** (no soft-lock / circular dependency) with a generate/repair/re-roll loop mirroring `Reachability`'s validity approach (System I / Req 30). Evaluates a rule's condition tree against run/meta state and, when satisfied, writes the unlocked result to `Meta.unlocked_results`. Ties into existing discovery/unlock systems: biome discovery, Biome_Variants (Req 58), and Route_Length (Req 55) — the RULES are regenerated from seed like the Route, the RESULTS persist in `meta.json` (System V, System M, Req 60). POC/first iteration keeps generated rules minimal (Req 56.7–56.8, 58.10). |
 | **`HUD.gd`** + `HUD.tscn` | **NEW** | Hearts (evolving icon), equipped item, seed, depth, boss HP bar. |
-| **`InventoryScreen.gd`** + `InventoryScreen.tscn` | **NEW** | Paused inventory sub-screen (System P, Req 2/47/63): a `CanvasLayer`/`Control` at the 320×224 integer-scaled canvas (System S) that pauses the world like other menus; shows the three Worn_Gear slots (Helmet/Body/Shoes) + Armor_Type with each item's Tier/modifiers, consumables/potions with modifier+heal values, ammo (arrows/bombs/bullets), and the single active Equipped_Item (Y) shown separately; equip/unequip routes through `Inventory.equip_gear`/`set_armor_type` with slot-type matching (Req 63.1, 63.10–63.15). |
+| **`InventoryScreen.gd`** + `InventoryScreen.tscn` | **NEW** | Paused inventory sub-screen (System P, Req 2/47/63): a `CanvasLayer`/`Control` at the 640×448 integer-scaled canvas (System S) that pauses the world like other menus; shows the three Worn_Gear slots (Helmet/Body/Shoes) + Armor_Type with each item's Tier/modifiers, consumables/potions with modifier+heal values, ammo (arrows/bombs/bullets), and the single active Equipped_Item (Y) shown separately; equip/unequip routes through `Inventory.equip_gear`/`set_armor_type` with slot-type matching (Req 63.1, 63.10–63.15). |
 | **`MapView.gd`** + scene | **NEW** | Door-graph map; pauses the world. |
 | **`HealthContainer.gd`** | **NEW** | Max/current in containers, evolving leaf→star→rainbow icon by progression. |
 | **`NpcDensity.gd`** | **NEW** | Simulacra/Human density gradient peaking at Vigil, thinning with distance. |
@@ -799,7 +799,7 @@ two orthogonal ways so the same object type reads differently every time:
 - **(a) Interchangeable tiles per slot** — each slot pulls from a *large* per-slot tile library, so two
   houses with identical layout still differ tile by tile.
 - **(b) Seeded Assembly_Rules** — the object's *size, shape, and layout* vary within authored ranges
-  (a house is 4×4..7×6, a river meanders along a seeded path, a settlement scatters N buildings), so two
+  (a house is 4×4..7×3, a river meanders along a seeded path, a settlement scatters N buildings), so two
   houses differ structurally, not just cosmetically.
 
 **Hybrid: prefab chunks + per-tile assembly (Req 59.5).** Complex structures are stitched from
@@ -1131,7 +1131,7 @@ bar; pause-the-world menus.
 `Main._draw()` already draws the boss HP bar top-center. New `HUD.tscn` (`CanvasLayer`) renders
 hearts via `HealthContainer.icon_form()` (the evolving leaf → yellow-star → rainbow-star icon), the
 equipped item, `Game.seed_value`, and `Game.depth` (Req 46). The HUD is a screen-space `CanvasLayer`
-over the **320×224** canvas, so it is unaffected by the free-scroll `Camera2D` and renders at integer
+over the **640×448** canvas, so it is unaffected by the free-scroll `Camera2D` and renders at integer
 scale (System S). The HUD MAY also surface the two economies (System K): the **Sparks** balance and
 the **Chevron** per-color balances — at least the three persistent colors (shiny light purple,
 rainbow, black) — shown as distinct readouts so money and tokens read as separate systems (Req 54). `MapView` and the inventory sub-screen set `get_tree().paused = true` while open
@@ -1144,7 +1144,7 @@ The **Inventory_Screen** is the detailed **paused** inventory sub-screen referen
 **distinct from** the lightweight in-dungeon HUD above. Opening the Inventory/Pause input (Req 1, Req 2)
 presents it and **pauses the world** (`get_tree().paused = true`) exactly like `MapView` and the other
 pause-the-world menus (Req 47, Req 63.1). It is a new `InventoryScreen.gd` + `InventoryScreen.tscn`, a
-`CanvasLayer`/`Control` rendered at the **320×224** integer-scaled canvas (System S), screen-space and
+`CanvasLayer`/`Control` rendered at the **640×448** integer-scaled canvas (System S), screen-space and
 unaffected by the free-scroll camera — the same treatment as the HUD, MapView, and Title Screen.
 
 The screen displays, reading from `Inventory` (System E worn-gear model):
@@ -1164,7 +1164,7 @@ applies its modifiers (Req 63.14); selecting it for a **non-matching** slot is r
 (Req 63.15, Error Handling). Changing worn gear never alters the Equipped_Item (Req 63.4).
 
 ```gdscript
-# InventoryScreen.gd (NEW) — CanvasLayer/Control, 320×224 integer-scaled, pauses the world (Req 47, 63.1)
+# InventoryScreen.gd (NEW) — CanvasLayer/Control, 640×448 integer-scaled, pauses the world (Req 47, 63.1)
 func open() -> void                    # get_tree().paused = true; build the panels from Inventory state
 func close() -> void                   # get_tree().paused = false
 func _build_gear_panel() -> void       # Helmet/Body/Shoes slots + Armor_Type, each with Tier + modifiers (Req 63.10)
@@ -1196,7 +1196,7 @@ no Black Room hub, figure-eight overworld, or discovery-expands-the-generator me
 ### System S — Graphics & Art Direction
 
 **Responsibilities.** Own the whole visual layer as a first-class system: art direction and the
-"16-bit but more advanced" style; the 320×224 pixel canvas, integer scaling, and the free-scroll
+"16-bit but more advanced" style; the 640×448 pixel canvas, integer scaling, and the free-scroll
 camera rig; the rendering feature set (dynamic lighting, particles, shader water/fire, selective
 bloom, parallax); sprite/tile sizes and animation sets; the per-biome tileset and palette plan; VFX
 and lighting; the per-biome ambient environmental overlays (fireflies/bugs/ash/...); UI art including
@@ -1207,7 +1207,7 @@ art-direction reference is `_incoming/06-graphics.md`.
 
 #### Art direction and style
 
-**Modern HD pixel art — "16-bit, but more advanced."** It keeps 16-bit honesty (a real 16×16 pixel
+**Modern HD pixel art — "16-bit, but more advanced."** It keeps 16-bit honesty (a real 32×32 pixel
 grid, integer world positions, nearest-neighbour sampling, **no runtime rotation/scaling of sprites**
 — rotation is faked with authored frames, strong readable silhouettes, deliberate limited colour
 ramps) and adds modern features on top: unlimited colours per sprite with smooth ramps and selective
@@ -1219,16 +1219,16 @@ cold neon against warm decay; every biome reads simultaneously beautiful and gri
 
 | Concern | Decision | Notes |
 |---|---|---|
-| Base pixel canvas | **320×224 (20×14 tiles @ 16 px)** | LOCKED by the art spec; supersedes the 256×224 / 16×14 of Requirement 27.1 — the requirement is recommended for update. |
-| Tile size | 16×16 | LOCKED. |
+| Base pixel canvas | **640×448 (20×14 tiles @ 32 px)** | LOCKED by the art spec; supersedes the 256×224 / 16×14 of Requirement 27.1 — the requirement is recommended for update. |
+| Tile size | 32×32 | LOCKED. |
 | Scaling | Integer only — nearest, `canvas_items` stretch, keep aspect, `integer` scale mode | No fractional scaling, ever. |
-| Scale targets | 1440p ×6 = 1920×1344 (primary); ×5 = 1600×1120 (fallback) | Letter/pillar-box inside the window. |
+| Scale targets | 1440p ×3 = 1920×1344 (primary); ×2 = 1280×896 (fallback) | Letter/pillar-box inside the window. |
 | Camera | `Camera2D` rig childed to the Player, **free-scroll** | Position smoothing + optional facing look-ahead; limits clamp to the stitched active bounds. |
 
 ```gdscript
 # Camera rig (NEW, child of Player) — free-scroll everywhere
 # Project settings: window/stretch/mode = "canvas_items", aspect = "keep",
-#   scale_mode = "integer"; default base viewport 320x224.
+#   scale_mode = "integer"; default base viewport 640x448.
 @onready var cam: Camera2D = $Camera2D
 func _ready() -> void:
     cam.position_smoothing_enabled = true
@@ -1259,11 +1259,11 @@ crisp. The optional CRT filter is a `PostFX` `CanvasLayer` shader, **off by defa
 
 | Asset | Size (px) | Animation clips |
 |---|---|---|
-| Player | 16×24 | idle, walk, attack, charge, spin, hurt, dash, lift-carry, swim, death, push-pull (4-dir) |
-| Enemies | 16 / 24 / 32 / 48 | idle, walk, attack, hurt, death; **chargers add a distinct telegraph frame**; raver punks add a dance/wobble idle |
-| Bosses | 64 / 96 / 128+ | idle, telegraph, 1–3 attacks, hurt, phase-transition, death; optional name-card portrait |
-| UI | 8 / 16 | static + evolving health icon states |
-| Font | 8×8 or 16×16 | — |
+| Player | 32×48 | idle, walk, attack, charge, spin, hurt, dash, lift-carry, swim, death, push-pull (4-dir) |
+| Enemies | 32 / 48 / 64 / 96 | idle, walk, attack, hurt, death; **chargers add a distinct telegraph frame**; raver punks add a dance/wobble idle |
+| Bosses | 128 / 192 / 256+ | idle, telegraph, 1–3 attacks, hurt, phase-transition, death; optional name-card portrait |
+| UI | 16 / 32 | static + evolving health icon states |
+| Font | 16×16 | — |
 
 **Binding animation to gameplay.** Player clips bind one-to-one to the existing `Player` state machine
 (`IDLE→idle`, `WALK→walk`, `CHARGE→charge`, `ATTACK→attack`, `SPIN→spin`, `HURT→hurt`, plus the NEW
@@ -1436,7 +1436,7 @@ graph TD
     Resolver -->|missing| Placeholder["Procedural placeholder\n3-tone ramps + outline + dither"]
     Real --> Render["Renderer\nAnimatedSprite2D / TileSet / Light2D / GPUParticles2D / PostFX"]
     Placeholder --> Render
-    Render --> Camera["Camera2D free-scroll (320×224)"]
+    Render --> Camera["Camera2D free-scroll (640×448)"]
 ```
 
 #### Provided sprite references (art set seeds)
@@ -1464,7 +1464,7 @@ game title/logo and a three-entry menu — **Start New Run**, **Continue Saved R
 — and route each choice into the existing run lifecycle. The Title Screen is the application's entry
 scene; the `Game` autoload boots into it instead of dropping straight into Town/Main.
 
-**Scene.** A new `TitleScreen.tscn` is a `CanvasLayer`/`Control` rendered over the **320×224** base
+**Scene.** A new `TitleScreen.tscn` is a `CanvasLayer`/`Control` rendered over the **640×448** base
 pixel canvas with integer scaling only, so it matches the HUD/menu treatment of System S (screen-space
 `CanvasLayer`, unaffected by any camera, nearest-filter pixel art). The title/logo and the three menu
 entries draw from `res://art/ui/` via the asset-reference layer (`AssetResolver`), with procedural
@@ -1498,7 +1498,7 @@ func start_new_run() -> void         # SaveSystem.discard(); enter Vigil (keep P
 func continue_saved_run() -> void    # SaveSystem.resume(); enter Dungeon; on failure surface error + auto start_new_run() into Vigil
 func quit_game() -> void             # get_tree().quit()
 
-# TitleScreen.gd (NEW) — CanvasLayer/Control, 320×224 integer-scaled
+# TitleScreen.gd (NEW) — CanvasLayer/Control, 640×448 integer-scaled
 func _ready() -> void                # build the three menu entries; wire selection signals
 func _refresh_continue_state() -> void   # enable/dim "Continue Saved Run" from SaveSystem.has_resumable()
 func _on_start_new_run() -> void     # -> Game.start_new_run()
@@ -1837,7 +1837,7 @@ Clear it also presents the **Post_Run_Choice** (new weapon / biome-or-level unlo
 **Scene.** DarkRoom.tscn (NEW) is a real in-world room (a Room-like Node2D with a TileMap, not a
 CanvasLayer), so the player physically moves to the TV and the loadout pickups. The TV_Screen,
 loadout stand, and exit door are interactable props on the pixel grid (System S / System Z). The
-Level_Select and loadout prompts render as screen-space CanvasLayer menus over the 320×224 canvas,
+Level_Select and loadout prompts render as screen-space CanvasLayer menus over the 640×448 canvas,
 reusing the HUD/menu treatment and the affordability-dimming pattern (locked levels dimmed).
 
 **Boot/lifecycle wiring.** Game.start_run() now routes into DarkRoom.tscn instead of
@@ -2193,7 +2193,7 @@ base_level: int                # NEW: area Base_Level anchoring Tier rolls for c
                                #   (System E, Req 61.1); derived deterministically from depth + Route, so
                                #   deeper areas anchor higher. TierScale.roll_tier(rng, base_level) draws
                                #   Tiers in [base_level−5, base_level+5] (Req 61.2).
-grid: Array[Array[int]]        # 14 rows × 20 cols, 0 floor / 1 wall  (320×224 px @ 16 px tiles)
+grid: Array[Array[int]]        # 14 rows × 20 cols, 0 floor / 1 wall  (640×448 px @ 32 px tiles)
 doors: Dictionary              # Vector2i(dir) -> Room  (+ NEW: door type locked/key)
 tags: Array                    # "start" | "exit" | "key" | "boss"
 biome: String                  # drives colors + enemy pool
@@ -2429,8 +2429,8 @@ Armor_Type = String   # exactly one of "tactical" | "armor" (Req 63.3): Tactical
 
 | Tunable | Value | Flag |
 |---|---|---|
-| `TILE` | 16 px | exact |
-| `ROOM_W` × `ROOM_H` | 20 × 14 (320×224 px) | exact (LOCKED by art spec) |
+| `TILE` | 32 px | exact |
+| `ROOM_W` × `ROOM_H` | 20 × 14 (640×448 px) | exact (LOCKED by art spec) |
 | `WALK_SPEED` | ~96 px/s (≈1.6 px/frame) | [approx] |
 | `DASH_SPEED` | ~190 px/s (≈2× walk; reused as dash/run) | [approx] |
 | `DIAGONAL_IS_FASTER` | **true (authentic-fast default)** | design toggle |
@@ -2483,8 +2483,8 @@ Armor_Type = String   # exactly one of "tactical" | "armor" (Req 63.3): Tactical
 | `GEAR_SLOT_VALUES` (per-slot — Helmet/Body/Shoes — base defense/stat values, Req 63.5) | TBD (per-slot) | [verify] |
 | `GEAR_ARMOR_TYPE_EMPHASIS` (per-Armor_Type emphasis — Tactical = mobility/utility, Armor = defense, Req 63.3) | TBD (per-type) | [approx] |
 | `GEAR_MAIL_STACKING` (data-driven rule composing worn-gear defense with the mail/tunic reduction of Req 10, Req 63.8) | TBD | [verify] |
-| `BASE_CANVAS` | 320 × 224 px | exact (LOCKED by art spec) |
-| `SCALE_FACTOR` | ×6 → 1920×1344 (×5 → 1600×1120 fallback); integer only | design (LOCKED) |
+| `BASE_CANVAS` | 640 × 448 px | exact (LOCKED by art spec) |
+| `SCALE_FACTOR` | ×3 → 1920×1344 (×2 → 1280×896 fallback); integer only | design (LOCKED) |
 | `CAMERA_SMOOTH` | ~5–8 (position-smoothing speed) | [verify] |
 | `CAMERA_LOOKAHEAD` | ~16–24 px in facing dir (0 = off) | [verify] |
 | `BLOOM_ENABLED` | true (selective, emissive-mask) | design |
@@ -2751,7 +2751,7 @@ non-decreasing with Rank.
 
 ### Property 29: Rooms are 20×14 with one start and a farthest exit
 
-*For all* seeds, every generated Room is a 20×14-tile grid (320×224 px at 16 px tiles), and the
+*For all* seeds, every generated Room is a 20×14-tile grid (640×448 px at 32 px tiles), and the
 Door_Graph has exactly one start Room and exactly one exit Room equal to the farthest Room from the
 start.
 
@@ -3014,7 +3014,7 @@ never null.
   (61.5), Ruined Vigil
   roster = reskinned Crypts undead (40), spawner reads bestiary data not a hardcoded enum (19.1),
   per-room simulation preventing off-screen first contact under free-scroll (20.2), and the **graphics
-  layer (System S)**: 320×224 integer scaling, the free-scroll `Camera2D` following the player across
+  layer (System S)**: 640×448 integer scaling, the free-scroll `Camera2D` following the player across
   stitched rooms with clamped limits, placeholder art rendering with 3-tone ramps/outlines, a real
   sheet swapping in for a placeholder with no code change, the **per-biome ambient overlay** rendering
   above the tilemap and below the HUD (fireflies/bugs/ash per biome, emissive overlays feeding the

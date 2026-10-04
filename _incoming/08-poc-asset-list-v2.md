@@ -22,8 +22,8 @@ firearms (Req 75) and the Knight/Cyberpunk armor sets (Req 76) remain deferred.
 
 ## Conventions (LOCKED, per `06-graphics.md` / System Z)
 
-- **Canvas:** 320×224 (20×14 tiles). **Tile:** 16×16. **Player:** 16×24.
-- **Enemies:** 16 / 24 px (this roster). **Boss:** 64–128 px. **UI icons:** 8 / 16. **Font:** 8×8.
+- **Canvas:** 640×448 (20×14 tiles). **Tile:** 32×32. **Player:** 32×48.
+- **Enemies:** 16 / 24 px (this roster). **Boss:** 64–128 px. **UI icons:** 16 / 32. **Font:** 16×16.
 - Modern HD pixel art, nearest-neighbour, integer scaling, no runtime rotation/scale.
 - Emissive pixels (TV glow, lanterns, fireflies, bomb burst) feed the lighting / selective-bloom pass.
 - **Author the 12-piece autotile terrain set per tileset FIRST** (4 outer corners, 4 edges, 4 inner
@@ -31,7 +31,7 @@ firearms (Req 75) and the Knight/Cyberpunk armor sets (Req 76) remain deferred.
 
 ---
 
-## A. Main Character — one sheet, 16×24, 4-directional
+## A. Main Character — one sheet, 32×48, 4-directional
 
 Author each clip in all 4 directions (up / down / left / right). Starter look: white shirt, brown
 shorts, barefoot (""sad-but-trying""). Sword/mail/shield tiers are palette/overlay swaps later.
@@ -45,7 +45,7 @@ dungeon has neither, so skip for now.
 
 ---
 
-## B. Dark Room (start hub) tileset + props — 16×16
+## B. Dark Room (start hub) tileset + props — 32×32
 
 The first screen the player sees: a small, dim interior.
 
@@ -68,7 +68,7 @@ The first screen the player sees: a small, dim interior.
 
 ---
 
-## C. Grasslands tileset + props — 16×16
+## C. Grasslands tileset + props — 32×32
 
 **Floor**
 - Grass — 3–5 variants (plain, tufted, flowered, worn/path).
@@ -96,7 +96,7 @@ The first screen the player sees: a small, dim interior.
 
 ---
 
-## D. Short Dungeon tileset + props — 16×16
+## D. Short Dungeon tileset + props — 32×32
 
 Starts at the dark entry room; ~5–8 rooms including one Choice_Room and the boss antechamber.
 
@@ -163,7 +163,7 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 
 ---
 
-## H. Items / Pickups (8 / 16px icons)
+## H. Items / Pickups (16 / 32px icons)
 
 - starter **sword** icon.
 - bomb icon + bomb-ammo.
@@ -180,7 +180,7 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 
 ---
 
-## I. UI (8 / 16px + one pixel font)
+## I. UI (16 / 32px + one pixel font)
 
 - Hearts — **evolving health-container icon, leaf form** for early game (Req 41).
 - Equipped-item box.
@@ -193,7 +193,7 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 - **Post_Run_Choice UI** (one of: new weapon / level unlock / perk).
 - **Choice_Room offer UI** (N items, pick one).
 - Title-screen title / logo (Start New Run / Continue Saved Run / Exit).
-- one pixel font (8×8).
+- one pixel font (16×16).
 
 ---
 
@@ -201,7 +201,7 @@ Guaranteed loot drop on defeat (the amulet + boss-reward tool(s)).
 
 ```
 res://art/
-  characters/            # player (16x24)
+  characters/            # player (32x48)
   rooms/darkroom/        # dark floor/wall + TV screen, loadout rack, exit door
   tilesets/grasslands/   # floor/wall/door/deco/light/transition/signature-prop
   tilesets/dungeon/      # floor/wall/door(+locked)/cracked-wall/chest/pedestal/key/choice-plinth/boss-antechamber

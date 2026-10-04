@@ -39,7 +39,7 @@ techniques.
 - Integer world positions for rendering; nearest-neighbour sampling; **no runtime rotation or
   scaling of sprites** (rotation/scale is faked with authored frames, as the SNES did).
 - Strong, readable silhouettes — a character or enemy must be identifiable as a black shape.
-- 16×16 tiles.
+- 32×32 tiles.
 - Deliberate, limited colour ramps per material so forms read as pixel art, not smeared gradients.
 
 **Add (modern features):**
@@ -65,15 +65,15 @@ coolant). The contrast is the whole look.
 
 ### Canvas — **LOCKED**
 
-- **Base pixel canvas: 320×224** (20×14 tiles at 16 px). **LOCKED.**
-- Tile size: **16×16**. **LOCKED.**
+- **Base pixel canvas: 640×448** (20×14 tiles at 32 px). **LOCKED.**
+- Tile size: **32×32**. **LOCKED.**
 - A room is **20×14 tiles** as its logical generation grid.
 - **Integer scaling only** — nearest filter, `canvas_items` stretch mode, **keep** aspect, `integer`
   scale mode. No fractional scaling, ever. **LOCKED.**
 - Scale targets:
-  - **1440p at ×6 = 1920×1344** (letter/pillar-boxed inside a 2560×1440 window). Primary target.
-  - **×5 = 1600×1120** fallback for smaller displays.
-- The camera is **free-scrolling** across the dungeon (see §camera below); the 320×224 canvas is the
+  - **1440p at ×3 = 1920×1344** (letter/pillar-boxed inside a 2560×1440 window). Primary target.
+  - **×2 = 1280×896** fallback for smaller displays.
+- The camera is **free-scrolling** across the dungeon (see §camera below); the 640×448 canvas is the
   *viewport*, not a room-lock. Rooms are the generation/collision unit, not screen frames.
 
 ### Camera — **LOCKED (free-scroll)**
@@ -91,17 +91,17 @@ coolant). The contrast is the whole look.
 
 | Asset | Size (px) |
 |---|---|
-| Player | 16×24 |
-| Enemies | 16 / 24 / 32 / 48 (by class) |
-| Bosses | 64 / 96 / 128+ |
-| UI icons | 8 / 16 |
-| Font | 8×8 or 16×16 |
+| Player | 32×48 |
+| Enemies | 32 / 48 / 64 / 96 (by class) |
+| Bosses | 128 / 192 / 256+ |
+| UI icons | 16 / 32 |
+| Font | 16×16 |
 
 ---
 
 ## 3. Player character
 
-- Size **16×24**.
+- Size **32×48**.
 - Starter outfit (default design): **white shirt, brown shorts, barefoot** — a "sad-but-trying" look.
   Poor, under-equipped, stubborn. This is the *default* player; see §12 for provided NPC/enemy
   reference sprites.
@@ -143,7 +143,7 @@ Each of the 7 biomes gets a tileset with:
 ## 5. Enemies & bosses sprite needs
 
 ### Enemies
-- Sizes 16 / 24 / 32 / 48 by class.
+- Sizes 32 / 48 / 64 / 96 by class.
 - Animation sets: **idle, walk, attack, hurt, death**.
 - **Chargers get a distinct telegraph frame** — this is gameplay-critical (fairness: every harmful
   action telegraphs first; ties to the charger wind-up property).
@@ -153,7 +153,7 @@ Each of the 7 biomes gets a tileset with:
   SWARM behaviours with palette/behaviour differences.
 
 ### Bosses
-- Sizes 64 / 96 / 128+.
+- Sizes 128 / 192 / 256+.
 - Animation sets: **idle, telegraph, 1–3 attacks, hurt, phase-transition, death**.
 - Optional **name-card portrait** on introduction.
 
@@ -176,7 +176,7 @@ are dynamic 2D lights; emissive pixels feed selective bloom.
 - Map.
 - Boss HP bar.
 - Menus (paused), dialogue box.
-- **One pixel font** (8×8 or 16×16).
+- **One pixel font** (16×16).
 
 ---
 
@@ -202,9 +202,9 @@ res://art/
 
 ## 8. Decisions
 
-- **Canvas 320×224 (20×14 tiles @ 16 px): LOCKED.** Supersedes any earlier 256×224 / 16×14 assumption.
-- **Integer scaling only, nearest, keep aspect, integer mode: LOCKED.** Targets 1440p ×6 = 1920×1344,
-  ×5 = 1600×1120 fallback.
+- **Canvas 640×448 (20×14 tiles @ 32 px): LOCKED.** Supersedes any earlier 256×224 / 16×14 assumption.
+- **Integer scaling only, nearest, keep aspect, integer mode: LOCKED.** Targets 1440p ×3 = 1920×1344,
+  ×2 = 1280×896 fallback.
 - **Free-scrolling camera everywhere: LOCKED.** Rooms are the generation/collision/reachability unit
   only (door graph, biome route, gates unchanged). No hard room-to-room snaps.
 - **Graphics v1 feature set: dynamic 2D lighting + particles + shader water/fire + selective bloom +
@@ -218,9 +218,9 @@ res://art/
 ## 9. Deliverables
 
 - Per-biome tilesets (7 biomes) with the full tile set listed in §4.
-- Player sheet (16×24) with all clips in §3.
+- Player sheet (32×48) with all clips in §3.
 - Enemy sheets (data-driven, reusable creature families) with clips in §5; charger telegraph frame.
-- Boss sheets (64/96/128+) with clips in §5; optional name-card portraits.
+- Boss sheets (128/192/256+) with clips in §5; optional name-card portraits.
 - VFX sheets (§6).
 - UI set including the evolving health icon, magic meter, item box, map, boss HP bar, menus,
   dialogue, one pixel font.
