@@ -3068,3 +3068,5 @@ serializer or save format.
 ### Biome enterables — holes, caves, tents (2026-10-03)
 
 **Biome enterables (2026-10-03):** biomes contain **enterable structures** the player can go **into** — **holes** (ground openings you drop into), **caves** (rock-mouth entrances leading to interior cave rooms), and **tents** (structures you walk inside). Each is an enterable Semantic_Object: an exterior entrance tile/prop, plus an **interior area** built from its own interior tileset; entering swaps the active area (LTTP-style cave/interior transition), with a return/exit tile back to the biome.
+
+**Enterable interiors (decided 2026-10-03):** one **interior set per enterable type** — a **cave interior** tileset (rock, dark, hazards/loot) and a **tent interior** tileset (fabric, props). Interior sets are **shared across biomes** and **recolored per biome palette**. **Tents may house NPCs / shops** (Vigil-style: merchants, rumor-givers, a bed/rest) as well as loot; **caves and holes are hostile interior spaces** (loot, hazards, mini-encounters). Biome scale stays **8×8 screens (BIOME_TILES 128×112)** per biome.

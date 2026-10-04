@@ -245,4 +245,4 @@ res://art/
 - **Hole** (ground opening / pit-mouth) — exterior tile(s).
 - **Cave mouth** — exterior rock entrance tile(s) + dark interior threshold.
 - **Tent** — exterior tent prop (closed / open flap).
-- **Interiors** — one interior tileset per enterable type (cave floor/wall, tent floor/props) reusing the dungeon/structure set; entrance/exit threshold tiles.
+- **Interiors (per-type sets)** — a **cave interior** set (rock/dark floor+wall) and a **tent interior** set (fabric floor+wall+props); shared across biomes, recolored per palette; entrance/exit threshold tiles. Tents may contain NPC/shop furniture (counter, bed, wares).
