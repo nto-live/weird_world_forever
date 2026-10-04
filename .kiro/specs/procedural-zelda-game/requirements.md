@@ -1822,6 +1822,10 @@ can read what everything does and build a defensive loadout alongside my single 
 
 ---
 
+> **Biome world scale (2026-10-03):** each biome is a large, **maze-like** free-scroll region of ~**128×112 tiles** (~8×8 LTTP screens; the Lost Woods region is only ~3×3), laid out as a maze (braided corridors, dead-ends, loops); individual Rooms (up to ROOM_MAX) subdivide it.
+> **Biome enterables (2026-10-03):** biomes contain **enterable structures** the player goes **into** — **holes** (ground openings), **caves** (rock-mouth entrances to interior cave rooms), and **tents** (walk inside); each = exterior entrance + **interior area** + return tile. One interior set **per type** (cave set, tent set), shared across biomes and recolored per palette; **tents may hold NPCs/shops**.
+> **Procedural biomes (2026-10-03):** every biome is **fully procedurally generated** from the run seed — region layout, maze topology, enterable placement (holes/caves/tents), decor, hazards, enemy spawns — **not hand-authored**. Hand-authored content = tilesets, prefab chunks, Semantic_Object libraries, and boss arenas/patterns. Same seed ⇒ same biome.
+
 ## System Z — Graphics & Presentation Layer (REQ-GFX / REQ-RES / REQ-CAM / REQ-ROOM / REQ-SPR / REQ-TILE / REQ-ART-REF / REQ-ART-PIPE / REQ-UI)
 
 This system is an additional, ID-stamped presentation-layer specification. Its requirements carry
