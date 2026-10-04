@@ -799,6 +799,61 @@ that progress through the ladder is literal and legible.
 
 ---
 
+
+
+### Requirement 51: Souls-Style Boss Difficulty
+
+**User Story:** As a player, I want Bosses that demand mastery and are learned through death, so that
+each Boss is a genuine run-ender whose timing I earn the right to beat rather than brute-force.
+
+#### Acceptance Criteria
+
+1. WHEN a Boss begins an attack, THE Game SHALL resolve that attack's strike after a variable delay
+   following its Telegraph, bounded by the Boss attack delay window minimum and maximum Tunables, so
+   that a Telegraph does not resolve into a strike at a single fixed, predictable beat, while the
+   Telegraph itself remains readable per Requirement 24.1.
+2. WHERE a Boss attack is defined as a feint, WHEN the Boss plays that attack's Telegraph, THE Game
+   SHALL either withhold the strike entirely or delay the strike on the first commit so the feint
+   deals no damage on that first commit, with the feinting subset governed by the Boss feint
+   probability per Rank Tunable, so that a Player_Character who dodges too early is punished.
+3. WHEN a Boss attack strikes an overlapping Player_Character that is not in I_Frames, THE Game SHALL
+   deal heavy damage scaled by the Boss damage-per-hit scaling with Rank and the Boss target
+   hits-to-kill at full health per Rank Tunables, such that a small configurable number of unavoided
+   strikes defeats a full-health Player_Character, without hardcoding an exact kill count.
+4. WHEN the Player performs a dodge-dash during a Boss attack's actual strike, THE Game SHALL apply
+   the dodge-dash I_Frames of Requirement 12.2 so the strike passes through without dealing damage;
+   IF the dodge-dash I_Frames elapse before the delayed strike lands, THEN THE Game SHALL leave the
+   Player_Character vulnerable to that strike, with the dodge i-frame duration remaining the Tunable
+   defined in Requirement 48.
+5. WHILE a Boss or the Player_Character is in the recovery of an attack or dodge, THE Game SHALL NOT
+   allow that recovery to be cancelled into another action, so that spacing and patience are
+   required and the Weak_Window of Requirement 24.4 remains the primary punish opportunity.
+6. WHEN a Boss crosses a phase threshold defined in Requirement 24.3 and Requirement 26.5, THE Game
+   SHALL introduce at least one new attack pattern or new delayed or feint variant for the later
+   phase, governed by the Boss phase-new-move count per phase transition Tunable, rather than only
+   raising HP or speed, and SHALL present a readable phase-transition moment; and WHILE the Boss
+   remains in the later phase, THE Game SHALL keep that updated phase behavior in effect, so that the
+   phase behavior stays consistent with the Boss's current phase throughout the phase and not only at
+   the moment of the threshold crossing.
+7. THE Game SHALL scale the delayed and feint intensity and the damage-per-hit of a Boss upward with
+   that Boss's Rank along the Boss_Ladder.
+8. WHEN the Player_Character's recorded Clears count is 0 AND the Boss is Gloamwing, THE Game SHALL
+   use slow, honest, forgiving attack timing with no feints and reduced damage, so that a new Player
+   learns the Telegraph then dodge-dash then Weak_Window punish loop before Souls-level timing
+   applies at higher Ranks.
+9. THE Game SHALL NOT automatically reduce any Boss's attack timing difficulty, feint frequency, or
+   damage after repeated Player_Character deaths.
+10. WHEN a Boss attack strikes a Player_Character and reduces health to 0, THE Game SHALL end the Run
+    as a death per Requirement 44, discarding Run-Scoped_State and retaining Persistent_State, so a
+    Boss death is a full run-ender.
+11. THE Game SHALL ensure every Boss attack obeys telegraph-first fairness per Requirement 24.1 and
+    SHALL NOT allow a Boss to deal first-contact damage from off-screen per Requirement 20.2, so that
+    Souls-level difficulty remains tight-but-fair and never unreadable.
+
+---
+
+---
+
 ## System H — Dungeon Generation
 
 ### Requirement 27: Rooms on a Door Graph with Free-Scrolling Camera
@@ -1294,59 +1349,6 @@ run, continue a saved run, or exit from a clear menu.
    retaining all Persistent_State (the Attuned_Set, persisted maximum health, banked Sparks,
    Boss_Ladder position, and recruited Human_NPC roles) as in a new-run start per criterion 2.
 6. WHEN the Player selects "Exit", THE Game SHALL quit the application.
-
----
-
-## System G — Bosses (continued)
-
-### Requirement 51: Souls-Style Boss Difficulty
-
-**User Story:** As a player, I want Bosses that demand mastery and are learned through death, so that
-each Boss is a genuine run-ender whose timing I earn the right to beat rather than brute-force.
-
-#### Acceptance Criteria
-
-1. WHEN a Boss begins an attack, THE Game SHALL resolve that attack's strike after a variable delay
-   following its Telegraph, bounded by the Boss attack delay window minimum and maximum Tunables, so
-   that a Telegraph does not resolve into a strike at a single fixed, predictable beat, while the
-   Telegraph itself remains readable per Requirement 24.1.
-2. WHERE a Boss attack is defined as a feint, WHEN the Boss plays that attack's Telegraph, THE Game
-   SHALL either withhold the strike entirely or delay the strike on the first commit so the feint
-   deals no damage on that first commit, with the feinting subset governed by the Boss feint
-   probability per Rank Tunable, so that a Player_Character who dodges too early is punished.
-3. WHEN a Boss attack strikes an overlapping Player_Character that is not in I_Frames, THE Game SHALL
-   deal heavy damage scaled by the Boss damage-per-hit scaling with Rank and the Boss target
-   hits-to-kill at full health per Rank Tunables, such that a small configurable number of unavoided
-   strikes defeats a full-health Player_Character, without hardcoding an exact kill count.
-4. WHEN the Player performs a dodge-dash during a Boss attack's actual strike, THE Game SHALL apply
-   the dodge-dash I_Frames of Requirement 12.2 so the strike passes through without dealing damage;
-   IF the dodge-dash I_Frames elapse before the delayed strike lands, THEN THE Game SHALL leave the
-   Player_Character vulnerable to that strike, with the dodge i-frame duration remaining the Tunable
-   defined in Requirement 48.
-5. WHILE a Boss or the Player_Character is in the recovery of an attack or dodge, THE Game SHALL NOT
-   allow that recovery to be cancelled into another action, so that spacing and patience are
-   required and the Weak_Window of Requirement 24.4 remains the primary punish opportunity.
-6. WHEN a Boss crosses a phase threshold defined in Requirement 24.3 and Requirement 26.5, THE Game
-   SHALL introduce at least one new attack pattern or new delayed or feint variant for the later
-   phase, governed by the Boss phase-new-move count per phase transition Tunable, rather than only
-   raising HP or speed, and SHALL present a readable phase-transition moment; and WHILE the Boss
-   remains in the later phase, THE Game SHALL keep that updated phase behavior in effect, so that the
-   phase behavior stays consistent with the Boss's current phase throughout the phase and not only at
-   the moment of the threshold crossing.
-7. THE Game SHALL scale the delayed and feint intensity and the damage-per-hit of a Boss upward with
-   that Boss's Rank along the Boss_Ladder.
-8. WHEN the Player_Character's recorded Clears count is 0 AND the Boss is Gloamwing, THE Game SHALL
-   use slow, honest, forgiving attack timing with no feints and reduced damage, so that a new Player
-   learns the Telegraph then dodge-dash then Weak_Window punish loop before Souls-level timing
-   applies at higher Ranks.
-9. THE Game SHALL NOT automatically reduce any Boss's attack timing difficulty, feint frequency, or
-   damage after repeated Player_Character deaths.
-10. WHEN a Boss attack strikes a Player_Character and reduces health to 0, THE Game SHALL end the Run
-    as a death per Requirement 44, discarding Run-Scoped_State and retaining Persistent_State, so a
-    Boss death is a full run-ender.
-11. THE Game SHALL ensure every Boss attack obeys telegraph-first fairness per Requirement 24.1 and
-    SHALL NOT allow a Boss to deal first-contact damage from off-screen per Requirement 20.2, so that
-    Souls-level difficulty remains tight-but-fair and never unreadable.
 
 ---
 
