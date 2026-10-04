@@ -1228,7 +1228,7 @@ cold neon against warm decay; every biome reads simultaneously beautiful and gri
 ```gdscript
 # Camera rig (NEW, child of Player) — free-scroll everywhere
 # Project settings: window/stretch/mode = "canvas_items", aspect = "keep",
-#   scale_mode = "integer"; default base viewport 640x448.
+#   scale_mode = "integer"; default base viewport 640×448.
 @onready var cam: Camera2D = $Camera2D
 func _ready() -> void:
     cam.position_smoothing_enabled = true
@@ -1823,6 +1823,22 @@ graph TD
     MetaR -. "feeds existing unlock models" .-> Meta
     MetaR -. "feeds existing unlock models" .-> MetaV
 ```
+
+### Biome scale, enterables & generation (2026-10-03)
+
+- **World scale.** Each biome is a large, **maze-like** free-scroll region of ≈ **128×112 tiles**
+  (~8×8 LTTP screens; the Lost Woods region is only ~3×3) = 4096×3584 px at `TILE_PX`=32 —
+  **bigger than LTTP's Lost Woods**, laid out as a maze (braided corridors, dead-ends, looped routes).
+  Individual Rooms (up to `ROOM_MAX`) subdivide it.
+- **Enterables.** Biomes contain **enterable structures** the player goes **into** — **holes** (ground
+  openings), **caves** (rock-mouth entrances to interior cave rooms), and **tents** (walk inside). Each =
+  exterior entrance + **interior area** + return tile (LTTP-style area swap). One interior set **per
+  type** (cave set, tent set), shared across biomes and recolored per palette; **tents may hold
+  NPCs/shops**; caves and holes are hostile interior spaces.
+- **Generation.** Every biome is **fully procedurally generated** from the run seed (region layout, maze
+  topology, enterable placement, decor, hazards, enemy spawns) — **not hand-authored**. Hand-authored
+  content = tilesets, prefab chunks, Semantic_Object libraries, and boss arenas/patterns. Same seed ⇒
+  same biome.
 
 ### System AA — Dark Room Start Hub
 
@@ -3061,14 +3077,3 @@ seeds, and that the re-roll loop never returns a failing layout. Serialization r
 4 and 5) follow the classic `decode(encode(x)) == x` pattern, the recommended default test for any
 serializer or save format.
 
-### Biome world scale (2026-10-03)
-
-**Biome world scale (2026-10-03):** each biome is a large, **maze-like** free-scroll region of ~**128×112 tiles** (~8×8 LTTP screens; the Lost Woods region is only ~3×3) = 4096×3584 px at TILE_PX=32 — **bigger than LTTP's Lost Woods**, and laid out as a maze (braided corridors, dead-ends, looped routes). Individual Rooms (up to ROOM_MAX) subdivide it.
-
-### Biome enterables — holes, caves, tents (2026-10-03)
-
-**Biome enterables (2026-10-03):** biomes contain **enterable structures** the player can go **into** — **holes** (ground openings you drop into), **caves** (rock-mouth entrances leading to interior cave rooms), and **tents** (structures you walk inside). Each is an enterable Semantic_Object: an exterior entrance tile/prop, plus an **interior area** built from its own interior tileset; entering swaps the active area (LTTP-style cave/interior transition), with a return/exit tile back to the biome.
-
-**Enterable interiors (decided 2026-10-03):** one **interior set per enterable type** — a **cave interior** tileset (rock, dark, hazards/loot) and a **tent interior** tileset (fabric, props). Interior sets are **shared across biomes** and **recolored per biome palette**. **Tents may house NPCs / shops** (Vigil-style: merchants, rumor-givers, a bed/rest) as well as loot; **caves and holes are hostile interior spaces** (loot, hazards, mini-encounters). Biome scale stays **8×8 screens (BIOME_TILES 128×112)** per biome.
-
-**Procedural biomes (2026-10-03):** every biome is **fully procedurally generated** from the run seed — region layout, maze topology, enterable placement (holes/caves/tents), decor, hazards, and enemy spawns — **not hand-authored**. Hand-authored content is limited to the **tilesets, prefab chunks, Semantic_Object libraries, and boss arenas/patterns** (the data-driven swap-in layer, System H / Req 59). Same seed ⇒ same biome.
